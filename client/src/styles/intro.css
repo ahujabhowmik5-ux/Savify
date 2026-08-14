@@ -2,17 +2,19 @@
 
 .bento-root {
     position: relative;
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
+    min-height: 100dvh; /* use dynamic viewport height on mobile */
     background-color: #000; /* Pure black for that Pro OLED look */
     overflow-x: hidden;
     font-family: 'Inter', system-ui, sans-serif;
     color: #fff;
     transition: opacity 1.2s ease;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 60px 24px;
+    padding: 60px 40px;
 }
 
 .bento-root.fade-out {
@@ -32,7 +34,8 @@
     position: relative;
     z-index: 10;
     width: 100%;
-    max-width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -296,11 +299,11 @@
     border-color: #3B82F6;
 }
 
-/* ─── Tablet & Small Laptop ─── */
+/* ─── Tablet & Small Laptop (≤ 900px) ─── */
 @media (max-width: 900px) {
     .bento-root {
-        padding: 40px 16px;
-        align-items: flex-start;   /* stop vertical centering — let content flow naturally */
+        padding: 32px 24px;
+        align-items: flex-start;
     }
 
     .bento-container {
@@ -308,12 +311,16 @@
     }
 
     .bento-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
         gap: 14px;
     }
 
-    .bento-hero, .bento-savio, .bento-blinkit, .bento-rides, .bento-subs, .bento-frictionless {
+    .bento-hero, .bento-savio, .bento-subs, .bento-frictionless {
+        grid-column: span 2;
+    }
+
+    .bento-blinkit, .bento-rides {
         grid-column: span 1;
     }
 
@@ -323,19 +330,19 @@
     }
 
     .bento-hero-title {
-        font-size: clamp(36px, 9vw, 48px);
+        font-size: clamp(36px, 8vw, 48px);
         letter-spacing: -1.5px;
-        margin: 24px 0 16px 0;
+        margin: 20px 0 16px 0;
     }
 
     .bento-hero-subtitle {
         font-size: 15px;
-        margin-bottom: 28px;
+        margin-bottom: 24px;
         max-width: 100%;
     }
 
     .bento-cta {
-        padding: 14px 22px;
+        padding: 14px 24px;
         font-size: 14px;
     }
 
@@ -374,29 +381,35 @@
     }
 }
 
-/* ─── Small Phones (≤ 480px) ─── */
-@media (max-width: 480px) {
+/* ─── Mobile Phones (≤ 600px) ─── */
+@media (max-width: 600px) {
     .bento-root {
-        padding: 24px 12px;
-    }
-
-    .bento-container {
-        gap: 12px;
+        padding: 24px 20px;
     }
 
     .bento-grid {
-        gap: 10px;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .bento-hero, .bento-savio, .bento-blinkit, .bento-rides, .bento-subs, .bento-frictionless {
+        grid-column: span 1;
     }
 
     .bento-card {
-        padding: 20px;
-        border-radius: 20px;
+        padding: 24px;
+        border-radius: 22px;
     }
 
     .bento-hero-title {
-        font-size: clamp(28px, 8vw, 36px);
-        letter-spacing: -1px;
-        margin: 16px 0 12px 0;
+        font-size: clamp(32px, 9vw, 40px);
+        letter-spacing: -1.2px;
+        margin: 16px 0 14px 0;
+    }
+
+    /* Hide hard <br> on mobile so text reflows naturally */
+    .bento-hero-title br {
+        display: none;
     }
 
     .bento-hero-subtitle {
@@ -410,43 +423,41 @@
     }
 
     .bento-cta {
-        padding: 12px 18px;
-        font-size: 13px;
-        gap: 8px;
-        width: 100%;
-        justify-content: center;
+        padding: 14px 20px;
+        font-size: 14px;
+        gap: 10px;
     }
 
     .bento-savio {
-        min-height: 140px;
+        min-height: 160px;
     }
 
     .bento-savio-label {
         font-size: 10px;
-        bottom: 14px;
-        right: 18px;
+        bottom: 16px;
+        right: 20px;
     }
 
     .bento-blinkit, .bento-rides {
-        padding: 18px;
+        padding: 22px;
     }
 
     .bento-icon-box {
-        width: 48px;
-        height: 48px;
+        width: 52px;
+        height: 52px;
     }
 
     .bento-small h3 {
-        font-size: 15px;
-        margin-bottom: 4px;
+        font-size: 16px;
+        margin-bottom: 6px;
     }
 
     .bento-small p {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .bento-wide h3 {
-        font-size: 17px;
+        font-size: 18px;
     }
 
     .bento-wide p {
@@ -456,15 +467,6 @@
     .bento-header {
         padding-left: 4px;
         margin-bottom: 4px;
-    }
-
-    .bento-header span {
-        font-size: 18px !important;
-    }
-
-    .bento-logo-mark {
-        width: 22px;
-        height: 22px;
     }
 
     .row-layout {
@@ -479,5 +481,82 @@
     .ring {
         width: 48px;
         height: 48px;
+    }
+}
+
+/* ─── Small Phones (≤ 400px) ─── */
+@media (max-width: 400px) {
+    .bento-root {
+        padding: 20px 16px;
+    }
+
+    .bento-container {
+        gap: 10px;
+    }
+
+    .bento-grid {
+        gap: 10px;
+    }
+
+    .bento-card {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .bento-hero-title {
+        font-size: clamp(26px, 8vw, 32px);
+        letter-spacing: -1px;
+        margin: 12px 0 10px 0;
+    }
+
+    .bento-hero-subtitle {
+        font-size: 13px;
+        margin-bottom: 16px;
+        line-height: 1.5;
+    }
+
+    .bento-cta {
+        padding: 12px 18px;
+        font-size: 13px;
+        gap: 8px;
+    }
+
+    .bento-savio {
+        min-height: 130px;
+    }
+
+    .bento-blinkit, .bento-rides {
+        padding: 18px;
+    }
+
+    .bento-icon-box {
+        width: 44px;
+        height: 44px;
+    }
+
+    .bento-small h3 {
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+
+    .bento-small p {
+        font-size: 12px;
+    }
+
+    .bento-wide h3 {
+        font-size: 16px;
+    }
+
+    .bento-wide p {
+        font-size: 12px;
+    }
+
+    .bento-header span {
+        font-size: 18px !important;
+    }
+
+    .bento-logo-mark {
+        width: 20px;
+        height: 20px;
     }
 }
