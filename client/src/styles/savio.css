@@ -1,0 +1,444 @@
+/* ===== SAVIO V4 — ROBOTIC TV-HEAD STYLES ===== */
+
+.savio-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.savio-character {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.savio-svg {
+    overflow: visible;
+}
+
+/* Screen glow effect */
+.savio-screen {
+    filter: brightness(1.1);
+    animation: sv4ScreenPulse 4s ease-in-out infinite;
+}
+
+@keyframes sv4ScreenPulse {
+    0%, 100% { filter: brightness(1.05); }
+    50% { filter: brightness(1.2); }
+}
+
+/* Scanline overlay */
+.savio-scanlines {
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.06) 2px,
+        rgba(0,0,0,0.06) 4px
+    );
+    animation: sv4Scanline 8s linear infinite;
+}
+
+@keyframes sv4Scanline {
+    0% { opacity: 0.06; }
+    50% { opacity: 0.12; }
+    100% { opacity: 0.06; }
+}
+
+/* Antenna glow */
+.savio-antenna-glow {
+    animation: sv4AntennaGlow 2s ease-in-out infinite;
+}
+
+@keyframes sv4AntennaGlow {
+    0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 2px #D946EF); }
+    50% { opacity: 1; filter: drop-shadow(0 0 6px #D946EF); }
+}
+
+/* ===== BODY ANIMATIONS ===== */
+
+.sv4-idle { animation: sv4Idle 3.5s ease-in-out infinite; }
+
+@keyframes sv4Idle {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(0.5deg); }
+    50% { transform: translateY(-5px) rotate(0deg); }
+    75% { transform: translateY(-3px) rotate(-0.5deg); }
+}
+
+.sv4-wave { animation: sv4Wave 0.5s ease-in-out 5; }
+
+@keyframes sv4Wave {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    20% { transform: rotate(-8deg) translateY(-4px); }
+    40% { transform: rotate(5deg) translateY(-2px); }
+    60% { transform: rotate(-5deg) translateY(-4px); }
+    80% { transform: rotate(3deg) translateY(-2px); }
+}
+
+.sv4-dance { animation: sv4Dance 0.6s ease-in-out infinite; }
+
+@keyframes sv4Dance {
+    0% { transform: translateY(0) rotate(0deg) scale(1); }
+    15% { transform: translateY(-10px) rotate(-5deg) scale(1.03); }
+    30% { transform: translateY(-2px) rotate(3deg) scale(0.98); }
+    45% { transform: translateY(-12px) rotate(5deg) scale(1.04); }
+    60% { transform: translateY(-2px) rotate(-3deg) scale(0.98); }
+    75% { transform: translateY(-8px) rotate(4deg) scale(1.02); }
+    100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+.sv4-think { animation: sv4Think 2.5s ease-in-out infinite; }
+
+@keyframes sv4Think {
+    0%, 100% { transform: rotate(0deg) translateX(0); }
+    30% { transform: rotate(6deg) translateX(3px); }
+    60% { transform: rotate(8deg) translateX(4px) translateY(-2px); }
+}
+
+.sv4-point { animation: sv4Point 1.2s ease-in-out infinite alternate; }
+
+@keyframes sv4Point {
+    0% { transform: translateX(0) rotate(0deg); }
+    100% { transform: translateX(5px) rotate(-4deg) translateY(-2px); }
+}
+
+.sv4-explain { animation: sv4Explain 1.2s ease-in-out infinite; }
+
+@keyframes sv4Explain {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    20% { transform: translateY(-5px) rotate(-3deg); }
+    50% { transform: translateY(0) rotate(2deg); }
+    80% { transform: translateY(-3px) rotate(-1deg); }
+}
+
+.sv4-sleep { animation: sv4Sleep 3s ease-in-out infinite; }
+
+@keyframes sv4Sleep {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.04) translateY(1px); }
+}
+
+.sv4-shock { animation: sv4Shock 0.25s ease-in-out 3, sv4ShockSettle 0.8s ease-out 0.75s; }
+
+@keyframes sv4Shock {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.08); }
+}
+
+@keyframes sv4ShockSettle {
+    0% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.sv4-sad { animation: sv4Sad 3s ease-in-out infinite; }
+
+@keyframes sv4Sad {
+    0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+    50% { transform: translateY(4px) rotate(-3deg) scale(0.97); }
+}
+
+.sv4-nervous { animation: sv4Nervous 0.12s ease-in-out infinite; }
+
+@keyframes sv4Nervous {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-1.5px, 1px); }
+    50% { transform: translate(1px, -1.5px); }
+    75% { transform: translate(-1px, -0.5px); }
+    100% { transform: translate(0.5px, 1px); }
+}
+
+.sv4-angry { animation: sv4Angry 0.08s linear 12, sv4AngryPulse 1.5s ease-in-out infinite 0.96s; }
+
+@keyframes sv4Angry {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(2px); }
+}
+
+@keyframes sv4AngryPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+/* ===== PUPIL ANIMATIONS ===== */
+
+.sv4-pupil-idle { animation: sv4PupilLook 5s ease-in-out infinite; }
+
+@keyframes sv4PupilLook {
+    0%, 80%, 100% { transform: translate(0, 0); opacity: 1; }
+    15% { transform: translate(1px, -0.5px); }
+    35% { transform: translate(-1px, 0.5px); }
+    55% { transform: translate(0.5px, 0.8px); }
+    87% { opacity: 1; }
+    88% { opacity: 0; }
+    91% { opacity: 0; }
+    92% { opacity: 1; }
+}
+
+.sv4-pupil-think { animation: sv4PupilThink 2.5s ease-in-out infinite; }
+
+@keyframes sv4PupilThink {
+    0%, 100% { transform: translate(0, 0); }
+    30% { transform: translate(2px, -1.5px); }
+    70% { transform: translate(2px, 0.5px); }
+}
+
+.sv4-pupil-shock { animation: sv4PupilShock 0.12s ease-in-out 8; }
+
+@keyframes sv4PupilShock {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+/* ===== ARM ANIMATIONS ===== */
+
+.sv4-arm-idle-l { animation: sv4ArmIdleL 3.5s ease-in-out infinite; }
+@keyframes sv4ArmIdleL {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-4deg) translateY(-1px); }
+}
+
+.sv4-arm-idle-r { animation: sv4ArmIdleR 3.5s ease-in-out infinite; }
+@keyframes sv4ArmIdleR {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(4deg) translateY(-1px); }
+}
+
+.sv4-arm-wave-l { animation: sv4ArmWaveL 0.3s ease-in-out 10; }
+@keyframes sv4ArmWaveL {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-50deg) translateY(-8px); }
+}
+
+.sv4-arm-wave-r { animation: sv4ArmWaveR 0.3s ease-in-out 10; animation-delay: 0.15s; }
+@keyframes sv4ArmWaveR {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(50deg) translateY(-8px); }
+}
+
+.sv4-arm-celebrate-l { animation: sv4ArmCelebL 0.45s ease-in-out infinite; }
+@keyframes sv4ArmCelebL {
+    0%, 100% { transform: rotate(-35deg) translateY(-6px); }
+    50% { transform: rotate(-60deg) translateY(-14px); }
+}
+
+.sv4-arm-celebrate-r { animation: sv4ArmCelebR 0.45s ease-in-out infinite; animation-delay: 0.22s; }
+@keyframes sv4ArmCelebR {
+    0%, 100% { transform: rotate(35deg) translateY(-6px); }
+    50% { transform: rotate(60deg) translateY(-14px); }
+}
+
+.sv4-arm-point-r { animation: sv4ArmPointR 1s ease-in-out infinite alternate; }
+@keyframes sv4ArmPointR {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-35deg) translateX(6px) translateY(-10px); }
+}
+
+.sv4-arm-gesture-r { animation: sv4ArmGestureR 1.2s ease-in-out infinite; }
+@keyframes sv4ArmGestureR {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    25% { transform: rotate(-15deg) translateY(-6px); }
+    50% { transform: rotate(-28deg) translateY(-10px); }
+    75% { transform: rotate(-12deg) translateY(-4px); }
+}
+
+.sv4-arm-chin-l { animation: sv4ArmChinL 2.5s ease-in-out infinite; }
+@keyframes sv4ArmChinL {
+    0%, 100% { transform: rotate(-25deg) translateY(-6px); }
+    50% { transform: rotate(-30deg) translateY(-8px); }
+}
+
+.sv4-arm-droop-l { animation: sv4ArmDroopL 3s ease-in-out infinite; }
+@keyframes sv4ArmDroopL {
+    0%, 100% { transform: rotate(10deg) translateY(3px); }
+    50% { transform: rotate(15deg) translateY(5px); }
+}
+
+.sv4-arm-droop-r { animation: sv4ArmDroopR 3s ease-in-out infinite; }
+@keyframes sv4ArmDroopR {
+    0%, 100% { transform: rotate(-10deg) translateY(3px); }
+    50% { transform: rotate(-15deg) translateY(5px); }
+}
+
+/* ===== EXPRESSION DETAILS ===== */
+
+.sv4-tear { animation: sv4Tear 1.2s ease-in infinite; }
+@keyframes sv4Tear {
+    0% { opacity: 0; transform: translateY(0) scaleY(0.5); }
+    20% { opacity: 0.8; transform: translateY(2px) scaleY(1); }
+    100% { opacity: 0; transform: translateY(14px) scaleY(1.5); }
+}
+
+.sv4-steam { animation: sv4Steam 0.8s ease-out infinite; }
+@keyframes sv4Steam {
+    0% { opacity: 0; transform: translateY(0) scale(0.6); }
+    30% { opacity: 0.5; }
+    100% { opacity: 0; transform: translateY(-8px) scale(1.3); }
+}
+
+.sv4-float { animation: sv4Float 1.5s ease-in-out infinite; }
+@keyframes sv4Float {
+    0%, 100% { transform: translateY(0); opacity: 0.7; }
+    50% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ===== PARTICLES ===== */
+
+.savio-particles {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.savio-particle {
+    position: absolute;
+    font-size: 12px;
+    animation: savioParticleFloat 1.5s ease-out infinite;
+    opacity: 0;
+}
+
+.savio-particle:nth-child(1) { left: -15px; animation-delay: 0s; color: #D946EF; }
+.savio-particle:nth-child(2) { left: 5px; animation-delay: 0.3s; color: #10B981; }
+.savio-particle:nth-child(3) { left: -8px; animation-delay: 0.6s; color: #A855F7; }
+.savio-particle:nth-child(4) { left: 12px; animation-delay: 0.9s; color: #8B5CF6; }
+.savio-particle:nth-child(5) { left: -2px; animation-delay: 1.1s; color: #F43F5E; }
+
+@keyframes savioParticleFloat {
+    0% { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+    20% { opacity: 1; transform: translateY(-10px) scale(1) rotate(30deg); }
+    100% { transform: translateY(-50px) scale(0.3) rotate(200deg); opacity: 0; }
+}
+
+/* ===== ZZZ ===== */
+
+.savio-zzz {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.savio-zzz span {
+    font-family: var(--font-secondary, 'DM Serif Display', serif);
+    font-weight: 700;
+    color: #D946EF;
+    opacity: 0;
+    animation: savioZzzFloat 2s ease-in-out infinite;
+}
+
+.savio-zzz span:nth-child(1) { font-size: 10px; animation-delay: 0s; }
+.savio-zzz span:nth-child(2) { font-size: 14px; animation-delay: 0.6s; }
+.savio-zzz span:nth-child(3) { font-size: 18px; animation-delay: 1.2s; }
+
+@keyframes savioZzzFloat {
+    0% { opacity: 0; transform: translateY(0) translateX(0); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-25px) translateX(8px); }
+}
+
+/* ===== SPEECH BUBBLE ===== */
+
+.savio-bubble {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 1px solid rgba(217, 70, 239, 0.3);
+    border-radius: 16px;
+    padding: 0.75rem 1rem;
+    margin-top: 8px;
+    max-width: 260px;
+    min-width: 140px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 20px rgba(139, 92, 246, 0.08);
+    animation: savioBubbleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes savioBubbleIn {
+    0% { opacity: 0; transform: scale(0.8) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.savio-bubble-tail {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: #1a1a2e;
+    border-left: 1px solid rgba(217, 70, 239, 0.3);
+    border-top: 1px solid rgba(217, 70, 239, 0.3);
+}
+
+.savio-bubble-text {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #E5E5E5;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.savio-bubble-dismiss {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.65rem;
+    cursor: pointer;
+    padding: 2px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.savio-bubble-dismiss:hover { color: #D946EF; }
+
+.savio-emoji { flex-shrink: 0; }
+
+/* ===== CONTEXTUAL POSITIONS ===== */
+
+.tutorial-agent .savio-container { margin-bottom: 0.5rem; }
+.tutorial-agent .savio-bubble { display: none; }
+
+.savio-floating {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 800;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.savio-floating:hover { transform: scale(1.1); }
+
+.savio-greeting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.savio-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    vertical-align: middle;
+}
+
+.savio-enter { animation: savioEnter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+@keyframes savioEnter {
+    0% { opacity: 0; transform: scale(0) rotate(-20deg); }
+    60% { transform: scale(1.1) rotate(5deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0); }
+}

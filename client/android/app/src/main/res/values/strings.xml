@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Savify</string>
+    <string name="title_activity_main">Savify</string>
+    <string name="package_name">com.savify.app</string>
+    <string name="custom_url_scheme">com.savify.app</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="accessibility_service_description">Savify uses Accessibility permissions to detect when you launch a blocked app so it can display the focus screen overlay.</string>
+</resources>

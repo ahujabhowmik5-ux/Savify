@@ -1,0 +1,436 @@
+[
+  {
+    "user": "Soham Das",
+    "cur_norm": "VS",
+    "des_norm": "MS",
+    "cur_raw": "VS (Vidyasagar Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Anurag ",
+    "cur_norm": "NEHRU",
+    "des_norm": "RK",
+    "cur_raw": "Nehru (Nehru Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Aryan Raj",
+    "cur_norm": "MMM",
+    "des_norm": "VS",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "VS (Vidyasagar Hall)"
+  },
+  {
+    "user": "Deepanshu Gupta",
+    "cur_norm": "PATEL",
+    "des_norm": "RK",
+    "cur_raw": "Patel (Patel Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "hdh",
+    "cur_norm": "AZAD",
+    "des_norm": "JCB",
+    "cur_raw": "Azad (Azad Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "Bhosdike",
+    "cur_norm": "AZAD",
+    "des_norm": "RK",
+    "cur_raw": "Azad (Azad Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Anosh ",
+    "cur_norm": "MMM",
+    "des_norm": "JCB",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "hello",
+    "cur_norm": "SNVH",
+    "des_norm": "SN/IG",
+    "cur_raw": "SNVH (Sister Nivedita Hall)",
+    "des_raw": "SN / IG (Sarojini Naidu / Indira Gandhi Hall)"
+  },
+  {
+    "user": "Milit Kumar Sahu ",
+    "cur_norm": "MMM",
+    "des_norm": "MS",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Abhyarthana Mahapatra ",
+    "cur_norm": "SNVH",
+    "des_norm": "SN/IG",
+    "cur_raw": "SNVH (Sister Nivedita Hall)",
+    "des_raw": "SN / IG (Sarojini Naidu / Indira Gandhi Hall)"
+  },
+  {
+    "user": "Suvarna",
+    "cur_norm": "SNVH",
+    "des_norm": "SN/IG",
+    "cur_raw": "SNVH (Sister Nivedita Hall)",
+    "des_raw": "SN / IG (Sarojini Naidu / Indira Gandhi Hall)"
+  },
+  {
+    "user": "Sai Varshini Voleti",
+    "cur_norm": "SNVH",
+    "des_norm": "SN/IG",
+    "cur_raw": "SNVH (Sister Nivedita Hall)",
+    "des_raw": "SN / IG (Sarojini Naidu / Indira Gandhi Hall)"
+  },
+  {
+    "user": "Manab Dutta",
+    "cur_norm": "MMM",
+    "des_norm": "MS",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Dhruv Bilurkar ",
+    "cur_norm": "MMM",
+    "des_norm": "HBH",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "HBH (Homi Bhabha Hall)"
+  },
+  {
+    "user": "Samreen Bano ",
+    "cur_norm": "MT",
+    "des_norm": "VGH",
+    "cur_raw": "MT (Mother Teresa Hall)",
+    "des_raw": "VGH (Vishweshwaraya Guest House)"
+  },
+  {
+    "user": "Samarth Ghuge",
+    "cur_norm": "GH",
+    "des_norm": "MS",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "K",
+    "cur_norm": "MMM",
+    "des_norm": "RK",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Aditya Roy",
+    "cur_norm": "GH",
+    "des_norm": "NEHRU",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "Nehru (Nehru Hall)"
+  },
+  {
+    "user": "Mona Singh",
+    "cur_norm": "PATEL",
+    "des_norm": "MS",
+    "cur_raw": "Patel (Patel Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "mukul",
+    "cur_norm": "GH",
+    "des_norm": "NEHRU",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "Nehru (Nehru Hall)"
+  },
+  {
+    "user": "Aarya Gupta",
+    "cur_norm": "SNVH",
+    "des_norm": "VGH",
+    "cur_raw": "SNVH (Sister Nivedita Hall)",
+    "des_raw": "VGH (Vishweshwaraya Guest House)"
+  },
+  {
+    "user": "rudraksh ",
+    "cur_norm": "GH",
+    "des_norm": "MS",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "samyakkk",
+    "cur_norm": "GH",
+    "des_norm": "AZAD",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "Azad (Azad Hall)"
+  },
+  {
+    "user": "Arnav dave ",
+    "cur_norm": "RK",
+    "des_norm": "JCB",
+    "cur_raw": "RK (Radha Krishnan Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "Ayush",
+    "cur_norm": "RK",
+    "des_norm": "JCB",
+    "cur_raw": "RK (Radha Krishnan Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "Swapnamoy Das",
+    "cur_norm": "MMM",
+    "des_norm": "LLR",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "LLR (Lala Lajpat Rai Hall)"
+  },
+  {
+    "user": "Pranjul",
+    "cur_norm": "RK",
+    "des_norm": "JCB",
+    "cur_raw": "RK (Radha Krishnan Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "Vansh gaur",
+    "cur_norm": "MS",
+    "des_norm": "RK",
+    "cur_raw": "MS (Megnad Saha Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Jashan Kumar suriavanshi ",
+    "cur_norm": "NEHRU",
+    "des_norm": "RK",
+    "cur_raw": "Nehru (Nehru Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Viraat Alegaonkar",
+    "cur_norm": "HBH",
+    "des_norm": "MS",
+    "cur_raw": "HBH (Homi Bhabha Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "SAI BHAVANA",
+    "cur_norm": "MT",
+    "des_norm": "VGH",
+    "cur_raw": "MT (Mother Teresa Hall)",
+    "des_raw": "VGH (Vishweshwaraya Guest House)"
+  },
+  {
+    "user": "Suvam Ghosh",
+    "cur_norm": "VS",
+    "des_norm": "HBH",
+    "cur_raw": "VS (Vidyasagar Hall)",
+    "des_raw": "HBH (Homi Bhabha Hall)"
+  },
+  {
+    "user": "Neelkanth Sharma ",
+    "cur_norm": "RP",
+    "des_norm": "JCB",
+    "cur_raw": "RP (Rajendra Prasad Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "MANOJ PATHRO ",
+    "cur_norm": "MMM",
+    "des_norm": "RK",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Saksham Goyal",
+    "cur_norm": "MMM",
+    "des_norm": "RK",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Aagnay R Velikkal ",
+    "cur_norm": "PATEL",
+    "des_norm": "MS",
+    "cur_raw": "Patel (Patel Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Akhilvaddi ",
+    "cur_norm": "MMM",
+    "des_norm": "LLR",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "LLR (Lala Lajpat Rai Hall)"
+  },
+  {
+    "user": "Nihal",
+    "cur_norm": "MMM",
+    "des_norm": "RK",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Thinking Boy",
+    "cur_norm": "AZAD",
+    "des_norm": "MS",
+    "cur_raw": "Azad (Azad Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "D.Anandarao",
+    "cur_norm": "GH",
+    "des_norm": "RP",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "RP (Rajendra Prasad Hall)"
+  },
+  {
+    "user": "Suryanshu ",
+    "cur_norm": "RP",
+    "des_norm": "MS",
+    "cur_raw": "RP (Rajendra Prasad Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Prasenjeet ",
+    "cur_norm": "AZAD",
+    "des_norm": "JCB",
+    "cur_raw": "Azad (Azad Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "Mallareddy Goutam Balaji ",
+    "cur_norm": "NEHRU",
+    "des_norm": "LLR",
+    "cur_raw": "Nehru (Nehru Hall)",
+    "des_raw": "LLR (Lala Lajpat Rai Hall)"
+  },
+  {
+    "user": "Na peru mukesh ",
+    "cur_norm": "VS",
+    "des_norm": "NEHRU",
+    "cur_raw": "VS (Vidyasagar Hall)",
+    "des_raw": "Nehru (Nehru Hall)"
+  },
+  {
+    "user": "Rohit",
+    "cur_norm": "MMM",
+    "des_norm": "VS",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "VS (Vidyasagar Hall)"
+  },
+  {
+    "user": "Vedansh Budhia ",
+    "cur_norm": "PATEL",
+    "des_norm": "MMM",
+    "cur_raw": "Patel (Patel Hall)",
+    "des_raw": "MMM (Madan Mohan Malviya Hall)"
+  },
+  {
+    "user": "Rohan Das",
+    "cur_norm": "GH",
+    "des_norm": "MS",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Kushagra",
+    "cur_norm": "MMM",
+    "des_norm": "MS",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "KOUSHIK",
+    "cur_norm": "GH",
+    "des_norm": "JCB",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "JCB (J C Bose Hall)"
+  },
+  {
+    "user": "Akshara",
+    "cur_norm": "SNVH",
+    "des_norm": "SN/IG",
+    "cur_raw": "SNVH (Sister Nivedita Hall)",
+    "des_raw": "SN / IG (Sarojini Naidu / Indira Gandhi Hall)"
+  },
+  {
+    "user": "Harshith Kamal",
+    "cur_norm": "PATEL",
+    "des_norm": "MS",
+    "cur_raw": "Patel (Patel Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "sandip Sasmal",
+    "cur_norm": "GH",
+    "des_norm": "MS",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Sneharghya Biswas ",
+    "cur_norm": "RK",
+    "des_norm": "HBH",
+    "cur_raw": "RK (Radha Krishnan Hall)",
+    "des_raw": "HBH (Homi Bhabha Hall)"
+  },
+  {
+    "user": "Sathvika darla",
+    "cur_norm": "MT",
+    "des_norm": "VGH",
+    "cur_raw": "MT (Mother Teresa Hall)",
+    "des_raw": "VGH (Vishweshwaraya Guest House)"
+  },
+  {
+    "user": "Samarth Jindal",
+    "cur_norm": "VS",
+    "des_norm": "MS",
+    "cur_raw": "VS (Vidyasagar Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Swaran Naik",
+    "cur_norm": "MMM",
+    "des_norm": "VS",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "VS (Vidyasagar Hall)"
+  },
+  {
+    "user": "Akshara Guthikonda",
+    "cur_norm": "MT",
+    "des_norm": "VGH",
+    "cur_raw": "MT (Mother Teresa Hall)",
+    "des_raw": "VGH (Vishweshwaraya Guest House)"
+  },
+  {
+    "user": "Preetam Priyadarshi ",
+    "cur_norm": "AZAD",
+    "des_norm": "MS",
+    "cur_raw": "Azad (Azad Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "Prajjwal ",
+    "cur_norm": "RP",
+    "des_norm": "MS",
+    "cur_raw": "RP (Rajendra Prasad Hall)",
+    "des_raw": "MS (Megnad Saha Hall)"
+  },
+  {
+    "user": "SOUMYADEEP DAS",
+    "cur_norm": "MMM",
+    "des_norm": "RK",
+    "cur_raw": "MMM (Madan Mohan Malviya Hall)",
+    "des_raw": "RK (Radha Krishnan Hall)"
+  },
+  {
+    "user": "Shivam kumar",
+    "cur_norm": "GH",
+    "des_norm": "NEHRU",
+    "cur_raw": "GH (Gokhale Hall)",
+    "des_raw": "Nehru (Nehru Hall)"
+  },
+  {
+    "user": "Rittika Mandal ",
+    "cur_norm": "SNVH",
+    "des_norm": "VGH",
+    "cur_raw": "SNVH (Sister Nivedita Hall)",
+    "des_raw": "VGH (Vishweshwaraya Guest House)"
+  }
+]

@@ -1,0 +1,54 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { createClient } from '@supabase/supabase-js';
+import expenseRoutes from './routes/expenses.js';
+import feedbackRoutes from './routes/feedback.js';
+import inviteRoutes from './routes/invites.js';
+import profileRoutes from './routes/profile.js';
+import paymentRoutes from './routes/payment.js';
+import commerceRoutes from './routes/commerce.js';
+import notificationRoutes from './routes/notifications.js';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+let bootError = null;
+
+
+
+// Middleware
+app.use(cors());
+// Capture raw body for Cashfree webhook signature verification
+app.use(express.json({
+    verify: (req, res, buf) => {
+        req.rawBody = buf.toString();
+    }
+}));
+
+// Routes
+if (expenseRoutes) app.use('/api/expenses', expenseRoutes);
+if (feedbackRoutes) app.use('/api/feedback', feedbackRoutes);
+if (inviteRoutes) app.use('/api/invites', inviteRoutes);
+if (profileRoutes) app.use('/api/profile', profileRoutes);
+if (paymentRoutes) app.use('/api/payment', paymentRoutes);
+if (commerceRoutes) app.use('/api/commerce', commerceRoutes);
+if (notificationRoutes) app.use('/api/notifications', notificationRoutes);
+
+// Health check
+app.get('/api/health', (req, res) => {
+    if (bootError) {
+        res.status(500).json({ status: 'boot_failed', error: String(bootError) });
+    } else {
+        res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    }
+});
+
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 Savify API running on port ${PORT}`);
+    });
+}
+
+export default app;

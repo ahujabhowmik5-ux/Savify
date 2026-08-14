@@ -1,0 +1,109 @@
+/* ===== SAVIFY APPLE-TIER DESIGN SYSTEM ===== */
+/* Minimalist, High-Contrast, Glassmorphism, Buttery Smooth */
+
+:root {
+  /* ─── Core Dark Palette ─── */
+  --color-bg-base: #000000;
+  --color-bg-elevated: #0A0A0A;
+  --color-bg-surface: #121212;
+  --color-bg-hover: #1C1C1E;
+  --color-bg-input: #1C1C1E;
+
+  /* ─── Text ─── */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #86868B;
+  --color-text-muted: #515154;
+  --color-text-inverse: #000000;
+
+  /* ─── The Single Accent (Apple Blue/Silver) ─── */
+  --color-accent: #0A84FF;
+  --color-accent-glow: rgba(10, 132, 255, 0.2);
+  --color-accent-subtle: rgba(10, 132, 255, 0.1);
+
+  /* Legacy aliases to not break React components immediately */
+  --color-emerald: #30D158;
+  --color-magenta: #BF5AF2;
+  --color-purple: #BF5AF2;
+  --color-violet: #5E5CE6;
+  --color-blue: #0A84FF;
+  --color-fire: #FF453A;
+  --color-gold: #FF9F0A;
+  --color-rose: #FF375F;
+  --color-cyan: #64D2FF;
+
+  /* ─── Borders ─── */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border-active: rgba(255, 255, 255, 0.25);
+
+  /* ─── Fonts ─── */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  /* ─── Typography Fluid Scaling (Cinematic Proportions) ─── */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 40px;
+  --text-4xl: 56px;
+  --text-hero: clamp(48px, 6vw, 80px);
+
+  /* ─── Spacing ─── */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 80px;
+
+  /* ─── Premium Easing Curves (Buttery Smooth) ─── */
+  --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.05);
+
+  --transition-fast: 150ms var(--ease-apple);
+  --transition-smooth: 300ms var(--ease-apple);
+  --transition-slow: 600ms var(--ease-apple);
+
+  /* ─── Premium Shadows (Soft, layered, hardware-accelerated feel) ─── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-glow: 0 0 40px var(--color-accent-glow);
+
+  /* ─── Glassmorphism Layers ─── */
+  --glass-bg: rgba(28, 28, 30, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(24px) saturate(180%);
+
+  /* ─── Gradients ─── */
+  --gradient-accent: linear-gradient(135deg, #0A84FF, #5E5CE6);
+  --gradient-surface: linear-gradient(180deg, rgba(30, 30, 30, 0.4), rgba(15, 15, 15, 0.8));
+
+  /* ─── Border Radius (Squircle) ─── */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* ─── Z-Index ─── */
+  --z-base: 1;
+  --z-elevate: 10;
+  --z-sticky: 100;
+  --z-drawer: 200;
+  --z-fab: 500;
+  --z-modal: 1000;
+  --z-popover: 2000;
+}

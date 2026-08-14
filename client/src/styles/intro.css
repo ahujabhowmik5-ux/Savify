@@ -1,0 +1,483 @@
+/* client/src/styles/intro.css */
+
+.bento-root {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #000; /* Pure black for that Pro OLED look */
+    overflow-x: hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #fff;
+    transition: opacity 1.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 24px;
+}
+
+.bento-root.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.bento-bg {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top, #111 0%, #000 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bento-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-container.is-loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Header */
+.bento-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-left: 8px;
+}
+
+.bento-logo-mark {
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    color: #000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.bento-os-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+/* THE BENTO GRID */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Base Card Style with Hover Physics */
+.bento-card {
+    background: #0d0d0d;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 32px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Spring physics bezier */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                background 0.3s ease, 
+                border-color 0.3s ease;
+}
+
+.bento-card:hover {
+    transform: scale(1.02);
+    background: #111;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Grid Placements */
+.bento-hero {
+    grid-column: span 2;
+    grid-row: span 2;
+    justify-content: space-between;
+}
+
+.bento-savio {
+    grid-column: span 2;
+    grid-row: span 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+}
+
+.bento-blinkit, .bento-rides {
+    grid-column: span 1;
+    grid-row: span 1;
+    padding: 32px;
+}
+
+.bento-subs, .bento-frictionless {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+/* Card Contents */
+.bento-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: auto;
+}
+
+.bento-hero-title {
+    font-size: clamp(48px, 6vw, 76px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin: 40px 0 24px 0;
+    color: #fff;
+}
+
+.bento-hero-subtitle {
+    font-size: 16px;
+    color: #888;
+    line-height: 1.5;
+    margin: 0 0 40px 0;
+    max-width: 90%;
+}
+
+.bento-cta {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    align-self: flex-start;
+}
+
+.bento-cta:hover {
+    transform: scale(1.05);
+}
+
+.bento-cta:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+/* Savio Card specifics */
+.bento-card-glow {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.bento-savio-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.bento-savio-label {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #555;
+}
+
+/* Small Cards */
+.bento-small h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.bento-small p {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.bento-icon-box {
+    width: 64px;
+    height: 64px;
+    background: transparent;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: auto;
+    color: #fff;
+}
+
+/* Wide Cards */
+.bento-wide h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.5px;
+}
+
+.bento-wide p {
+    font-size: 15px;
+    color: #888;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.row-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.bento-text-stack {
+    max-width: 60%;
+}
+
+.bento-abstract-visual {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+}
+
+.ring-1 {
+    transform: translateX(-15px);
+    border-color: #A855F7;
+}
+
+.ring-2 {
+    transform: translateX(15px);
+    border-color: #3B82F6;
+}
+
+/* ─── Tablet & Small Laptop ─── */
+@media (max-width: 900px) {
+    .bento-root {
+        padding: 40px 16px;
+        align-items: flex-start;   /* stop vertical centering — let content flow naturally */
+    }
+
+    .bento-container {
+        gap: 16px;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 14px;
+    }
+
+    .bento-hero, .bento-savio, .bento-blinkit, .bento-rides, .bento-subs, .bento-frictionless {
+        grid-column: span 1;
+    }
+
+    .bento-card {
+        padding: 28px;
+        border-radius: 24px;
+    }
+
+    .bento-hero-title {
+        font-size: clamp(36px, 9vw, 48px);
+        letter-spacing: -1.5px;
+        margin: 24px 0 16px 0;
+    }
+
+    .bento-hero-subtitle {
+        font-size: 15px;
+        margin-bottom: 28px;
+        max-width: 100%;
+    }
+
+    .bento-cta {
+        padding: 14px 22px;
+        font-size: 14px;
+    }
+
+    .bento-savio {
+        min-height: 180px;
+    }
+
+    .bento-blinkit, .bento-rides {
+        padding: 24px;
+    }
+
+    .bento-small h3 {
+        font-size: 16px;
+    }
+
+    .bento-small p {
+        font-size: 13px;
+    }
+
+    .bento-wide h3 {
+        font-size: 19px;
+    }
+
+    .bento-wide p {
+        font-size: 14px;
+    }
+
+    .row-layout {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .bento-text-stack {
+        max-width: 100%;
+    }
+}
+
+/* ─── Small Phones (≤ 480px) ─── */
+@media (max-width: 480px) {
+    .bento-root {
+        padding: 24px 12px;
+    }
+
+    .bento-container {
+        gap: 12px;
+    }
+
+    .bento-grid {
+        gap: 10px;
+    }
+
+    .bento-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .bento-hero-title {
+        font-size: clamp(28px, 8vw, 36px);
+        letter-spacing: -1px;
+        margin: 16px 0 12px 0;
+    }
+
+    .bento-hero-subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .bento-badge {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .bento-cta {
+        padding: 12px 18px;
+        font-size: 13px;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bento-savio {
+        min-height: 140px;
+    }
+
+    .bento-savio-label {
+        font-size: 10px;
+        bottom: 14px;
+        right: 18px;
+    }
+
+    .bento-blinkit, .bento-rides {
+        padding: 18px;
+    }
+
+    .bento-icon-box {
+        width: 48px;
+        height: 48px;
+    }
+
+    .bento-small h3 {
+        font-size: 15px;
+        margin-bottom: 4px;
+    }
+
+    .bento-small p {
+        font-size: 12px;
+    }
+
+    .bento-wide h3 {
+        font-size: 17px;
+    }
+
+    .bento-wide p {
+        font-size: 13px;
+    }
+
+    .bento-header {
+        padding-left: 4px;
+        margin-bottom: 4px;
+    }
+
+    .bento-header span {
+        font-size: 18px !important;
+    }
+
+    .bento-logo-mark {
+        width: 22px;
+        height: 22px;
+    }
+
+    .row-layout {
+        gap: 16px;
+    }
+
+    .bento-abstract-visual {
+        width: 80px;
+        height: 80px;
+    }
+
+    .ring {
+        width: 48px;
+        height: 48px;
+    }
+}

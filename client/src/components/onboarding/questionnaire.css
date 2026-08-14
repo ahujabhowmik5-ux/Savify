@@ -1,0 +1,608 @@
+/* ===== QUESTIONNAIRE OVERLAY ===== */
+.questionnaire-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(160deg, #0f1923 0%, #1a1a2e 50%, #16213e 100%);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    font-family: var(--font-primary);
+    color: #fff;
+}
+
+/* Progress Bar */
+.q-progress-container {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 1rem 1.5rem 0.5rem;
+    background: rgba(15, 25, 35, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.q-progress-bar {
+    height: 6px;
+    background: linear-gradient(90deg, #10B981, #34d399);
+    border-radius: 999px;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+.q-progress-text {
+    display: block;
+    text-align: right;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.35rem;
+    font-weight: 500;
+}
+
+/* Slide Container */
+.q-slide-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.q-slide {
+    width: 100%;
+    max-width: 420px;
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.q-slide-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.q-title {
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.q-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+}
+
+.q-subtitle-small {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Slider Section */
+.q-slider-section {
+    text-align: center;
+}
+
+.q-slider-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #10B981;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    letter-spacing: -1px;
+}
+
+.q-slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+}
+
+.q-slider-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.q-slider-btn:active {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: #10B981;
+    transform: scale(0.92);
+}
+
+/* Custom Range Slider */
+.q-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    cursor: pointer;
+}
+
+.q-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #10B981;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 3px solid #fff;
+    transition: transform 0.15s;
+}
+
+.q-slider::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+}
+
+.q-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0 0.5rem;
+}
+
+.q-sub-question {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+/* I Don't Know Button */
+.q-idk-btn {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 0.75rem 2rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.q-idk-btn:active,
+.q-idk-btn.active {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #10B981;
+}
+
+.q-idk-confirmed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 2rem;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.q-idk-confirmed i {
+    font-size: 1.5rem;
+}
+
+/* Chips Grid (Spending Habits) */
+.q-chips-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.q-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: left;
+    width: 100%;
+    font-size: 0.875rem;
+}
+
+.q-chip:active {
+    transform: scale(0.98);
+}
+
+.q-chip.selected {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #fff;
+}
+
+.q-chip-label {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.q-chip-stat {
+    display: block;
+    font-size: 0.7rem;
+    color: #fbbf24;
+    margin-top: 0.25rem;
+    font-weight: 600;
+}
+
+.q-chip-check {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.q-chip.selected .q-chip-check {
+    color: #10B981;
+}
+
+/* Options Grid (Age / Category / Gender) */
+.q-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.q-option-card {
+    position: relative;
+    padding: 1.25rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.q-option-card:active {
+    transform: scale(0.96);
+}
+
+.q-option-card.selected {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: #10B981;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+}
+
+.q-option-check {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    color: #10B981;
+    font-size: 0.85rem;
+}
+
+/* Reality Check (Slide 6) */
+.q-slide-reveal {
+    text-align: center;
+}
+
+.q-highlight-number {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+    margin: 1.5rem 0 0.25rem;
+}
+
+.q-rupee {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f43f5e;
+}
+
+.q-big-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #f43f5e;
+    letter-spacing: -2px;
+    text-shadow: 0 0 24px rgba(244, 63, 94, 0.4);
+}
+
+.q-per-year {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 0.25rem;
+}
+
+.q-highlight-number.savings .q-rupee,
+.q-highlight-number.savings .q-big-number {
+    color: #10B981;
+    text-shadow: 0 0 24px rgba(16, 185, 129, 0.4);
+}
+
+/* Equivalents */
+.q-equivalents {
+    margin-top: 1.5rem;
+}
+
+.q-equivalents h3 {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.q-equiv-grid {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.q-equiv-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    text-align: center;
+    min-width: 85px;
+}
+
+.q-equiv-emoji {
+    display: block;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.q-equiv-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fbbf24;
+}
+
+.q-equiv-label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.15rem;
+}
+
+/* Good News (Slide 7) */
+.q-good-news-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.1));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 999px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #34d399;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+    }
+}
+
+.q-savings-message {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.q-savings-message strong {
+    color: #10B981;
+    font-weight: 700;
+}
+
+.q-savings-breakdown {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.q-savings-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.5rem;
+    text-align: center;
+}
+
+.q-savings-label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.35rem;
+}
+
+.q-savings-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #10B981;
+}
+
+/* Final Chart (Slide 9) */
+.q-slide-final {
+    text-align: center;
+}
+
+.q-chart-container {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1rem 1rem;
+    margin: 1.5rem 0;
+}
+
+.q-chart-svg {
+    width: 100%;
+    height: auto;
+}
+
+.q-chart-line-spending {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 1.5s ease forwards 0.3s;
+}
+
+.q-chart-line-savings {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: drawLine 1.5s ease forwards 0.6s;
+}
+
+.q-chart-area-savings {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 1.5s;
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.q-chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+}
+
+.q-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.q-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.q-legend-dot.spending {
+    background: #f43f5e;
+}
+
+.q-legend-dot.savings {
+    background: #10B981;
+}
+
+.q-final-message {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Navigation */
+.q-nav-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem 2rem;
+    background: rgba(15, 25, 35, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.q-nav-back {
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.q-nav-back:active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.q-nav-next {
+    flex: 1;
+    padding: 0.85rem 2rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+}
+
+.q-nav-next:active {
+    transform: scale(0.97);
+}
+
+.q-nav-next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}

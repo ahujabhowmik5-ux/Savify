@@ -1,0 +1,15 @@
+{
+  "appId": "com.savify.app",
+  "appName": "Savify",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    },
+    "Preferences": {}
+  }
+}

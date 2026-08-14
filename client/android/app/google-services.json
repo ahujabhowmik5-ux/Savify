@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "425412326993",
+    "project_id": "savify-19339",
+    "storage_bucket": "savify-19339.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425412326993:android:9fdbfa230ff620b7cc2a70",
+        "android_client_info": {
+          "package_name": "com.savify.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_DI8hX8NZneTvh9Q-jZVzoi7BfdYH7bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

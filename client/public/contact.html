@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | Savify</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a;
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 40px;
+      background: rgba(20, 20, 20, 0.9);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      position: relative;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #D4AF37;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h1::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: #D4AF37;
+      border-radius: 2px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-top: 35px;
+      color: #D4AF37;
+      padding-left: 15px;
+      border-left: 3px solid #D4AF37;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 10px;
+    }
+
+    li::before {
+      content: "•";
+      color: #D4AF37;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    strong {
+      color: #D4AF37;
+    }
+
+    a {
+      color: #D4AF37;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #f8e088;
+    }
+
+    .legal-entity {
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .legal-entity .entity-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #D4AF37;
+      margin-bottom: 6px;
+    }
+
+    .legal-entity .entity-meta {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin: 30px 0;
+    }
+
+    .contact-card {
+      background: rgba(212, 175, 55, 0.1);
+      padding: 24px;
+      border-radius: 10px;
+      border-left: 3px solid #D4AF37;
+    }
+
+    .contact-card .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .contact-card .value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #D4AF37;
+      word-break: break-word;
+    }
+
+    .contact-card .value a {
+      text-decoration: none;
+    }
+
+    .contact-info {
+      background: rgba(212, 175, 55, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 3px solid #D4AF37;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .footer-note .doc-links {
+      margin-top: 12px;
+    }
+
+    .footer-note .doc-links a {
+      margin: 0 8px;
+      white-space: nowrap;
+    }
+
+    .gold-accent {
+      color: #D4AF37;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px;
+        margin: 30px 15px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contact Us</h1>
+
+    <div class="legal-entity">
+      <div class="entity-name">Savify is a trade name of Bhowmik Ahuja</div>
+      <p class="entity-meta">
+        Website: <a href="https://www.savify.in">www.savify.in</a><br>
+        Email: savifyhq@gmail.com &nbsp;|&nbsp; Phone: +91 8517801653
+      </p>
+    </div>
+
+    <p>We would love to hear from you. Whether it is a question about a pool you have joined, a payment or refund query, or a legal concern, you can reach a real person on the details below.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="label">Email</div>
+        <div class="value"><a href="mailto:savifyhq@gmail.com">savifyhq@gmail.com</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="label">Phone &amp; WhatsApp</div>
+        <div class="value"><a href="tel:+918517801653">+91 8517801653</a></div>
+      </div>
+    </div>
+
+    <h2>1. Business Details</h2>
+    <div class="contact-info">
+      <ul>
+        <li><strong>Business Name:</strong> Savify</li>
+        <li><strong>Legal Entity:</strong> Savify is a trade name of Bhowmik Ahuja</li>
+        <li><strong>Website:</strong> <a href="https://www.savify.in">www.savify.in</a></li>
+        <li><strong>Email:</strong> savifyhq@gmail.com</li>
+        <li><strong>Phone / WhatsApp:</strong> +91 8517801653</li>
+        <li><strong>Country of Operation:</strong> India</li>
+      </ul>
+    </div>
+
+    <h2>2. Support Hours</h2>
+    <p>We reply to emails and WhatsApp messages <strong>Monday to Saturday, 10:00 AM to 8:00 PM IST</strong>. Messages received outside these hours are answered on the next working day.</p>
+
+    <h2>3. Payment, Refund and Order Queries</h2>
+    <p>For anything relating to a payment, a pool you have joined, or a refund, email <strong>savifyhq@gmail.com</strong> and include your registered phone number or email, the plan name, and the payment reference. Refund requests are acknowledged within <strong>2 business days</strong> and processed as set out in our <a href="/refund-policy.html">Refund Policy</a>.</p>
+
+    <h2>4. Grievance Officer</h2>
+    <div class="contact-info">
+      <p>In accordance with applicable Indian law, complaints may be addressed to:</p>
+      <ul>
+        <li><strong>Name:</strong> Bhowmik Ahuja</li>
+        <li><strong>Designation:</strong> Proprietor, Savify</li>
+        <li><strong>Email:</strong> savifyhq@gmail.com</li>
+        <li><strong>Phone:</strong> +91 8517801653</li>
+      </ul>
+    </div>
+
+    <div class="footer-note">
+      © 2026 <span class="gold-accent">Savify</span>. All rights reserved. Savify is a trade name of Bhowmik Ahuja.
+      <div class="doc-links">
+        <a href="/terms-and-conditions.html">Terms &amp; Conditions</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/refund-policy.html">Refund Policy</a>
+        <a href="/">Home</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
