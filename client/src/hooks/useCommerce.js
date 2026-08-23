@@ -24,6 +24,8 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
     // Local state (Phase 1)
     const [localCart, setLocalCart] = useState([]);
     const [isParticipating, setIsParticipating] = useState(false);
+    // Distinguishes "no pool nearby" from "we cannot tell what is nearby".
+    const [locationMissing, setLocationMissing] = useState(false);
     
     // Fee state — default delivery ₹25 for Blinkit, free at ₹199
     const [feeInfo, setFeeInfo] = useState({
@@ -164,6 +166,7 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
 
         // 2. Not participating — find OPEN pool within 200m using GPS
         const loc = locationRef.current;
+        setLocationMissing(!loc?.lat || !loc?.lng);
         // A pool stays joinable through its buffer — that overtime exists
         // precisely so late joiners can push it over the free-delivery
         // threshold. Widen the filter by the buffer and do the exact check
@@ -293,8 +296,16 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
 
     const startPool = async () => {
         if (!userId || localCart.length === 0) return;
-        
+
         const loc = locationRef.current;
+
+        // Proximity IS the matching mechanism for these pools. A cart saved
+        // without coordinates can never be found by anyone standing next to
+        // it — it silently becomes a pool of one. Refuse rather than create a
+        // pool nobody can join.
+        if (!loc?.lat || !loc?.lng) {
+            return { error: 'NO_LOCATION' };
+        }
         // Two-phase clock: a 15-minute window users see, then a 10-minute
         // buffer before the pool actually closes. See utils/poolTimer.js.
         const startedAt = new Date().getTime();
@@ -581,6 +592,7 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
         loading,
         localCart,
         isParticipating,
+        locationMissing,
         feeInfo,
         
         // Phase 1 Exposed

@@ -474,27 +474,32 @@ export default function DashboardPage() {
     // const [hallmateTab, setHallmateTab] = useState('list');
     // const [hallmatesLoading, setHallmatesLoading] = useState(true);
 
-    const handleAllowLocation = () => {
-        if ('geolocation' in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setUserLocation({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    });
-                    setShowLocationPrompt(false);
-                },
-                (error) => {
-                    console.warn('Geolocation permission denied or error:', error.message);
-                    setShowLocationPrompt(false);
-                    // Could optionally show a toast here that location was denied
-                },
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-        } else {
+    // Resolves to the coordinates, or null if unavailable/denied, so callers
+    // can react rather than silently continuing without a location.
+    const requestLocation = () => new Promise((resolve) => {
+        if (!('geolocation' in navigator)) {
             setShowLocationPrompt(false);
+            resolve(null);
+            return;
         }
-    };
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const loc = { lat: position.coords.latitude, lng: position.coords.longitude };
+                setUserLocation(loc);
+                sessionStorage.removeItem('savify_location_skipped');
+                setShowLocationPrompt(false);
+                resolve(loc);
+            },
+            (error) => {
+                console.warn('Geolocation denied or unavailable:', error.message);
+                setShowLocationPrompt(false);
+                resolve(null);
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+    });
+
+    const handleAllowLocation = () => { requestLocation(); };
 
     const { subscribe: subscribeNotifications } = useNotifications(user?.id, userLocation);
 
@@ -1044,7 +1049,7 @@ export default function DashboardPage() {
                             {activeTab === 'pools' ? 'Live Pools' : activeTab === 'notifications' ? 'Notifications' : 'Orders'}
                         </h1>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <ThemeToggle compact />
+                            <ThemeToggle />
                             <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--drops-text-secondary)', textAlign: 'right', letterSpacing: '0.2px' }}>
                                 {hallName || 'Your Hall'}
                             </div>
@@ -2256,6 +2261,7 @@ export default function DashboardPage() {
                     poolEmoji={typeof showStore === 'object' ? showStore.poolEmoji : '🛒'}
                     platform={typeof showStore === 'object' ? (showStore.platform || 'blinkit') : 'blinkit'}
                     userLocation={userLocation}
+                    onRequestLocation={requestLocation}
                     onClose={() => setShowStore(null)} 
                 />
             )}

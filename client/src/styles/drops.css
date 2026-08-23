@@ -118,12 +118,10 @@
   top: 12px;
   z-index: 100;
   padding: 14px 20px;
-  background: rgba(22, 22, 24, 0.72);
-  backdrop-filter: blur(var(--drops-blur)) saturate(200%);
-  -webkit-backdrop-filter: blur(var(--drops-blur)) saturate(200%);
-  border-radius: var(--drops-radius-xl);
+  background: var(--drops-surface);
+  border-radius: var(--drops-radius-md);
   border: 1px solid var(--drops-border);
-  box-shadow: 0 12px 40px var(--sv-shadow-color), inset 0 0.5px 0 var(--drops-border-light);
+  box-shadow: var(--sv-shadow-sm);
   margin-bottom: 28px;
   animation: headerReveal 0.5s var(--drops-transition) forwards;
 }
@@ -503,95 +501,104 @@
 /* ─── Bottom Nav ─── */
 .drops-bottom-nav {
   position: fixed;
-  bottom: 20px;
+  bottom: max(16px, env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
   min-width: 280px;
-  max-width: calc(100vw - 40px);
-  height: 60px;
-  background: rgba(18, 18, 20, 0.92);
-  backdrop-filter: blur(60px) saturate(200%);
-  -webkit-backdrop-filter: blur(60px) saturate(200%);
-  border: 0.5px solid var(--drops-border);
-  border-radius: 100px;
+  max-width: calc(100vw - 32px);
+  height: 58px;
+  /* Solid surface rather than a heavy blur: the blur cost a full-screen
+     backdrop repaint on every scroll frame and was the main source of jank
+     on mid-range phones. */
+  background: var(--drops-surface);
+  border: 1px solid var(--drops-border);
+  border-radius: 999px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-around;
-  padding: 0 6px;
+  padding: 5px;
+  gap: 2px;
   z-index: 100;
-  box-shadow: 0 8px 40px var(--sv-shadow-color), 0 2px 8px var(--sv-shadow-color), inset 0 0.5px 0 var(--drops-border);
-  animation: navSlideUp 0.7s var(--drops-spring) forwards;
+  box-shadow: var(--sv-shadow-lg);
+  animation: navSlideUp var(--sv-dur-slow) var(--sv-ease) both;
 }
 
 @keyframes navSlideUp {
-  from { transform: translate(-50%, 80px); opacity: 0; filter: blur(10px); }
-  to { transform: translate(-50%, 0); opacity: 1; filter: blur(0px); }
+  from { transform: translate(-50%, 8px); opacity: 0; }
+  to   { transform: translate(-50%, 0); opacity: 1; }
 }
 
 .drops-nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   cursor: pointer;
-  transition: all 0.35s var(--drops-spring);
   -webkit-tap-highlight-color: transparent;
-  padding: 8px 18px;
-  border-radius: 100px;
+  padding: 0 20px;
+  border-radius: 999px;
   position: relative;
-}
-
-.drops-nav-item:active {
-  transform: scale(0.85);
-}
-
-/* ─── Nav Icon Wrapper ─── */
-.drops-nav-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.35s ease;
+  /* Colour only. Scaling a nav item shifts its neighbours and reads as a
+     wobble on every tap. */
+  transition: background-color var(--sv-dur) var(--sv-ease),
+              color var(--sv-dur) var(--sv-ease);
 }
 
 .drops-nav-item svg {
   color: var(--drops-text-tertiary);
-  transition: all 0.35s var(--drops-spring);
   stroke: var(--drops-text-tertiary);
+  transition: color var(--sv-dur) var(--sv-ease),
+              stroke var(--sv-dur) var(--sv-ease);
+}
+
+.drops-nav-item span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--drops-text-tertiary);
+  transition: color var(--sv-dur) var(--sv-ease);
+}
+
+/* Selected: a quiet filled pill and full-contrast content. No glow, no
+   drop-shadow, no transform — the fill alone is unambiguous. */
+.drops-nav-item.active {
+  background: var(--sv-accent-soft);
 }
 
 .drops-nav-item.active svg {
-  color: white;
-  stroke: white;
-  filter: drop-shadow(0 0 10px rgba(10, 132, 255, 0.6));
-  transform: translateY(-2px) scale(1.1);
-}
-
-/* Labels always visible on mobile */
-.drops-nav-item span {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--drops-text-tertiary);
-  transition: all 0.35s var(--drops-spring);
-  letter-spacing: 0.02em;
-}
-
-.drops-nav-item.active {
-  background: rgba(10, 132, 255, 0.12);
-  box-shadow: 0 0 20px rgba(10, 132, 255, 0.15), 0 4px 12px rgba(10, 132, 255, 0.06);
+  color: var(--sv-accent);
+  stroke: var(--sv-accent);
 }
 
 .drops-nav-item.active span {
-  color: #F5F5F7;
-  text-shadow: 0 0 12px rgba(10, 132, 255, 0.4);
+  color: var(--sv-accent);
+}
+
+.drops-nav-item:not(.active):hover {
+  background: var(--drops-surface-hover);
+}
+
+.drops-nav-item:not(.active):hover svg,
+.drops-nav-item:not(.active):hover span {
+  color: var(--drops-text-secondary);
+  stroke: var(--drops-text-secondary);
 }
 
 /* ─── Category Grid ─── */
 .drops-category-grid {
   display: grid;
-  gap: 20px;
+  gap: 12px;
   grid-template-columns: 1fr;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+}
+
+/* Inside a grid the gap is the spacing. A card keeping its own bottom margin
+   here produced uneven gutters that read as misalignment. */
+.drops-category-grid > .drops-card,
+.drops-pools-grid > .drops-card {
+  margin-bottom: 0;
 }
 
 /* ─── Pool Cards Grid ─── */
@@ -622,9 +629,8 @@
   left: 0;
   right: 0;
   max-height: 90vh;
-  background: rgba(28, 28, 30, 0.95);
-  backdrop-filter: blur(40px) saturate(200%);
-  border-top: 1px solid var(--drops-surface-elevated);
+  background: var(--drops-surface);
+  border-top: 1px solid var(--drops-border);
   border-radius: var(--drops-radius-xl) var(--drops-radius-xl) 0 0;
   z-index: 201;
   overflow-y: auto;
@@ -1001,10 +1007,8 @@
     border-radius: 0;
     border: none;
     border-top: 1px solid var(--drops-border);
-    background: rgba(12, 12, 12, 0.75);
-    backdrop-filter: blur(60px) saturate(200%);
-    -webkit-backdrop-filter: blur(60px) saturate(200%);
-    box-shadow: 0 -8px 32px var(--sv-shadow-color), inset 0 1px 0 var(--drops-surface-hover);
+    background: var(--drops-surface);
+    box-shadow: var(--sv-shadow-lg);
     justify-content: center;
     gap: 8px;
     padding: 0 40px;

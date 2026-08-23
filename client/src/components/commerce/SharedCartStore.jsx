@@ -71,12 +71,12 @@ const FOOD_SEARCH_MAP = {
     'tandoor': ['tandoor', 'tikka', 'kebab', 'seekh', 'malai', 'grill']
 };
 
-export default function SharedCartStore({ user, hallId, activeSlot, poolName = 'Blinkit Pool', poolEmoji = '🛒', platform = 'blinkit', userLocation, onClose }) {
+export default function SharedCartStore({ user, hallId, activeSlot, poolName = 'Blinkit Pool', poolEmoji = '🛒', platform = 'blinkit', userLocation, onRequestLocation, onClose }) {
     const theme = PLATFORM_THEMES[platform] || PLATFORM_THEMES.blinkit;
     const searchMap = theme.type === 'food' ? FOOD_SEARCH_MAP : GROCERY_SEARCH_MAP;
 
     const { 
-        products, activeCart, cartItems, loading, localCart, isParticipating, feeInfo,
+        products, activeCart, cartItems, loading, localCart, isParticipating, locationMissing, feeInfo,
         addToLocalCart, removeFromLocalCart, startPool, joinPool,
         addToPool, removeFromPool, leavePool, handlePayment 
     } = useCommerce(user?.id, hallId, activeSlot, poolName, platform, userLocation);
@@ -636,16 +636,28 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
                                 </button>
                                 
                                 {!isParticipating ? (
-                                    <button onClick={() => {
+                                    <button onClick={async () => {
+                                        if (locationMissing || !userLocation) {
+                                            const loc = onRequestLocation ? await onRequestLocation() : null;
+                                            if (!loc) {
+                                                triggerFullScreenReaction('thinking', 'Turn on location to find pools near you');
+                                                return;
+                                            }
+                                        }
                                         if (activeCart && !isExpired) {
                                             triggerFullScreenReaction('thinking', 'Joining nearby pool...');
                                             joinPool();
                                         } else {
                                             triggerFullScreenReaction('thinking', 'Starting a new pool...');
-                                            startPool();
+                                            const res = await startPool();
+                                            if (res?.error === 'NO_LOCATION') {
+                                                triggerFullScreenReaction('thinking', 'Turn on location to start a pool');
+                                            }
                                         }
                                     }} style={{ flex: 1.5, background: theme.gradient, color: theme.accent === '#F8CF46' || theme.accent === '#FF9900' ? '#000' : '#fff', padding: '16px', borderRadius: 16, border: 'none', fontSize: 16, fontWeight: 800, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 8px 25px rgba(${theme.accentRgb},0.3)`, transition: 'transform 0.2s' }}>
-                                        {activeCart && !isExpired ? (
+                                        {(locationMissing || !userLocation) ? (
+                                            <>Enable location <i className="fas fa-location-arrow" style={{ marginLeft: 8 }}></i></>
+                                        ) : activeCart && !isExpired ? (
                                             <>Join Pool <i className="fas fa-sign-in-alt" style={{ marginLeft: 8 }}></i></>
                                         ) : (
                                             <>Start Pool <i className="fas fa-play" style={{ marginLeft: 8 }}></i></>
