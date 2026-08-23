@@ -11,6 +11,7 @@ import { triggerLightHaptic, triggerMediumHaptic, triggerSuccessHaptic } from '.
 import '../styles/drops.css';
 import AIPricingModal from '../components/modals/AIPricingModal';
 import SubscriptionPoolModal from '../components/modals/SubscriptionPoolModal';
+import { aiPlanNames, subPlanNames } from '../config/poolPlans';
 import LocationPromptModal from '../components/modals/LocationPromptModal';
 import Footer from '../components/layout/Footer';
 // import FindRoommate from '../components/FindRoommate'; // COMMENTED OUT
@@ -722,6 +723,21 @@ export default function DashboardPage() {
         || user?.email?.charAt(0)?.toUpperCase() || '?';
     const userName = userProfile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Anonymous';
     const currentSlot = getCurrentSlotLabel();
+    // A brand card must count exactly the pools its modal will open.
+    // Matching pool types by substring counted plans the modal never lists —
+    // the legacy 'Netflix Pool' alongside 'Netflix Standard', or 'Jio Hotstar'
+    // seats showing up on the 'Jio' telecom card — so a card could advertise
+    // five people while the plans behind it held two.
+    const countPoolingForPlans = (planNames) => {
+        if (!planNames || planNames.length === 0) return 0;
+        const wanted = new Set(planNames);
+        return (poolTypes || []).reduce((sum, p) => {
+            if (!p?.name || !wanted.has(p.name)) return sum;
+            const slot = getDailySlotForPool(p.id);
+            return slot ? sum + getMembersForSlot(slot.id).length : sum;
+        }, 0);
+    };
+
     const effectiveHallId = userProfile?.hall_id || user?.user_metadata?.hall_id;
 
     const triggerFullScreenReaction = (state, message) => {
@@ -1537,14 +1553,7 @@ export default function DashboardPage() {
                                     { id: 'Claude', name: 'Claude', subtitle: 'Advanced reasoning', logo: '/logos/claude.png', color: '#D97757' },
                                     { id: 'Gemini', name: 'Gemini', subtitle: 'Google Ecosystem', logo: '/logos/gemini.png', color: '#4B90FF' }
                                 ].map(software => {
-                                    const relatedPools = (poolTypes || []).filter(p => p.name.toLowerCase().includes(software.id.toLowerCase()));
-                                    let totalMembers = 0;
-                                    relatedPools.forEach(p => {
-                                        const slot = getDailySlotForPool(p.id);
-                                        if (slot) {
-                                            totalMembers += getMembersForSlot(slot.id).length;
-                                        }
-                                    });
+                                    const totalMembers = countPoolingForPlans(aiPlanNames(software.id));
                                     return (
                                         <div 
                                             key={software.id} 
@@ -1600,12 +1609,7 @@ export default function DashboardPage() {
                                     { id: 'Prime Video', name: 'Prime Video', subtitle: 'Movies, Delivery & More', logo: '/logos/amazon_prime.png', color: '#00A8E1' },
                                     { id: 'Jio Hotstar', name: 'Jio Hotstar', subtitle: 'Sports, TV & Entertainment', logo: '/logos/jiohotstar.png', color: '#1F3F7A' }
                                 ].map((service, sIdx) => {
-                                    const relatedPools = (poolTypes || []).filter(p => p?.name?.toLowerCase().includes(service.id.toLowerCase().split(' ')[0]));
-                                    let totalMembers = 0;
-                                    relatedPools.forEach(p => {
-                                        const slot = getDailySlotForPool(p.id);
-                                        if (slot) totalMembers += getMembersForSlot(slot.id).length;
-                                    });
+                                    const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
                                         <div 
                                             key={service.id} 
@@ -1660,9 +1664,7 @@ export default function DashboardPage() {
                                     { id: 'Swiggy One', name: 'Swiggy One', subtitle: 'Free Delivery & Extra Discounts', logo: '/logos/swiggy.png', color: '#FC8019' },
                                     { id: 'Zomato Gold', name: 'Zomato Gold', subtitle: 'Free Delivery & Pro Benefits', logo: '/logos/zomato.png', color: '#E23744' }
                                 ].map((service, sIdx) => {
-                                    const relatedPools = (poolTypes || []).filter(p => p?.name?.toLowerCase().includes(service.id.toLowerCase().split(' ')[0]));
-                                    let totalMembers = 0;
-                                    relatedPools.forEach(p => { const slot = getDailySlotForPool(p.id); if (slot) totalMembers += getMembersForSlot(slot.id).length; });
+                                    const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
                                         <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
@@ -1687,9 +1689,7 @@ export default function DashboardPage() {
                                     { id: 'Udemy', name: 'Udemy', subtitle: 'Courses & Certifications', logo: '/logos/udemy.png', color: '#A435F0' },
                                     { id: 'Coursera', name: 'Coursera', subtitle: 'University-Level Learning', logo: '/logos/coursera.png', color: '#0056D2' }
                                 ].map((service, sIdx) => {
-                                    const relatedPools = (poolTypes || []).filter(p => p?.name?.toLowerCase().includes(service.id.toLowerCase()));
-                                    let totalMembers = 0;
-                                    relatedPools.forEach(p => { const slot = getDailySlotForPool(p.id); if (slot) totalMembers += getMembersForSlot(slot.id).length; });
+                                    const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
                                         <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
@@ -1714,9 +1714,7 @@ export default function DashboardPage() {
                                     { id: 'YouTube Premium', name: 'YouTube Premium', subtitle: 'Ad-Free Videos & Music', logo: '/logos/youtube.svg', color: '#FF0000' },
                                     { id: 'LinkedIn Premium', name: 'LinkedIn Premium', subtitle: 'Career & Networking Tools', logo: '/logos/linkedin.svg', color: '#0A66C2' }
                                 ].map((service, sIdx) => {
-                                    const relatedPools = (poolTypes || []).filter(p => p?.name?.toLowerCase().includes(service.id.toLowerCase().split(' ')[0]));
-                                    let totalMembers = 0;
-                                    relatedPools.forEach(p => { const slot = getDailySlotForPool(p.id); if (slot) totalMembers += getMembersForSlot(slot.id).length; });
+                                    const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
                                         <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
@@ -1741,9 +1739,7 @@ export default function DashboardPage() {
                                     { id: 'Jio', name: 'Jio', subtitle: 'Postpaid & Family Plans', logo: '/logos/jio.png', color: '#0A3F8F' },
                                     { id: 'Airtel', name: 'Airtel', subtitle: 'Family & Data Plans', logo: '/logos/airtel.png', color: '#FF0000' }
                                 ].map((service, sIdx) => {
-                                    const relatedPools = (poolTypes || []).filter(p => p?.name?.toLowerCase().includes(service.id.toLowerCase()));
-                                    let totalMembers = 0;
-                                    relatedPools.forEach(p => { const slot = getDailySlotForPool(p.id); if (slot) totalMembers += getMembersForSlot(slot.id).length; });
+                                    const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
                                         <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>

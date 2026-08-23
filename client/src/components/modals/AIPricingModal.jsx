@@ -1,109 +1,11 @@
 import React, { useState } from 'react';
 import { triggerLightHaptic } from '../../utils/haptics';
+import { AI_PLATFORM_CONFIG } from '../../config/poolPlans';
 
 export default function AIPricingModal({ platform, poolTypes, getDailySlotForPool, getMembersForSlot, isUserInSlot, onClose, onJoin }) {
     
     // Unified configurations for the premium clean look
-    const config = {
-        'ChatGPT': {
-            logo: '/logos/chatgpt.png',
-            fallbackIcon: 'fa-robot',
-            accent: '#10A37F',
-            plans: [
-                {
-                    name: 'ChatGPT Individual GO',
-                    description: 'Basic access to AI tools.',
-                    price: '₹399',
-                    splitPrice: 133,
-                    features: ['Standard messaging', 'Basic AI tasks']
-                },
-                {
-                    name: 'ChatGPT Individual PLUS',
-                    description: 'For individuals looking to amplify their productivity',
-                    price: '₹1999',
-                    splitPrice: 666,
-                    features: ['Access to GPT-4', 'Advanced data analysis, vision & web browsing', 'Create and use custom GPTs']
-                },
-                {
-                    name: 'ChatGPT Individual PRO',
-                    description: 'For power users needing max capacity.',
-                    price: '₹10699',
-                    splitPrice: 3566,
-                    features: ['Max usage limits', 'Priority processing', 'Early access to new features']
-                },
-                {
-                    name: 'ChatGPT Business',
-                    description: 'For teams looking to collaborate and govern.',
-                    price: '₹1800/user',
-                    splitPrice: 600,
-                    features: ['Higher message limits', 'Create and share workspace GPTs', 'Admin console for workspace management']
-                }
-            ]
-        },
-        'Claude': {
-            logo: '/logos/claude.png',
-            fallbackIcon: 'fa-brain',
-            accent: '#D97757',
-            plans: [
-                {
-                    name: 'Claude Pro',
-                    description: 'More usage, priority access, and the newest models.',
-                    price: '₹1,950',
-                    splitPrice: 650,
-                    features: ['5x more usage than Free', 'Access to Claude 3.5 Sonnet, Opus and Haiku', 'Priority access during high-traffic periods', 'Early access to new features']
-                },
-                {
-                    name: 'Claude Max',
-                    description: 'For extreme power users with heavy workflows.',
-                    price: '₹9,750',
-                    splitPrice: 3250,
-                    features: ['Up to 5x to 20x higher usage capacity', 'Priority processing on highest load times']
-                },
-                {
-                    name: 'Claude Team',
-                    description: 'For teams looking to collaborate and govern.',
-                    price: '₹2,400/user',
-                    splitPrice: 800,
-                    features: ['Higher usage limits per team member', 'Centralized billing and admin controls']
-                }
-            ]
-        },
-        'Gemini': {
-            logo: '/logos/gemini.png',
-            fallbackIcon: 'fa-sparkles',
-            accent: '#4B90FF',
-            plans: [
-                {
-                    name: 'Google AI Plus',
-                    description: 'Get our most capable AI models and more storage.',
-                    price: '₹399',
-                    splitPrice: 133,
-                    features: ['Access to Gemini', 'Basic storage']
-                },
-                {
-                    name: 'Google AI Pro',
-                    description: 'Bring AI into Google Workspace for organizations.',
-                    price: '₹1950',
-                    splitPrice: 650,
-                    features: ['Bring AI into Google Workspace', 'Enterprise-grade data protection']
-                },
-                {
-                    name: 'Google AI Ultra 5x',
-                    description: 'Advanced meetings and enterprise control.',
-                    price: '₹6500',
-                    splitPrice: 2166,
-                    features: ['High capacity usage', 'Advanced AI meetings']
-                },
-                {
-                    name: 'Google AI Ultra 20x',
-                    description: 'Extreme processing power and scale.',
-                    price: '₹19500',
-                    splitPrice: 6500,
-                    features: ['Max capacity usage', 'Enhanced DLP and security controls']
-                }
-            ]
-        }
-    };
+    const config = AI_PLATFORM_CONFIG;
 
     const platformConfig = config[platform];
     const [imgError, setImgError] = useState(false);
