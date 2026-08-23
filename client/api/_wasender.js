@@ -41,6 +41,28 @@ function baseUrl() {
     return String(process.env.WASENDER_API_URL || DEFAULT_BASE_URL).trim().replace(/\/+$/, '');
 }
 
+/**
+ * Testing override.
+ *
+ * With WASENDER_TEST_RECIPIENT set, every pool announcement goes to that one
+ * number instead of any hall group. It exists so the flow can be exercised end
+ * to end without posting into real student groups, and it takes precedence
+ * over everything below — if it is set, no group is ever messaged.
+ *
+ * Accepts a bare number ('919876543210'), which is normalised to a WhatsApp
+ * JID. Unset it to resume normal group delivery.
+ */
+export function testRecipientJid() {
+    const raw = String(process.env.WASENDER_TEST_RECIPIENT || '').trim();
+    if (!raw) return null;
+    if (raw.includes('@')) return raw;
+    const digits = raw.replace(/[^0-9]/g, '');
+    if (!digits) return null;
+    // Assume India when no country code is present.
+    const withCc = digits.length === 10 ? `91${digits}` : digits;
+    return `${withCc}@s.whatsapp.net`;
+}
+
 export function isWasenderConfigured() {
     return !!apiKey();
 }
@@ -97,6 +119,13 @@ export async function sendGroupMessage(jid, text) {
  */
 export async function resolveTargetGroups(supabase, { hallId, locationKey, creatorId }) {
     const activeRows = (rows) => (rows || []).filter(r => r.is_active && r.group_jid);
+
+    // Testing beats every routing rule below — never fan out to real groups
+    // while a test recipient is configured.
+    const testJid = testRecipientJid();
+    if (testJid) {
+        return [{ id: null, label: 'Test recipient', group_jid: testJid, is_active: true, send_count: 0, isTest: true }];
+    }
 
     if (hallId) {
         const { data } = await supabase
@@ -182,10 +211,12 @@ export async function broadcastToGroups(supabase, groups, message) {
             sent++;
             results.push({ jid: group.group_jid, ok: true });
 
-            await supabase
-                .from('whatsapp_pool_groups')
-                .update({ last_sent_at: new Date().toISOString(), send_count: (group.send_count || 0) + 1 })
-                .eq('id', group.id);
+            if (group.id) {
+                await supabase
+                    .from('whatsapp_pool_groups')
+                    .update({ last_sent_at: new Date().toISOString(), send_count: (group.send_count || 0) + 1 })
+                    .eq('id', group.id);
+            }
         } catch (err) {
             console.error(`WaSender send failed for ${group.group_jid}:`, err.message);
             results.push({ jid: group.group_jid, ok: false, error: err.message });

@@ -116,7 +116,7 @@
 }
 
 .hero-title {
-  background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+  background: linear-gradient(180deg, var(--drops-text-primary) 0%, #A1A1AA 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -142,7 +142,7 @@
 .btn-primary-large {
   display: inline-block;
   background: var(--color-accent);
-  color: #FFFFFF;
+  color: var(--drops-text-primary);
   padding: 16px 32px;
   border-radius: var(--radius-pill);
   font-size: var(--text-lg);
@@ -153,7 +153,7 @@
 .btn-primary-large:hover {
   transform: scale(0.97);
   box-shadow: var(--shadow-glow);
-  color: #FFFFFF;
+  color: var(--drops-text-primary);
 }
 
 .hero-caption {

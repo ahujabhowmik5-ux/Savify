@@ -25,7 +25,7 @@
 .bento-bg {
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at top, #111 0%, #000 100%);
+    background: radial-gradient(circle at top, var(--drops-surface-hover) 0%, var(--drops-bg) 100%);
     z-index: 0;
     pointer-events: none;
 }
@@ -61,8 +61,8 @@
 .bento-logo-mark {
     width: 24px;
     height: 24px;
-    background: #fff;
-    color: #000;
+    background: var(--drops-text-primary);
+    color: var(--drops-bg);
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -75,7 +75,7 @@
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #888;
+    color: var(--drops-text-secondary);
 }
 
 /* THE BENTO GRID */
@@ -89,8 +89,8 @@
 
 /* Base Card Style with Hover Physics */
 .bento-card {
-    background: #0d0d0d;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--drops-bg);
+    border: 1px solid var(--drops-border);
     border-radius: 32px;
     padding: 40px;
     position: relative;
@@ -105,8 +105,8 @@
 
 .bento-card:hover {
     transform: scale(1.02);
-    background: #111;
-    border-color: rgba(255, 255, 255, 0.15);
+    background: var(--drops-surface-hover);
+    border-color: var(--drops-border-light);
 }
 
 /* Grid Placements */
@@ -139,13 +139,13 @@
 .bento-badge {
     display: inline-block;
     padding: 6px 12px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--drops-surface-elevated);
     border-radius: 100px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #aaa;
+    color: var(--drops-text-secondary);
     margin-bottom: auto;
 }
 
@@ -155,20 +155,20 @@
     line-height: 1;
     letter-spacing: -2px;
     margin: 40px 0 24px 0;
-    color: #fff;
+    color: var(--drops-text-primary);
 }
 
 .bento-hero-subtitle {
     font-size: 16px;
-    color: #888;
+    color: var(--drops-text-secondary);
     line-height: 1.5;
     margin: 0 0 40px 0;
     max-width: 90%;
 }
 
 .bento-cta {
-    background: #fff;
-    color: #000;
+    background: var(--drops-text-primary);
+    color: var(--drops-bg);
     border: none;
     padding: 16px 24px;
     border-radius: 100px;
@@ -216,7 +216,7 @@
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #555;
+    color: var(--drops-text-tertiary);
 }
 
 /* Small Cards */
@@ -229,7 +229,7 @@
 
 .bento-small p {
     font-size: 14px;
-    color: #888;
+    color: var(--drops-text-secondary);
     margin: 0;
     line-height: 1.5;
 }
@@ -243,7 +243,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: auto;
-    color: #fff;
+    color: var(--drops-text-primary);
 }
 
 /* Wide Cards */
@@ -256,7 +256,7 @@
 
 .bento-wide p {
     font-size: 15px;
-    color: #888;
+    color: var(--drops-text-secondary);
     margin: 0;
     line-height: 1.6;
 }
@@ -285,7 +285,7 @@
     position: absolute;
     width: 60px;
     height: 60px;
-    border: 2px solid rgba(255,255,255,0.2);
+    border: 2px solid var(--sv-border-strong);
     border-radius: 50%;
 }
 

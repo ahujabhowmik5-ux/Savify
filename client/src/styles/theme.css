@@ -82,6 +82,7 @@
   --color-border: rgba(255, 255, 255, 0.07);
   --color-border-hover: rgba(255, 255, 255, 0.12);
   --color-border-active: rgba(255, 255, 255, 0.20);
+  --sv-shadow-color: rgba(0, 0, 0, 0.42);
   --sv-overlay: rgba(0, 0, 0, 0.62);
   --sv-skeleton: rgba(255, 255, 255, 0.06);
 }
@@ -151,6 +152,7 @@
   --color-border: rgba(16, 17, 20, 0.09);
   --color-border-hover: rgba(16, 17, 20, 0.14);
   --color-border-active: rgba(16, 17, 20, 0.22);
+  --sv-shadow-color: rgba(16, 17, 20, 0.10);
   --sv-overlay: rgba(16, 17, 20, 0.42);
   --sv-skeleton: rgba(16, 17, 20, 0.06);
 }

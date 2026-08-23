@@ -40,7 +40,7 @@ class ErrorBoundary extends Component {
                     <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 8 }}>Pull down to refresh or tap below</div>
                     <button
                         onClick={() => { this.setState({ hasError: false, error: null }); }}
-                        style={{ padding: '12px 28px', borderRadius: 100, background: 'rgba(10,132,255,0.15)', border: '1px solid rgba(10,132,255,0.3)', color: '#0A84FF', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}
+                        style={{ padding: '12px 28px', borderRadius: 100, background: 'rgba(10,132,255,0.15)', border: '1px solid rgba(10,132,255,0.3)', color: 'var(--drops-blue)', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}
                     >
                         Try Again
                     </button>
@@ -131,15 +131,15 @@ function formatTimeLeft(isoString) {
 }
 
 const POOL_COLORS = {
-    '🛒': { bg: 'linear-gradient(135deg, rgba(255,159,10,0.3), rgba(255,159,10,0.05))', accent: '#FF9F0A', bar: 'orange' },
-    '🚕': { bg: 'linear-gradient(135deg, rgba(10,132,255,0.3), rgba(10,132,255,0.05))', accent: '#0A84FF', bar: 'blue' },
-    '🎵': { bg: 'linear-gradient(135deg, rgba(191,90,242,0.3), rgba(191,90,242,0.05))', accent: '#BF5AF2', bar: 'purple' },
-    '🎬': { bg: 'linear-gradient(135deg, rgba(255,55,95,0.3), rgba(255,55,95,0.05))', accent: '#FF375F', bar: 'green' },
-    '🔥': { bg: 'linear-gradient(135deg, rgba(255,69,58,0.3), rgba(255,69,58,0.05))', accent: '#FF453A', bar: 'red' },
-    '🍕': { bg: 'linear-gradient(135deg, rgba(255,159,10,0.3), rgba(255,159,10,0.05))', accent: '#FF9F0A', bar: 'orange' },
-    '⚽': { bg: 'linear-gradient(135deg, rgba(48,209,88,0.3), rgba(48,209,88,0.05))', accent: '#30D158', bar: 'green' },
-    '🍔': { bg: 'linear-gradient(135deg, rgba(255,159,10,0.3), rgba(255,159,10,0.05))', accent: '#FF9F0A', bar: 'orange' },
-    '📚': { bg: 'linear-gradient(135deg, rgba(10,132,255,0.3), rgba(10,132,255,0.05))', accent: '#0A84FF', bar: 'blue' }
+    '🛒': { bg: 'linear-gradient(135deg, rgba(255,159,10,0.3), rgba(255,159,10,0.05))', accent: 'var(--drops-orange)', bar: 'orange' },
+    '🚕': { bg: 'linear-gradient(135deg, rgba(10,132,255,0.3), rgba(10,132,255,0.05))', accent: 'var(--drops-blue)', bar: 'blue' },
+    '🎵': { bg: 'linear-gradient(135deg, rgba(191,90,242,0.3), rgba(191,90,242,0.05))', accent: 'var(--drops-purple)', bar: 'purple' },
+    '🎬': { bg: 'linear-gradient(135deg, rgba(255,55,95,0.3), rgba(255,55,95,0.05))', accent: 'var(--drops-pink)', bar: 'green' },
+    '🔥': { bg: 'linear-gradient(135deg, rgba(255,69,58,0.3), rgba(255,69,58,0.05))', accent: 'var(--drops-red)', bar: 'red' },
+    '🍕': { bg: 'linear-gradient(135deg, rgba(255,159,10,0.3), rgba(255,159,10,0.05))', accent: 'var(--drops-orange)', bar: 'orange' },
+    '⚽': { bg: 'linear-gradient(135deg, rgba(48,209,88,0.3), rgba(48,209,88,0.05))', accent: 'var(--drops-green)', bar: 'green' },
+    '🍔': { bg: 'linear-gradient(135deg, rgba(255,159,10,0.3), rgba(255,159,10,0.05))', accent: 'var(--drops-orange)', bar: 'orange' },
+    '📚': { bg: 'linear-gradient(135deg, rgba(10,132,255,0.3), rgba(10,132,255,0.05))', accent: 'var(--drops-blue)', bar: 'blue' }
 };
 
 const POOL_LOGO_MAP = {
@@ -1055,7 +1055,7 @@ export default function DashboardPage() {
                     </div>
                     
                     {/* Minimalist Savio Pill */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.02)', padding: '10px 14px', borderRadius: 16, border: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'var(--drops-surface)', padding: '10px 14px', borderRadius: 16, border: '1px solid var(--drops-surface)' }}>
                         <div style={{ flexShrink: 0 }}>
                             <Savio state={savioState} size={28} showBubble={false} />
                         </div>
@@ -1068,15 +1068,15 @@ export default function DashboardPage() {
                 {/* ─── Profile Overlay ─── */}
                 {showProfile && (
                     <div style={{ position: 'fixed', inset: 0, background: 'var(--drops-bg)', zIndex: 999, overflowY: 'auto', paddingBottom: 120 }}>
-                        <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(10,10,12,0.9)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 10 }}>
-                            <button onClick={() => { triggerLightHaptic(); setShowProfile(false); }} style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.8)', width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 14 }}>
+                        <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--drops-surface-hover)', background: 'rgba(10,10,12,0.9)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 10 }}>
+                            <button onClick={() => { triggerLightHaptic(); setShowProfile(false); }} style={{ background: 'var(--drops-surface-hover)', border: '1px solid var(--drops-border)', color: 'var(--drops-border)', width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 14 }}>
                                 <i className="fas fa-arrow-left"></i>
                             </button>
-                            <div style={{ fontSize: 18, fontWeight: 700, color: '#fff' }}>Profile</div>
+                            <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--drops-text-primary)' }}>Profile</div>
                             <div style={{ width: 36 }}></div>
                         </div>
                         <div style={{ padding: '32px 24px 24px', textAlign: 'center' }}>
-                            <div style={{ width: 96, height: 96, borderRadius: '50%', background: 'linear-gradient(135deg, var(--drops-blue), var(--drops-purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 38, fontWeight: 800, color: 'white', margin: '0 auto 16px', boxShadow: '0 12px 40px rgba(10,132,255,0.25)', border: '3px solid rgba(255,255,255,0.12)' }}>
+                            <div style={{ width: 96, height: 96, borderRadius: '50%', background: 'linear-gradient(135deg, var(--drops-blue), var(--drops-purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 38, fontWeight: 800, color: 'var(--drops-text-primary)', margin: '0 auto 16px', boxShadow: '0 12px 40px rgba(10,132,255,0.25)', border: '3px solid var(--drops-border-light)' }}>
                                 {userInitial}
                             </div>
                             <h2 style={{ fontSize: 26, fontWeight: 800, marginBottom: 6, letterSpacing: '-0.03em' }}>{userName}</h2>
@@ -1086,29 +1086,29 @@ export default function DashboardPage() {
                         </div>
                         <div style={{ padding: '0 24px', display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
                             {[
-                                { icon: 'fa-envelope', label: 'Email', value: user?.email || '—', color: '#0A84FF' },
-                                { icon: 'fa-phone-alt', label: 'Mobile', value: userProfile?.mobile_number || '—', color: '#30D158' },
-                                { icon: 'fa-building', label: 'Hall', value: hallName || '—', color: '#BF5AF2' },
-                                { icon: 'fa-calendar-alt', label: 'Member Since', value: user?.created_at ? new Date(user.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : '—', color: '#FF9F0A' }
+                                { icon: 'fa-envelope', label: 'Email', value: user?.email || '—', color: 'var(--drops-blue)' },
+                                { icon: 'fa-phone-alt', label: 'Mobile', value: userProfile?.mobile_number || '—', color: 'var(--drops-green)' },
+                                { icon: 'fa-building', label: 'Hall', value: hallName || '—', color: 'var(--drops-purple)' },
+                                { icon: 'fa-calendar-alt', label: 'Member Since', value: user?.created_at ? new Date(user.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : '—', color: 'var(--drops-orange)' }
                             ].map((item, i) => (
-                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', background: 'rgba(255,255,255,0.03)', borderRadius: 18, border: '1px solid rgba(255,255,255,0.05)' }}>
+                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', background: 'var(--drops-surface)', borderRadius: 18, border: '1px solid var(--drops-surface)' }}>
                                     <div style={{ width: 40, height: 40, borderRadius: 12, background: `${item.color}15`, color: item.color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0, border: `1px solid ${item.color}25` }}>
                                         <i className={`fas ${item.icon}`}></i>
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>{item.label}</div>
-                                        <div style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>{item.value}</div>
+                                        <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--drops-text-primary)' }}>{item.value}</div>
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <div style={{ padding: '0 24px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 24 }}>
                             {[
-                                { label: 'Pools Joined', value: activities?.filter(a => a.action_type === 'JOIN_POOL' && a.user_id === user?.id).length || 0, color: '#30D158' },
-                                { label: 'Drops Created', value: activities?.filter(a => a.action_type === 'CREATE_POOL' && a.user_id === user?.id).length || 0, color: '#BF5AF2' },
-                                { label: 'Activity', value: activities?.filter(a => a.user_id === user?.id).length || 0, color: '#0A84FF' }
+                                { label: 'Pools Joined', value: activities?.filter(a => a.action_type === 'JOIN_POOL' && a.user_id === user?.id).length || 0, color: 'var(--drops-green)' },
+                                { label: 'Drops Created', value: activities?.filter(a => a.action_type === 'CREATE_POOL' && a.user_id === user?.id).length || 0, color: 'var(--drops-purple)' },
+                                { label: 'Activity', value: activities?.filter(a => a.user_id === user?.id).length || 0, color: 'var(--drops-blue)' }
                             ].map((stat, i) => (
-                                <div key={i} style={{ textAlign: 'center', padding: '20px 8px', background: 'rgba(255,255,255,0.03)', borderRadius: 18, border: '1px solid rgba(255,255,255,0.05)' }}>
+                                <div key={i} style={{ textAlign: 'center', padding: '20px 8px', background: 'var(--drops-surface)', borderRadius: 18, border: '1px solid var(--drops-surface)' }}>
                                     <div style={{ fontSize: 28, fontWeight: 900, color: stat.color, letterSpacing: '-0.03em', marginBottom: 4 }}>{stat.value}</div>
                                     <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{stat.label}</div>
                                 </div>
@@ -1141,8 +1141,8 @@ export default function DashboardPage() {
                     return (
                     <div className="animate-fade-in-up" style={{ padding: '0 0 24px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, padding: '10px 14px', background: 'rgba(48,209,88,0.06)', borderRadius: 14, border: '1px solid rgba(48,209,88,0.15)' }}>
-                            <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#30D158', boxShadow: '0 0 8px rgba(48,209,88,0.5)', animation: 'badgePulse 2s ease-in-out infinite' }}></div>
-                            <span style={{ fontSize: 12, fontWeight: 600, color: '#30D158' }}>
+                            <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--drops-green)', boxShadow: '0 0 8px rgba(48,209,88,0.5)', animation: 'badgePulse 2s ease-in-out infinite' }}></div>
+                            <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--drops-green)' }}>
                                 Showing top 100 recent activities
                             </span>
                         </div>
@@ -1152,19 +1152,19 @@ export default function DashboardPage() {
                         {nearbyActivities.length > 0 ? (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                                 {nearbyActivities.slice(0, 100).map((act, i) => {
-                                    const iconMap = { 'JOIN_POOL': { icon: 'fa-user-plus', color: '#30D158', bg: 'rgba(48,209,88,0.12)' }, 'LEAVE_POOL': { icon: 'fa-user-minus', color: '#FF453A', bg: 'rgba(255,69,58,0.12)' }, 'CREATE_POOL': { icon: 'fa-plus-circle', color: '#BF5AF2', bg: 'rgba(191,90,242,0.12)' }, 'END_POOL': { icon: 'fa-check-circle', color: '#0A84FF', bg: 'rgba(10,132,255,0.12)' }, 'PAYMENT': { icon: 'fa-credit-card', color: '#30D158', bg: 'rgba(48,209,88,0.12)' } };
-                                    const style = iconMap[act.action_type] || { icon: 'fa-info-circle', color: '#FF9F0A', bg: 'rgba(255,159,10,0.12)' };
+                                    const iconMap = { 'JOIN_POOL': { icon: 'fa-user-plus', color: 'var(--drops-green)', bg: 'rgba(48,209,88,0.12)' }, 'LEAVE_POOL': { icon: 'fa-user-minus', color: 'var(--drops-red)', bg: 'rgba(255,69,58,0.12)' }, 'CREATE_POOL': { icon: 'fa-plus-circle', color: 'var(--drops-purple)', bg: 'rgba(191,90,242,0.12)' }, 'END_POOL': { icon: 'fa-check-circle', color: 'var(--drops-blue)', bg: 'rgba(10,132,255,0.12)' }, 'PAYMENT': { icon: 'fa-credit-card', color: 'var(--drops-green)', bg: 'rgba(48,209,88,0.12)' } };
+                                    const style = iconMap[act.action_type] || { icon: 'fa-info-circle', color: 'var(--drops-orange)', bg: 'rgba(255,159,10,0.12)' };
                                     const isOwn = act.user_id === user?.id;
                                     const actorName = isOwn ? 'You' : (act.user?.full_name || act.user?.username || 'Someone nearby');
                                     const timeAgo = (() => { const d = new Date(act.created_at); const diff = Date.now() - d.getTime(); if (diff < 60000) return 'Just now'; if (diff < 3600000) return `${Math.floor(diff/60000)}m ago`; if (diff < 86400000) return `${Math.floor(diff/3600000)}h ago`; return `${Math.floor(diff/86400000)}d ago`; })();
                                     return (
-                                        <div key={act.id || i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', background: isOwn ? 'rgba(48,209,88,0.04)' : 'rgba(255,255,255,0.03)', borderRadius: 18, border: `1px solid ${isOwn ? 'rgba(48,209,88,0.1)' : 'rgba(255,255,255,0.05)'}` }}>
+                                        <div key={act.id || i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px', background: isOwn ? 'rgba(48,209,88,0.04)' : 'var(--drops-surface)', borderRadius: 18, border: `1px solid ${isOwn ? 'rgba(48,209,88,0.1)' : 'var(--drops-surface)'}` }}>
                                             <div style={{ width: 40, height: 40, borderRadius: 12, background: style.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                                 <i className={`fas ${style.icon}`} style={{ color: style.color, fontSize: 16 }}></i>
                                             </div>
                                             <div style={{ flex: 1, minWidth: 0 }}>
-                                                <div style={{ fontSize: 14, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                                    <span style={{ color: isOwn ? '#30D158' : '#fff' }}>{actorName}</span>{' '}
+                                                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--drops-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                                    <span style={{ color: isOwn ? 'var(--drops-green)' : 'var(--drops-text-primary)' }}>{actorName}</span>{' '}
                                                     <span style={{ fontWeight: 400, color: 'var(--drops-text-secondary)' }}>{act.description ? act.description.replace(/^You\s+/i, '') : act.action_type}</span>
                                                 </div>
                                                 <div style={{ fontSize: 12, color: 'var(--drops-text-tertiary)', marginTop: 2 }}>{timeAgo}</div>
@@ -1221,20 +1221,20 @@ export default function DashboardPage() {
                                     
                                     let statusColor, statusBg, statusIcon, statusText;
                                     if (isDelivered) {
-                                        statusColor = '#30D158'; statusBg = 'rgba(48,209,88,0.12)'; statusIcon = 'fa-check-circle'; statusText = 'Completed';
+                                        statusColor = 'var(--drops-green)'; statusBg = 'rgba(48,209,88,0.12)'; statusIcon = 'fa-check-circle'; statusText = 'Completed';
                                     } else if (isCancelled) {
-                                        statusColor = '#FF453A'; statusBg = 'rgba(255,69,58,0.12)'; statusIcon = 'fa-times-circle'; statusText = 'Cancelled';
+                                        statusColor = 'var(--drops-red)'; statusBg = 'rgba(255,69,58,0.12)'; statusIcon = 'fa-times-circle'; statusText = 'Cancelled';
                                     } else {
                                         // Both 'verifying_payment' and 'ordered' will just show as 'In Progress'
-                                        statusColor = '#FF9F0A'; statusBg = 'rgba(255,159,10,0.12)'; statusIcon = 'fa-clock'; statusText = 'In Progress';
+                                        statusColor = 'var(--drops-orange)'; statusBg = 'rgba(255,159,10,0.12)'; statusIcon = 'fa-clock'; statusText = 'In Progress';
                                     }
 
                                     return (
-                                        <div key={order.id} className="drops-card animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s`, marginBottom: 0, cursor: 'pointer', transition: 'all 0.2s ease', border: isDelivered ? '1px solid rgba(48,209,88,0.2)' : '1px solid rgba(255,255,255,0.05)' }} onClick={() => setExpandedOrderId(isExpanded ? null : order.id)}>
+                                        <div key={order.id} className="drops-card animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s`, marginBottom: 0, cursor: 'pointer', transition: 'all 0.2s ease', border: isDelivered ? '1px solid rgba(48,209,88,0.2)' : '1px solid var(--drops-surface)' }} onClick={() => setExpandedOrderId(isExpanded ? null : order.id)}>
                                             {/* Compact Header — always visible */}
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                                 <div style={{ display: 'flex', gap: 12, alignItems: 'center', flex: 1, minWidth: 0 }}>
-                                                    <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                                    <div style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--drops-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                                         {getPoolLogo(order.pool_name) ? (
                                                             <img src={getPoolLogo(order.pool_name)} alt="logo" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 12 }} />
                                                         ) : (
@@ -1243,7 +1243,7 @@ export default function DashboardPage() {
                                                     </div>
                                                     <div style={{ minWidth: 0 }}>
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                                            <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: 'white', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{order.pool_name}</h3>
+                                                            <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: 'var(--drops-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{order.pool_name}</h3>
                                                         </div>
                                                         <div style={{ fontSize: 12, color: 'var(--drops-text-secondary)', marginTop: 2, display: 'flex', gap: 8, alignItems: 'center' }}>
                                                             {new Date(order.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
@@ -1253,7 +1253,7 @@ export default function DashboardPage() {
                                                     </div>
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, flexShrink: 0 }}>
-                                                    <div style={{ fontSize: 16, fontWeight: 800, color: 'white' }}>₹{order.myTotal}</div>
+                                                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--drops-text-primary)' }}>₹{order.myTotal}</div>
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: statusBg, color: statusColor, padding: '3px 8px', borderRadius: 100, fontSize: 10, fontWeight: 700 }}>
                                                         <i className={`fas ${statusIcon}`} style={{ fontSize: 8 }}></i>
                                                         {statusText}
@@ -1263,14 +1263,14 @@ export default function DashboardPage() {
 
                                             {/* Expanded Details — click to reveal */}
                                             {isExpanded && order.myItems.length > 0 && (
-                                                <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)' }} onClick={(e) => e.stopPropagation()}>
+                                                <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--drops-surface-hover)' }} onClick={(e) => e.stopPropagation()}>
                                                     {/* Item list */}
                                                     <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--drops-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>Items Ordered</div>
                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                                                         {order.myItems.map((item, idx) => (
                                                             <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                                                 <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                                                                    <div style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(255,255,255,0.03)', overflow: 'hidden', flexShrink: 0 }}>
+                                                                    <div style={{ width: 36, height: 36, borderRadius: 8, background: 'var(--drops-surface)', overflow: 'hidden', flexShrink: 0 }}>
                                                                         {item.product?.image_url ? (
                                                                             <img src={item.product.image_url} alt={item.product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                                                         ) : (
@@ -1282,7 +1282,7 @@ export default function DashboardPage() {
                                                                         <div style={{ fontSize: 11, color: 'var(--drops-text-secondary)' }}>Qty: {item.quantity} × ₹{item.price_at_time}</div>
                                                                     </div>
                                                                 </div>
-                                                                <div style={{ fontSize: 13, fontWeight: 700, color: 'white' }}>
+                                                                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--drops-text-primary)' }}>
                                                                     ₹{item.price_at_time * item.quantity}
                                                                 </div>
                                                             </div>
@@ -1290,34 +1290,34 @@ export default function DashboardPage() {
                                                     </div>
 
                                                     {/* Bill Breakdown */}
-                                                    <div style={{ marginTop: 16, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: 14 }}>
+                                                    <div style={{ marginTop: 16, background: 'var(--drops-surface)', border: '1px solid var(--drops-surface-hover)', borderRadius: 14, padding: 14 }}>
                                                         <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--drops-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10 }}>Bill Breakdown</div>
                                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                                                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--drops-text-secondary)' }}>
                                                                 <span>Items Total</span>
-                                                                <span style={{ color: 'white', fontWeight: 600 }}>₹{order.goodsTotal}</span>
+                                                                <span style={{ color: 'var(--drops-text-primary)', fontWeight: 600 }}>₹{order.goodsTotal}</span>
                                                             </div>
                                                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--drops-text-secondary)' }}>
                                                                 <span>Delivery Fee (your share)</span>
-                                                                <span style={{ color: 'white', fontWeight: 600 }}>₹{order.deliveryShare}</span>
+                                                                <span style={{ color: 'var(--drops-text-primary)', fontWeight: 600 }}>₹{order.deliveryShare}</span>
                                                             </div>
                                                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--drops-text-secondary)' }}>
                                                                 <span>Platform Fee (your share)</span>
-                                                                <span style={{ color: 'white', fontWeight: 600 }}>₹{order.platformShare}</span>
+                                                                <span style={{ color: 'var(--drops-text-primary)', fontWeight: 600 }}>₹{order.platformShare}</span>
                                                             </div>
                                                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--drops-text-secondary)' }}>
                                                                 <span>Savify Service Fee</span>
-                                                                <span style={{ color: 'white', fontWeight: 600 }}>₹{order.savifyFee}</span>
+                                                                <span style={{ color: 'var(--drops-text-primary)', fontWeight: 600 }}>₹{order.savifyFee}</span>
                                                             </div>
-                                                            <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 10, marginTop: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                                                <span style={{ fontSize: 14, fontWeight: 700, color: 'white' }}>Total Paid</span>
-                                                                <span style={{ fontSize: 18, fontWeight: 800, color: '#30D158' }}>₹{order.myTotal}</span>
+                                                            <div style={{ borderTop: '1px solid var(--drops-border)', paddingTop: 10, marginTop: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                                <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--drops-text-primary)' }}>Total Paid</span>
+                                                                <span style={{ fontSize: 18, fontWeight: 800, color: 'var(--drops-green)' }}>₹{order.myTotal}</span>
                                                             </div>
                                                         </div>
                                                         {(!isDelivered && !isCancelled) && (
-                                                            <div style={{ marginTop: 16, padding: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 10, display: 'flex', alignItems: 'flex-start', gap: 10, border: '1px solid rgba(48,209,88,0.2)' }}>
-                                                                <i className="fab fa-whatsapp" style={{ color: '#30D158', fontSize: 16, marginTop: 2 }}></i>
-                                                                <div style={{ fontSize: 12, color: 'white', lineHeight: 1.4 }}>
+                                                            <div style={{ marginTop: 16, padding: 12, background: 'var(--drops-surface)', borderRadius: 10, display: 'flex', alignItems: 'flex-start', gap: 10, border: '1px solid rgba(48,209,88,0.2)' }}>
+                                                                <i className="fab fa-whatsapp" style={{ color: 'var(--drops-green)', fontSize: 16, marginTop: 2 }}></i>
+                                                                <div style={{ fontSize: 12, color: 'var(--drops-text-primary)', lineHeight: 1.4 }}>
                                                                     {(order.id.startsWith('sub_') || order.id.startsWith('cp_')) ? (
                                                                         <>
                                                                             <strong>Order placed successfully.</strong><br/>
@@ -1337,7 +1337,7 @@ export default function DashboardPage() {
                                             )}
 
                                             {isExpanded && order.myItems.length === 0 && (
-                                                <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.06)', textAlign: 'center', color: 'var(--drops-text-tertiary)', fontSize: 13, fontStyle: 'italic' }}>
+                                                <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid var(--drops-surface-hover)', textAlign: 'center', color: 'var(--drops-text-tertiary)', fontSize: 13, fontStyle: 'italic' }}>
                                                     Order placed successfully.
                                                 </div>
                                             )}
@@ -1365,7 +1365,7 @@ export default function DashboardPage() {
                                     const logoCount = category.logos.length;
                                     const isSingleLogo = logoCount === 1;
                                     const logoSize = logoCount >= 4 ? '44px' : logoCount >= 2 ? '52px' : '80px';
-                                    const ACTIVE_POOLS = ['fun_and_thrill', 'ai', 'food', 'education', 'socials', 'telecom'];
+                                    const ACTIVE_POOLS = ['quick_commerce', 'fun_and_thrill', 'ai', 'food', 'education', 'socials', 'telecom'];
                                     const isActive = ACTIVE_POOLS.includes(category.id);
                                     return (
                                         <div 
@@ -1385,13 +1385,13 @@ export default function DashboardPage() {
                                                 overflow: 'hidden',
                                                 padding: '32px 24px', 
                                                 marginBottom: 0,
-                                                background: isActive ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.015)',
-                                                border: `1px solid ${isActive ? category.border : 'rgba(255,255,255,0.04)'}`,
+                                                background: isActive ? 'var(--drops-surface)' : 'var(--drops-surface)',
+                                                border: `1px solid ${isActive ? category.border : 'var(--drops-surface)'}`,
                                                 borderRadius: '24px',
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 gap: '32px',
-                                                boxShadow: isActive ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)` : '0 4px 16px rgba(0,0,0,0.2)',
+                                                boxShadow: isActive ? `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--drops-surface-elevated)` : '0 4px 16px rgba(0,0,0,0.2)',
                                                 animationDelay: `${catIndex * 0.08}s`,
                                                 opacity: isActive ? 1 : 0.45,
                                                 filter: isActive ? 'none' : 'grayscale(100%)',
@@ -1403,7 +1403,7 @@ export default function DashboardPage() {
                                             
                                             {/* Coming Soon Badge */}
                                             {!isActive && (
-                                                <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 2, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', backdropFilter: 'blur(10px)', padding: '6px 14px', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                                                <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 2, background: 'var(--drops-border)', border: '1px solid var(--drops-border-light)', backdropFilter: 'blur(10px)', padding: '6px 14px', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: 'var(--drops-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                                                     Coming Soon
                                                 </div>
                                             )}
@@ -1418,11 +1418,11 @@ export default function DashboardPage() {
                                             
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                                                 <div>
-                                                    <h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: isActive ? 'white' : 'rgba(255,255,255,0.7)', letterSpacing: '-0.5px' }}>{category.name}</h3>
+                                                    <h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: isActive ? 'var(--drops-text-primary)' : 'rgba(255,255,255,0.7)', letterSpacing: '-0.5px' }}>{category.name}</h3>
                                                     <p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{category.subtitle}</p>
                                                 </div>
                                                 {isActive && (
-                                                    <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
+                                                    <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--drops-surface-elevated)', border: '1px solid var(--sv-border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--drops-text-primary)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
                                                         <i className="fas fa-arrow-right"></i>
                                                     </div>
                                                 )}
@@ -1437,7 +1437,7 @@ export default function DashboardPage() {
                         {activeTab === 'pools' && activeCategory && (
                             <button 
                                 onClick={() => { triggerLightHaptic(); setActiveCategory(null); }}
-                                style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '14px', fontWeight: '600', cursor: 'pointer', marginBottom: '20px', padding: '10px 18px', borderRadius: '100px', backdropFilter: 'blur(10px)', transition: 'all 0.2s ease' }}
+                                style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--drops-border)', border: '1px solid var(--drops-border-light)', color: 'var(--drops-text-primary)', fontSize: '14px', fontWeight: '600', cursor: 'pointer', marginBottom: '20px', padding: '10px 18px', borderRadius: '100px', backdropFilter: 'blur(10px)', transition: 'all 0.2s ease' }}
                             >
                                 <i className="fas fa-arrow-left" style={{ fontSize: '13px' }}></i> Back to Categories
                             </button>
@@ -1518,7 +1518,7 @@ export default function DashboardPage() {
                                                                         }
                                                                     }}
                                                                     disabled={isJoining || isClosed || (pool.status === 'completed' && !userIn)}
-                                                                    style={{ padding: '6px 14px', borderRadius: 100, border: 'none', fontSize: 12, fontWeight: 700, cursor: isJoining ? 'wait' : (isClosed || (pool.status === 'completed' && !userIn)) ? 'not-allowed' : 'pointer', background: userIn ? 'rgba(255,69,58,0.15)' : `${colors.accent}22`, color: userIn ? '#FF453A' : colors.accent, opacity: isClosed || (pool.status === 'completed' && !userIn) ? 0.5 : 1 }}
+                                                                    style={{ padding: '6px 14px', borderRadius: 100, border: 'none', fontSize: 12, fontWeight: 700, cursor: isJoining ? 'wait' : (isClosed || (pool.status === 'completed' && !userIn)) ? 'not-allowed' : 'pointer', background: userIn ? 'rgba(255,69,58,0.15)' : `${colors.accent}22`, color: userIn ? 'var(--drops-red)' : colors.accent, opacity: isClosed || (pool.status === 'completed' && !userIn) ? 0.5 : 1 }}
                                                                 >
                                                                     {isJoining ? '...' : (isClosed || pool.status === 'completed') ? (userIn ? 'Leave' : 'Ended') : (userIn ? 'Leave' : 'Join')}
                                                                 </button>
@@ -1529,7 +1529,7 @@ export default function DashboardPage() {
                                                         <div style={{ padding: '0 16px 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
                                                             <div className="drops-slot-avatars">
                                                                 {members.slice(0, 5).map((m, i) => (
-                                                                    <div key={m.id} className="drops-slot-avatar" style={{ background: ['#0A84FF','#BF5AF2','#FF375F','#30D158','#FF9F0A'][i % 5] }}>
+                                                                    <div key={m.id} className="drops-slot-avatar" style={{ background: ['var(--drops-blue)','var(--drops-purple)','var(--drops-pink)','var(--drops-green)','var(--drops-orange)'][i % 5] }}>
                                                                         {m.user?.full_name?.charAt(0) || '?'}
                                                                     </div>
                                                                 ))}
@@ -1545,7 +1545,7 @@ export default function DashboardPage() {
                                             <>
                                                 {filtered.slice(0, 2).map((pool, index) => renderCustomPoolCard(pool, index))}
                                                 {filtered.length > 2 && (
-                                                    <button onClick={() => { triggerLightHaptic(); setShowAllCustomPools(true); }} style={{ width: '100%', padding: '12px', background: 'rgba(255,255,255,0.05)', color: 'var(--drops-blue)', border: '1px solid var(--drops-border)', borderRadius: 100, fontSize: 13, fontWeight: 700, cursor: 'pointer', marginTop: 8 }}>
+                                                    <button onClick={() => { triggerLightHaptic(); setShowAllCustomPools(true); }} style={{ width: '100%', padding: '12px', background: 'var(--drops-surface)', color: 'var(--drops-blue)', border: '1px solid var(--drops-border)', borderRadius: 100, fontSize: 13, fontWeight: 700, cursor: 'pointer', marginTop: 8 }}>
                                                         View all Custom Drops
                                                     </button>
                                                 )}
@@ -1576,13 +1576,13 @@ export default function DashboardPage() {
                                                 overflow: 'hidden',
                                                 padding: '32px 24px', 
                                                 marginBottom: 0,
-                                                background: 'rgba(255,255,255,0.03)',
+                                                background: 'var(--drops-surface)',
                                                 border: `1px solid ${software.color}33`,
                                                 borderRadius: '24px',
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 gap: '32px',
-                                                boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`
+                                                boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--drops-surface-elevated)`
                                             }}
                                         >
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: software.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
@@ -1598,10 +1598,10 @@ export default function DashboardPage() {
                                             
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                                                 <div>
-                                                    <h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'white', letterSpacing: '-0.5px' }}>{software.name}</h3>
+                                                    <h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'var(--drops-text-primary)', letterSpacing: '-0.5px' }}>{software.name}</h3>
                                                     <p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{software.subtitle}</p>
                                                 </div>
-                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
+                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--drops-surface-elevated)', border: '1px solid var(--sv-border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--drops-text-primary)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
                                                     <i className="fas fa-arrow-right"></i>
                                                 </div>
                                             </div>
@@ -1632,13 +1632,13 @@ export default function DashboardPage() {
                                                 overflow: 'hidden',
                                                 padding: '32px 24px', 
                                                 marginBottom: 0,
-                                                background: 'rgba(255,255,255,0.03)',
+                                                background: 'var(--drops-surface)',
                                                 border: `1px solid ${service.color}33`,
                                                 borderRadius: '24px',
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 gap: '32px',
-                                                boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`,
+                                                boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--drops-surface-elevated)`,
                                                 animationDelay: `${sIdx * 0.08}s`
                                             }}
                                         >
@@ -1655,10 +1655,10 @@ export default function DashboardPage() {
                                             
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                                                 <div>
-                                                    <h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'white', letterSpacing: '-0.5px' }}>{service.name}</h3>
+                                                    <h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'var(--drops-text-primary)', letterSpacing: '-0.5px' }}>{service.name}</h3>
                                                     <p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p>
                                                 </div>
-                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
+                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--drops-surface-elevated)', border: '1px solid var(--sv-border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--drops-text-primary)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
                                                     <i className="fas fa-arrow-right"></i>
                                                 </div>
                                             </div>
@@ -1677,15 +1677,15 @@ export default function DashboardPage() {
                                 ].map((service, sIdx) => {
                                     const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
-                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
+                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'var(--drops-surface)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--drops-surface-elevated)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                                 <div style={{ width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><img src={service.logo} alt={service.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '12px' }} /></div>
                                                 <div style={{ background: `${service.color}22`, color: service.color, padding: '6px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '700', border: `1px solid ${service.color}44` }}>{totalMembers > 0 ? `${totalMembers} pooling` : 'Open'}</div>
                                             </div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'white', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
-                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
+                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'var(--drops-text-primary)', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
+                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--drops-surface-elevated)', border: '1px solid var(--sv-border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--drops-text-primary)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
                                             </div>
                                         </div>
                                     );
@@ -1702,15 +1702,15 @@ export default function DashboardPage() {
                                 ].map((service, sIdx) => {
                                     const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
-                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
+                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'var(--drops-surface)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--drops-surface-elevated)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                                 <div style={{ width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><img src={service.logo} alt={service.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '12px' }} /></div>
                                                 <div style={{ background: `${service.color}22`, color: service.color, padding: '6px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '700', border: `1px solid ${service.color}44` }}>{totalMembers > 0 ? `${totalMembers} pooling` : 'Open'}</div>
                                             </div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'white', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
-                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
+                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'var(--drops-text-primary)', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
+                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--drops-surface-elevated)', border: '1px solid var(--sv-border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--drops-text-primary)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
                                             </div>
                                         </div>
                                     );
@@ -1727,15 +1727,15 @@ export default function DashboardPage() {
                                 ].map((service, sIdx) => {
                                     const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
-                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
+                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'var(--drops-surface)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--drops-surface-elevated)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                                 <div style={{ width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><img src={service.logo} alt={service.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '12px' }} /></div>
                                                 <div style={{ background: `${service.color}22`, color: service.color, padding: '6px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '700', border: `1px solid ${service.color}44` }}>{totalMembers > 0 ? `${totalMembers} pooling` : 'Open'}</div>
                                             </div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'white', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
-                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
+                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'var(--drops-text-primary)', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
+                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--drops-surface-elevated)', border: '1px solid var(--sv-border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--drops-text-primary)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
                                             </div>
                                         </div>
                                     );
@@ -1752,15 +1752,15 @@ export default function DashboardPage() {
                                 ].map((service, sIdx) => {
                                     const totalMembers = countPoolingForPlans(subPlanNames(service.id));
                                     return (
-                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'rgba(255,255,255,0.03)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)`, animationDelay: `${sIdx * 0.08}s` }}>
+                                        <div key={service.id} className="drops-card animate-fade-in-up" onClick={() => { triggerLightHaptic(); setShowSubPricing({ platform: service.id }); }} style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden', padding: '32px 24px', marginBottom: 0, background: 'var(--drops-surface)', border: `1px solid ${service.color}33`, borderRadius: '24px', display: 'flex', flexDirection: 'column', gap: '32px', boxShadow: `0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 var(--drops-surface-elevated)`, animationDelay: `${sIdx * 0.08}s` }}>
                                             <div style={{ position: 'absolute', width: '250px', height: '250px', background: service.color, filter: 'blur(80px)', top: '-100px', right: '-100px', zIndex: 0, opacity: 0.2, pointerEvents: 'none' }}></div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                                 <div style={{ width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><img src={service.logo} alt={service.name} style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '12px' }} /></div>
                                                 <div style={{ background: `${service.color}22`, color: service.color, padding: '6px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: '700', border: `1px solid ${service.color}44` }}>{totalMembers > 0 ? `${totalMembers} pooling` : 'Open'}</div>
                                             </div>
                                             <div style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'white', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
-                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
+                                                <div><h3 style={{ margin: '0 0 6px 0', fontSize: '24px', fontWeight: '800', color: 'var(--drops-text-primary)', letterSpacing: '-0.5px' }}>{service.name}</h3><p style={{ margin: 0, fontSize: '14px', color: 'var(--drops-text-secondary)', fontWeight: '500' }}>{service.subtitle}</p></div>
+                                                <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'var(--drops-surface-elevated)', border: '1px solid var(--sv-border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--drops-text-primary)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}><i className="fas fa-arrow-right"></i></div>
                                             </div>
                                         </div>
                                     );
@@ -1910,12 +1910,12 @@ export default function DashboardPage() {
                                                 btnText = 'Leave';
                                                 btnAction = () => handleLeaveFixed(dailySlot.id);
                                                 btnBg = 'rgba(255,69,58,0.15)';
-                                                btnColor = '#FF453A';
+                                                btnColor = 'var(--drops-red)';
                                             }
                                         } else if (isFull) {
                                             btnText = 'Full';
                                             btnAction = () => {};
-                                            btnBg = 'rgba(255,255,255,0.05)';
+                                            btnBg = 'var(--drops-surface)';
                                             btnColor = 'var(--drops-text-tertiary)';
                                         }
                                         if (isJoiningThis) btnText = '...';
@@ -1947,7 +1947,7 @@ export default function DashboardPage() {
                                                             </span>
                                                             {isFull && <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--drops-green)' }}>Ready to go!</span>}
                                                         </div>
-                                                        <div style={{ height: 8, background: 'rgba(255,255,255,0.08)', borderRadius: 100, overflow: 'hidden' }}>
+                                                        <div style={{ height: 8, background: 'var(--drops-border)', borderRadius: 100, overflow: 'hidden' }}>
                                                             <div style={{
                                                                 height: '100%', width: `${progressPercent}%`,
                                                                 background: isFull ? 'var(--drops-green)' : `linear-gradient(90deg, ${colors.accent}, ${colors.accent}99)`,
@@ -1961,7 +1961,7 @@ export default function DashboardPage() {
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 12 }}>
                                                             <div className="drops-slot-avatars">
                                                                 {slotMembers.slice(0, 6).map((m, i) => (
-                                                                    <div key={m.id} className="drops-slot-avatar" style={{ background: ['#0A84FF','#BF5AF2','#FF375F','#30D158','#FF9F0A','#64D2FF'][i % 6] }}>
+                                                                    <div key={m.id} className="drops-slot-avatar" style={{ background: ['var(--drops-blue)','var(--drops-purple)','var(--drops-pink)','var(--drops-green)','var(--drops-orange)','var(--drops-teal)'][i % 6] }}>
                                                                         {m.display_name?.charAt(0) || '?'}
                                                                     </div>
                                                                 ))}
@@ -2061,14 +2061,14 @@ export default function DashboardPage() {
                                                             
                                                             if (isQC && (activeCategory === 'quick_commerce')) {
                                                                 return (
-                                                                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--drops-blue)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>
+                                                                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--drops-blue)', color: 'var(--drops-text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>
                                                                         <i className="fas fa-shopping-cart"></i>
                                                                     </div>
                                                                 );
                                                             }
                                                             if (isFood && (activeCategory === 'food')) {
                                                                 return (
-                                                                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#FF6B00', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>
+                                                                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#FF6B00', color: 'var(--drops-text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>
                                                                         <i className="fas fa-utensils"></i>
                                                                     </div>
                                                                 );
@@ -2081,7 +2081,7 @@ export default function DashboardPage() {
                                             </div>
 
                                             {isExpanded && (
-                                                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--drops-border)', borderTop: 'none', borderRadius: '0 0 20px 20px', padding: '4px 16px 16px' }}>
+                                                <div style={{ background: 'var(--drops-surface)', border: '1px solid var(--drops-border)', borderTop: 'none', borderRadius: '0 0 20px 20px', padding: '4px 16px 16px' }}>
                                                     <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--drops-text-tertiary)', padding: '12px 0 8px' }}>
                                                         {false ? 'Your Time Slots' : "Today's Time Slots"}
                                                     </div>
@@ -2096,7 +2096,7 @@ export default function DashboardPage() {
                                                         const count = contributors.length;
 
                                                         return (
-                                                            <div key={slot.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: isCurrent ? 'rgba(255,255,255,0.06)' : 'transparent', borderRadius: 12, marginBottom: 4, border: isCurrent ? `1px solid ${colors.accent}33` : '1px solid transparent' }}>
+                                                            <div key={slot.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: isCurrent ? 'var(--drops-surface-hover)' : 'transparent', borderRadius: 12, marginBottom: 4, border: isCurrent ? `1px solid ${colors.accent}33` : '1px solid transparent' }}>
                                                                 <div style={{ minWidth: 100 }}>
                                                                     <div style={{ fontSize: 14, fontWeight: 600, color: isCurrent ? colors.accent : 'var(--drops-text-primary)' }}>
                                                                         {slot.slot_start} – {slot.slot_end}
@@ -2190,8 +2190,8 @@ export default function DashboardPage() {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 style={{
-                                    width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--drops-border)',
-                                    padding: '16px 16px 16px 44px', borderRadius: '100px', color: 'white', fontSize: 15, fontWeight: 600, outline: 'none'
+                                    width: '100%', background: 'var(--drops-surface)', border: '1px solid var(--drops-border)',
+                                    padding: '16px 16px 16px 44px', borderRadius: '100px', color: 'var(--drops-text-primary)', fontSize: 15, fontWeight: 600, outline: 'none'
                                 }}
                             />
                         </div>
@@ -2213,15 +2213,15 @@ export default function DashboardPage() {
             {leavingPoolConfirm && (
                 <div style={{ position: 'fixed', inset: 0, background: 'rgba(10,10,10,0.85)', backdropFilter: 'blur(10px)', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
                     <Savio state="crying" size={80} showBubble={false} />
-                    <h2 style={{ fontSize: 24, fontWeight: 800, marginTop: 24, marginBottom: 12, color: 'white', textAlign: 'center' }}>Are you sure?</h2>
+                    <h2 style={{ fontSize: 24, fontWeight: 800, marginTop: 24, marginBottom: 12, color: 'var(--drops-text-primary)', textAlign: 'center' }}>Are you sure?</h2>
                     <p style={{ color: 'var(--drops-text-secondary)', textAlign: 'center', fontSize: 15, marginBottom: 32, lineHeight: 1.5, maxWidth: 300 }}>
                         You created this pool. Leaving it will <strong>permanently delete it</strong> for everyone currently joined.
                     </p>
                     <div style={{ display: 'flex', gap: 16, width: '100%', maxWidth: 300 }}>
-                        <button onClick={() => setLeavingPoolConfirm(null)} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'rgba(255,255,255,0.1)', color: 'white', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+                        <button onClick={() => setLeavingPoolConfirm(null)} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'var(--drops-surface-elevated)', color: 'var(--drops-text-primary)', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                             Cancel
                         </button>
-                        <button onClick={confirmLeaveCustom} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'var(--drops-red)', color: 'white', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+                        <button onClick={confirmLeaveCustom} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'var(--drops-red)', color: 'var(--drops-text-primary)', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                             Delete Drop
                         </button>
                     </div>
@@ -2232,15 +2232,15 @@ export default function DashboardPage() {
             {endingPoolConfirm && (
                 <div style={{ position: 'fixed', inset: 0, background: 'rgba(10,10,10,0.85)', backdropFilter: 'blur(10px)', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
                     <Savio state="proud" size={80} showBubble={false} />
-                    <h2 style={{ fontSize: 24, fontWeight: 800, marginTop: 24, marginBottom: 12, color: 'white', textAlign: 'center' }}>Ready to End?</h2>
+                    <h2 style={{ fontSize: 24, fontWeight: 800, marginTop: 24, marginBottom: 12, color: 'var(--drops-text-primary)', textAlign: 'center' }}>Ready to End?</h2>
                     <p style={{ color: 'var(--drops-text-secondary)', textAlign: 'center', fontSize: 15, marginBottom: 32, lineHeight: 1.5, maxWidth: 300 }}>
                         Ending this pool means no new members can join, but current members can still see it in their history.
                     </p>
                     <div style={{ display: 'flex', gap: 16, width: '100%', maxWidth: 300 }}>
-                        <button onClick={() => setEndingPoolConfirm(null)} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'rgba(255,255,255,0.1)', color: 'white', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+                        <button onClick={() => setEndingPoolConfirm(null)} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'var(--drops-surface-elevated)', color: 'var(--drops-text-primary)', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                             Cancel
                         </button>
-                        <button onClick={confirmEndCustom} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'var(--drops-orange)', color: 'white', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+                        <button onClick={confirmEndCustom} style={{ flex: 1, padding: 16, borderRadius: 100, border: 'none', background: 'var(--drops-orange)', color: 'var(--drops-text-primary)', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                             End Drop
                         </button>
                     </div>
@@ -2309,31 +2309,31 @@ export default function DashboardPage() {
 
             {/* ═══ Real Payment Gateway for Subscription Pools ═══ */}
             {showPaymentSim && (
-                <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(16px)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, animation: 'fadeIn 0.3s ease-out' }}>
-                    <div className="animate-fade-in-up" style={{ width: '100%', maxWidth: 380, borderRadius: 28, background: '#111', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden', boxShadow: '0 24px 80px rgba(0,0,0,0.6)' }}>
+                <div style={{ position: 'fixed', inset: 0, background: 'var(--sv-overlay)', backdropFilter: 'blur(16px)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, animation: 'fadeIn 0.3s ease-out' }}>
+                    <div className="animate-fade-in-up" style={{ width: '100%', maxWidth: 380, borderRadius: 28, background: '#111', border: '1px solid var(--drops-surface-elevated)', overflow: 'hidden', boxShadow: '0 24px 80px rgba(0,0,0,0.6)' }}>
                         {/* Header */}
-                        <div style={{ padding: '28px 28px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                        <div style={{ padding: '28px 28px 20px', borderBottom: '1px solid var(--drops-surface-hover)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                                 <div style={{ width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg, #0A84FF, #5E5CE6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <i className="fas fa-credit-card" style={{ color: '#fff', fontSize: 20 }}></i>
+                                    <i className="fas fa-credit-card" style={{ color: 'var(--drops-text-primary)', fontSize: 20 }}></i>
                                 </div>
                                 <div>
-                                    <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: '#fff' }}>Payment Summary</h3>
-                                    <div style={{ fontSize: 13, color: '#888', marginTop: 2 }}>{showPaymentSim.planName}</div>
+                                    <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: 'var(--drops-text-primary)' }}>Payment Summary</h3>
+                                    <div style={{ fontSize: 13, color: 'var(--drops-text-secondary)', marginTop: 2 }}>{showPaymentSim.planName}</div>
                                 </div>
                             </div>
-                            <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                            <div style={{ background: 'var(--drops-surface)', border: '1px solid var(--drops-surface-hover)', borderRadius: 16, padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: '#aaa' }}>
                                     <span>Split Amount</span>
-                                    <span style={{ color: '#fff', fontWeight: 600 }}>₹{showPaymentSim.splitPrice}</span>
+                                    <span style={{ color: 'var(--drops-text-primary)', fontWeight: 600 }}>₹{showPaymentSim.splitPrice}</span>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: '#aaa' }}>
                                     <span>Platform Fee</span>
-                                    <span style={{ color: '#fff', fontWeight: 600 }}>₹{showPaymentSim.platformFee}</span>
+                                    <span style={{ color: 'var(--drops-text-primary)', fontWeight: 600 }}>₹{showPaymentSim.platformFee}</span>
                                 </div>
-                                <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 10, display: 'flex', justifyContent: 'space-between', fontSize: 16, fontWeight: 700, color: '#fff' }}>
+                                <div style={{ borderTop: '1px solid var(--drops-border)', paddingTop: 10, display: 'flex', justifyContent: 'space-between', fontSize: 16, fontWeight: 700, color: 'var(--drops-text-primary)' }}>
                                     <span>Total</span>
-                                    <span style={{ color: '#30D158' }}>₹{showPaymentSim.splitPrice + showPaymentSim.platformFee}</span>
+                                    <span style={{ color: 'var(--drops-green)' }}>₹{showPaymentSim.splitPrice + showPaymentSim.platformFee}</span>
                                 </div>
                             </div>
                         </div>
@@ -2341,26 +2341,26 @@ export default function DashboardPage() {
                         <div style={{ padding: 28, display: 'flex', flexDirection: 'column', gap: 12 }}>
                             {/* Phone number input */}
                             <div>
-                                <label style={{ fontSize: 12, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6, display: 'block' }}>Phone Number</label>
+                                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--drops-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6, display: 'block' }}>Phone Number</label>
                                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                                    <span style={{ position: 'absolute', left: 16, color: '#666', fontSize: 14, fontWeight: 600, zIndex: 2 }}>+91</span>
+                                    <span style={{ position: 'absolute', left: 16, color: 'var(--drops-text-tertiary)', fontSize: 14, fontWeight: 600, zIndex: 2 }}>+91</span>
                                     <input
                                         type="tel"
                                         value={paymentPhone}
                                         onChange={(e) => setPaymentPhone(e.target.value.replace(/[^0-9]/g, '').slice(0, 10))}
                                         placeholder="Enter 10-digit number"
                                         maxLength={10}
-                                        style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: `1px solid ${paymentPhone.length === 10 ? 'rgba(52,199,89,0.4)' : 'rgba(255,255,255,0.1)'}`, padding: '14px 16px 14px 52px', borderRadius: 14, color: 'white', fontSize: 16, fontWeight: 600, outline: 'none', transition: 'border-color 0.2s', letterSpacing: '1px' }}
+                                        style={{ width: '100%', background: 'var(--drops-surface)', border: `1px solid ${paymentPhone.length === 10 ? 'rgba(52,199,89,0.4)' : 'var(--drops-surface-elevated)'}`, padding: '14px 16px 14px 52px', borderRadius: 14, color: 'var(--drops-text-primary)', fontSize: 16, fontWeight: 600, outline: 'none', transition: 'border-color 0.2s', letterSpacing: '1px' }}
                                     />
                                     {paymentPhone.length === 10 && (
-                                        <i className="fas fa-check-circle" style={{ position: 'absolute', right: 16, color: '#30D158', fontSize: 16 }}></i>
+                                        <i className="fas fa-check-circle" style={{ position: 'absolute', right: 16, color: 'var(--drops-green)', fontSize: 16 }}></i>
                                     )}
                                 </div>
                             </div>
                             <button 
                                 onClick={handleRealPayment}
                                 disabled={paymentProcessing || paymentPhone.length !== 10}
-                                style={{ width: '100%', padding: 18, borderRadius: 16, border: 'none', background: paymentProcessing ? '#222' : (paymentPhone.length === 10 ? 'linear-gradient(135deg, #30D158, #28a745)' : 'rgba(255,255,255,0.08)'), color: paymentProcessing ? '#666' : (paymentPhone.length === 10 ? '#fff' : '#555'), fontSize: 16, fontWeight: 800, cursor: paymentProcessing ? 'wait' : (paymentPhone.length === 10 ? 'pointer' : 'not-allowed'), display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, transition: 'all 0.2s', boxShadow: paymentPhone.length === 10 ? '0 8px 25px rgba(52,199,89,0.3)' : 'none' }}
+                                style={{ width: '100%', padding: 18, borderRadius: 16, border: 'none', background: paymentProcessing ? 'var(--drops-surface-elevated)' : (paymentPhone.length === 10 ? 'linear-gradient(135deg, #30D158, #28a745)' : 'var(--drops-border)'), color: paymentProcessing ? 'var(--drops-text-tertiary)' : (paymentPhone.length === 10 ? 'var(--drops-text-primary)' : '#555'), fontSize: 16, fontWeight: 800, cursor: paymentProcessing ? 'wait' : (paymentPhone.length === 10 ? 'pointer' : 'not-allowed'), display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, transition: 'all 0.2s', boxShadow: paymentPhone.length === 10 ? '0 8px 25px rgba(52,199,89,0.3)' : 'none' }}
                             >
                                 {paymentProcessing ? <><i className="fas fa-spinner fa-spin"></i> Initiating Payment...</> : <><i className="fas fa-lock"></i> Pay ₹{showPaymentSim.splitPrice + showPaymentSim.platformFee}</>}
                             </button>
@@ -2369,7 +2369,7 @@ export default function DashboardPage() {
                                 from it without paying. */}
                             <button
                                 onClick={() => { setPaymentProcessing(false); setShowPaymentSim(null); setPaymentPhone(''); }}
-                                style={{ width: '100%', padding: 14, borderRadius: 14, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#888', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}
+                                style={{ width: '100%', padding: 14, borderRadius: 14, border: '1px solid var(--drops-surface-elevated)', background: 'transparent', color: 'var(--drops-text-secondary)', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}
                             >
                                 Cancel
                             </button>

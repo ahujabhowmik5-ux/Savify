@@ -4,13 +4,13 @@
     background: rgba(17, 17, 17, 0.4);
     backdrop-filter: blur(10px) saturate(1.2);
     -webkit-backdrop-filter: blur(10px) saturate(1.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--drops-surface);
     border-radius: 24px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     position: relative;
     overflow: hidden;
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 0 40px var(--sv-shadow-color), 0 8px 24px var(--sv-shadow-color);
 }
 
 .tasks-card::before {
@@ -52,7 +52,7 @@
 
 .tasks-completion-badge {
     background: linear-gradient(135deg, #D4AF37, #FDB931);
-    color: #0A0A0A;
+    color: var(--sv-bg-subtle);
     font-size: 0.65rem;
     font-weight: 800;
     padding: 3px 10px;
@@ -62,7 +62,7 @@
 
 .tasks-subtitle {
     font-size: 0.72rem;
-    color: #888;
+    color: var(--drops-text-secondary);
     margin: 4px 0 0;
 }
 
@@ -81,8 +81,8 @@
     align-items: center;
     gap: 12px;
     padding: 0.9rem 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--drops-surface);
+    border: 1px solid var(--drops-surface-hover);
     border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -91,7 +91,7 @@
 }
 
 .task-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--drops-surface-hover);
     transform: translateX(4px);
     border-color: rgba(212, 175, 55, 0.2);
 }
@@ -134,7 +134,7 @@
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid var(--drops-border-light);
     transition: all 0.3s;
 }
 
@@ -252,7 +252,7 @@
     gap: 0.8rem;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--drops-surface-hover);
     position: relative;
     z-index: 1;
 }
@@ -276,5 +276,5 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #888;
+    color: var(--drops-text-secondary);
 }

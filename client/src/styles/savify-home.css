@@ -8,7 +8,7 @@
 
 :root {
     /* ===== ENHANCED LUXURY COLOR PALETTE ===== */
-    --color-obsidian: #0A0A0A;
+    --color-obsidian: var(--sv-bg-subtle);
     --color-charcoal: #161616;
     --color-graphite: #222222;
     --color-slate: #2D3748;
@@ -28,7 +28,7 @@
 
     /* Premium Platinum Colors - BRIGHTER & COOLER */
     --color-platinum: #E3E3E3;
-    --color-platinum-light: #FFFFFF;
+    --color-platinum-light: var(--drops-text-primary);
     --color-platinum-dark: #8E9EAB;
     --color-platinum-accent: #BCC6CC;
 
@@ -46,10 +46,10 @@
     --gradient-gold: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
 
     /* Platinum Gradient (Diamond/Metallic/Bright) */
-    --gradient-platinum: linear-gradient(135deg, #ffffff 0%, #d7d7d7 50%, #ffffff 100%);
+    --gradient-platinum: linear-gradient(135deg, var(--drops-text-primary) 0%, #d7d7d7 50%, var(--drops-text-primary) 100%);
 
     --gradient-emerald: linear-gradient(135deg, #10B981 0%, #059669 100%);
-    --gradient-obsidian: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+    --gradient-obsidian: linear-gradient(135deg, var(--sv-bg-subtle) 0%, var(--drops-surface-hover) 100%);
     --gradient-charcoal: linear-gradient(135deg, #161616 0%, #2D3748 100%);
 
     /* Typography - Optimized for mobile reading */
@@ -79,11 +79,11 @@
     /* Shadows optimized for mobile */
     --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-large: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-    --shadow-luxury: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+    --shadow-large: 0 10px 25px -5px var(--sv-shadow-color);
+    --shadow-luxury: 0 15px 30px -10px var(--sv-shadow-color);
     --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.2);
     --shadow-platinum: 0 5px 20px rgba(255, 255, 255, 0.4);
-    --shadow-float: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-float: 0 25px 50px -12px var(--sv-shadow-color);
 
     /* Border Radius */
     --radius-sm: 0.5rem;
@@ -93,10 +93,10 @@
     --radius-full: 9999px;
 
     /* Glass Effect */
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-bg: var(--drops-border);
+    --glass-border: var(--drops-border-light);
     --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --glass-heavy: rgba(255, 255, 255, 0.12);
+    --glass-heavy: var(--drops-border-light);
     --glass-heavy-border: rgba(255, 255, 255, 0.18);
 }
 
@@ -380,11 +380,11 @@ body::before {
 
     0%,
     100% {
-        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2));
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4)) drop-shadow(0 0 40px var(--sv-border-strong));
     }
 
     50% {
-        filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.3));
+        filter: drop-shadow(0 0 30px var(--drops-text-secondary)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.3));
     }
 }
 
@@ -606,7 +606,7 @@ h4 {
     left: 50%;
     width: 5px;
     height: 5px;
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--drops-text-secondary);
     opacity: 0;
     border-radius: 100%;
     transform: scale(1, 1) translate(-50%);
@@ -635,17 +635,17 @@ h4 {
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     /* Enhanced glass effect */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     color: var(--color-ivory);
     box-shadow: var(--shadow-medium);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--drops-surface-elevated);
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--drops-border-light);
     transform: translateY(-4px);
     box-shadow: var(--shadow-luxury);
     border-color: var(--color-emerald);
@@ -660,12 +660,12 @@ h4 {
 .btn-login {
     background-color: transparent;
     color: var(--color-ivory);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border: 1.5px solid var(--drops-border-light);
     padding: 0.8rem 1.6rem;
 }
 
 .btn-login:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--drops-surface-elevated);
     border-color: var(--color-emerald);
     transform: translateY(-2px);
 }
@@ -692,7 +692,7 @@ h4 {
     padding: 0 0.5rem;
     background: rgba(10, 10, 10, 0.9);
     backdrop-filter: blur(30px) saturate(180%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--drops-surface-hover);
     animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     transition: all var(--transition-base);
     height: 72px;
@@ -905,7 +905,7 @@ h4 {
     width: 100%;
     margin: var(--space-lg) 0;
     padding: var(--space-xl);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     /* Glassmorphism background */
     border-radius: var(--radius-xl);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -937,9 +937,9 @@ h4 {
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.1) 0%,
+            var(--drops-surface-elevated) 0%,
             transparent 30%,
-            rgba(255, 255, 255, 0.05) 100%);
+            var(--drops-surface) 100%);
     z-index: 1;
     pointer-events: none;
 }
@@ -955,23 +955,23 @@ h4 {
 }
 
 .simple-alloc-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: var(--space-lg);
     border-radius: var(--radius-lg);
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--drops-surface-elevated);
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px var(--sv-shadow-color);
 }
 
 .simple-alloc-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px var(--sv-shadow-color);
+    background: var(--drops-surface-elevated);
 }
 
 .simple-alloc-card::after {
@@ -1134,7 +1134,7 @@ h4 {
     padding: 10px;
     box-shadow: var(--shadow-float);
     position: relative;
-    border: 4px solid rgba(255, 255, 255, 0.1);
+    border: 4px solid var(--drops-surface-elevated);
     transition: all var(--transition-slow);
     transform-style: preserve-3d;
     perspective: 1000px;
@@ -1143,14 +1143,14 @@ h4 {
 .timeline-item:hover .mockup-phone {
     transform: translateY(-15px) rotateY(5deg);
     box-shadow:
-        0 30px 60px rgba(0, 0, 0, 0.3),
+        0 30px 60px var(--sv-shadow-color),
         0 0 40px rgba(16, 185, 129, 0.2);
 }
 
 .mockup-screen {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+    background: linear-gradient(135deg, var(--drops-surface-hover) 0%, #2d3748 100%);
     border-radius: 20px;
     overflow: hidden;
     position: relative;
@@ -1164,7 +1164,7 @@ h4 {
 .ui-header {
     width: 80%;
     height: 20px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(90deg, var(--drops-surface-elevated), var(--drops-surface));
     border-radius: 10px;
     margin-bottom: 24px;
 }
@@ -1187,7 +1187,7 @@ h4 {
 .ui-bar {
     width: 70%;
     height: 10px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(90deg, var(--drops-border-light), var(--drops-surface));
     border-radius: 5px;
     margin-bottom: 10px;
     position: relative;
@@ -1201,7 +1201,7 @@ h4 {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, var(--sv-border-strong), transparent);
     animation: shimmer 2s infinite;
 }
 
@@ -1214,7 +1214,7 @@ h4 {
     color: var(--color-ivory);
     font-weight: 600;
     font-size: 0.875rem;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--drops-border);
     backdrop-filter: blur(20px);
     transition: all var(--transition-base);
     transform: translateZ(0);
@@ -1242,17 +1242,17 @@ h4 {
     justify-content: space-between;
     width: 80%;
     padding: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     border-radius: 8px;
     margin-bottom: 10px;
     font-size: 0.75rem;
     color: #ccc;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--drops-surface-elevated);
     transition: all var(--transition-fast);
 }
 
 .ui-row:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--drops-border);
     transform: translateX(5px);
 }
 
@@ -1276,7 +1276,7 @@ h4 {
     width: 320px;
     height: 320px;
     position: relative;
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0 20px 40px var(--sv-shadow-color));
 }
 
 .circle-bg {
@@ -1290,8 +1290,8 @@ h4 {
     overflow: hidden;
     animation: rotate 30s linear infinite;
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.2),
-        inset 0 -10px 30px rgba(0, 0, 0, 0.1);
+        0 20px 60px var(--sv-shadow-color),
+        inset 0 -10px 30px var(--sv-shadow-color);
 }
 
 .circle-bg::before {
@@ -1320,7 +1320,7 @@ h4 {
     z-index: 2;
     box-shadow:
         inset 0 8px 32px rgba(0, 0, 0, 0.08),
-        0 10px 20px rgba(255, 255, 255, 0.8);
+        0 10px 20px var(--drops-border);
 }
 
 .score-value {
@@ -1354,7 +1354,7 @@ h4 {
     animation: rotateScore 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     z-index: 3;
     border-radius: var(--radius-full);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 2px 4px var(--sv-shadow-color));
 }
 
 .score-needle::after {
@@ -1367,7 +1367,7 @@ h4 {
     height: 16px;
     background: var(--color-obsidian);
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px var(--sv-shadow-color);
 }
 
 /* ===== PREMIUM COMPETITION CARDS ===== */
@@ -1380,7 +1380,7 @@ h4 {
 
 .competition-card {
     padding: var(--space-xl);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
@@ -1441,7 +1441,7 @@ h4 {
 
 .tier-card {
     padding: var(--space-xl);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-xl);
@@ -1531,7 +1531,7 @@ h4 {
     box-shadow:
         var(--shadow-float),
         0 0 40px rgba(255, 255, 255, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.6);
+    border: 2px solid var(--drops-text-secondary);
     background: linear-gradient(135deg,
             rgba(20, 20, 20, 0.95) 0%,
             rgba(10, 10, 10, 0.9) 100%);
@@ -1545,7 +1545,7 @@ h4 {
 .tier-card:nth-child(4) .tier-badge {
     background: var(--gradient-platinum);
     animation: badgeGlowPlatinum 4s ease-in-out infinite;
-    border: 4px solid rgba(255, 255, 255, 0.8);
+    border: 4px solid var(--drops-border);
 }
 
 .tier-card:nth-child(4) .tier-title {
@@ -1560,14 +1560,14 @@ h4 {
     transform: translateY(-15px) translateZ(20px);
     box-shadow:
         var(--shadow-float),
-        0 30px 60px rgba(0, 0, 0, 0.15);
+        0 30px 60px var(--sv-shadow-color);
 }
 
 .tier-card:nth-child(4):hover {
     transform: translateY(-15px) translateZ(30px);
     box-shadow:
         0 40px 80px rgba(255, 255, 255, 0.3),
-        0 0 60px rgba(255, 255, 255, 0.2);
+        0 0 60px var(--sv-border-strong);
 }
 
 .tier-badge {
@@ -1582,9 +1582,9 @@ h4 {
     color: white;
     margin-bottom: var(--space-md);
     box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 20px 40px var(--sv-shadow-color),
         inset 0 4px 12px rgba(255, 255, 255, 0.4);
-    border: 4px solid rgba(255, 255, 255, 0.6);
+    border: 4px solid var(--drops-text-secondary);
     position: relative;
     z-index: 2;
     overflow: hidden;
@@ -1604,7 +1604,7 @@ h4 {
     height: 200%;
     background: linear-gradient(45deg,
             transparent 30%,
-            rgba(255, 255, 255, 0.8) 50%,
+            var(--drops-border) 50%,
             transparent 70%);
     animation: metallicShine 4s linear infinite;
 }
@@ -1677,7 +1677,7 @@ h4 {
     padding: 0.875rem 0;
     color: var(--color-stone);
     list-style: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--drops-surface-hover);
     display: flex;
     align-items: center;
     font-size: 0.9375rem;
@@ -1697,12 +1697,12 @@ h4 {
 .score-progress {
     width: 100%;
     height: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     border-radius: var(--radius-full);
     margin: var(--space-md) 0;
     overflow: hidden;
     position: relative;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 2px 6px var(--sv-shadow-color);
 }
 
 .score-progress-bar {
@@ -1710,7 +1710,7 @@ h4 {
     border-radius: var(--radius-full);
     position: relative;
     transition: width 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px var(--sv-shadow-color);
 }
 
 .score-progress-bar::after {
@@ -1780,18 +1780,18 @@ h4 {
     position: relative;
     padding: var(--space-xl) 0;
     backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--drops-surface);
     border-radius: var(--radius-xl);
     margin: 0 auto;
     max-width: 800px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--drops-surface-elevated);
 }
 
 .philosophy-quote::before,
 .philosophy-quote::after {
     content: '"';
     font-size: 6rem;
-    color: rgba(255, 255, 255, 0.1);
+    color: var(--drops-surface-elevated);
     position: absolute;
     font-family: var(--font-secondary);
     line-height: 1;
@@ -1947,7 +1947,7 @@ h4 {
 
 .footer-bottom {
     padding-top: var(--space-lg);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--drops-surface-elevated);
     text-align: center;
     color: var(--color-stone);
     font-size: 0.8125rem;
@@ -1965,7 +1965,7 @@ h4 {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--drops-surface);
     display: flex;
     align-items: center;
     justify-content: center;

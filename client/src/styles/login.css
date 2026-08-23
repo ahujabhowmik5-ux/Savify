@@ -1,6 +1,6 @@
 /* ===== LOGIN PAGE STYLES ===== */
 .login-body {
-    background-color: #0A0A0A;
+    background-color: var(--sv-bg-subtle);
     color: #FAFAFA;
     min-height: 100vh;
     font-family: var(--font-primary);
@@ -21,7 +21,7 @@
 .magic-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.95);
+    background: var(--sv-overlay);
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@
     font-family: var(--font-secondary);
     font-size: 4rem;
     font-weight: 700;
-    background: linear-gradient(135deg, white, rgba(255, 255, 255, 0.8));
+    background: linear-gradient(135deg, white, var(--drops-border));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -42,7 +42,7 @@
 }
 
 .magic-subtext {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--drops-text-primary);
     font-size: 1.4rem;
     max-width: 500px;
     text-align: center;
@@ -97,11 +97,11 @@
 }
 
 .login-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--drops-surface);
     border-radius: var(--radius-lg);
     padding: 56px 48px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 30px 80px var(--sv-shadow-color), 0 0 40px rgba(16, 185, 129, 0.05);
+    border: 1px solid var(--drops-surface-hover);
     backdrop-filter: blur(20px);
     position: relative;
     overflow: hidden;
@@ -172,7 +172,7 @@
 }
 
 .subtitle {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--drops-text-secondary);
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -180,9 +180,9 @@
 .google-btn {
     width: 100%;
     padding: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--drops-surface-elevated);
     border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--drops-surface);
     color: white;
     font-size: 1.1rem;
     font-weight: 600;
@@ -198,7 +198,7 @@
 }
 
 .google-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--drops-border);
     border-color: rgba(16, 185, 129, 0.3);
     transform: translateY(-3px);
     box-shadow: 0 15px 40px rgba(16, 185, 129, 0.15);
@@ -240,7 +240,7 @@
 }
 
 .feature-item:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--drops-surface);
     transform: translateX(4px);
 }
 
@@ -256,7 +256,7 @@
 
 .feature-text {
     font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--drops-text-secondary);
 }
 
 .feature-item:hover .feature-text {
@@ -346,7 +346,7 @@
 }
 
 .loading-subtext {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--drops-text-secondary);
     font-size: 0.9rem;
     margin-top: 12px;
 }
@@ -406,11 +406,11 @@
 
 .login-footer {
     text-align: center;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--drops-text-secondary);
     font-size: 0.85rem;
     margin-top: 40px;
     padding: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--drops-surface);
     width: 100%;
     max-width: 500px;
     animation: slideUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
@@ -424,7 +424,7 @@
 }
 
 .footer-link {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--drops-text-secondary);
     text-decoration: none;
     transition: var(--transition-smooth);
     font-size: 0.8rem;
