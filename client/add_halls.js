@@ -29,7 +29,8 @@ const BOYS_HALLS = [
     "RK (Radha Krishnan Hall)",
     "RP (Rajendra Prasad Hall)",
     "VS (Vidyasagar Hall)",
-    "GH (Gokhale Hall)"
+    "GH (Gokhale Hall)",
+    "VGH (Visveswaraya Guest House)"
 ];
 
 const ALL_HALLS = [...GIRLS_HALLS, ...BOYS_HALLS];

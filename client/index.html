@@ -14,6 +14,18 @@
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <title>Savify — Master Your Financial Balance</title>
 
+  <script>
+    // Applied before first paint so a light-theme user never sees a dark flash.
+    (function () {
+      try {
+        var t = localStorage.getItem('savify_theme');
+        document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
   <!-- External Dependencies -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />

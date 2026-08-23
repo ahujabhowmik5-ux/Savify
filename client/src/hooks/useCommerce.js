@@ -541,6 +541,12 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
                 return { error: 'The payment service is not responding correctly. Please try again in a moment.' };
             }
 
+            // Simulation mode: hand the order back so the caller can settle it
+            // through the in-app prompt instead of a gateway redirect.
+            if (data.simulated) {
+                return { simulated: true, orderId: data.order_id, amount: data.amount ?? totalToPay };
+            }
+
             if (data.payment_session_id) {
                 // 2. Trigger Cashfree checkout (redirect mode)
                 // Open the SDK on the same stack the session was minted on;

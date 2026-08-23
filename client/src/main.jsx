@@ -5,6 +5,9 @@ import App from './App';
 import './styles/variables.css';
 import './styles/global.css';
 import './styles/animations.css';
+// Last, so its tokens override the dark-only block in drops.css.
+import './styles/theme.css';
+import ThemeProvider from './components/ThemeProvider';
 // Unregister any active service workers to prevent cached blank screens
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then((registrations) => {
@@ -24,7 +27,9 @@ if ('serviceWorker' in navigator) {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

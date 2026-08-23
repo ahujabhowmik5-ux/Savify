@@ -1,28 +1,50 @@
 import React, { useState } from 'react';
 import Savio from '../Savio';
 
-export default function MockPaymentUI({ amount, onClose, onSuccess }) {
+export default function MockPaymentUI({ amount, orderId, onClose, onSuccess }) {
     const [status, setStatus] = useState('idle'); // idle, processing, success, fail
+    const [errorText, setErrorText] = useState('');
 
-    const handlePay = (shouldSucceed) => {
+    const handlePay = async (shouldSucceed) => {
         setStatus('processing');
-        setTimeout(() => {
-            if (shouldSucceed) {
+        setErrorText('');
+
+        // Settle server-side: the simulator has to drive the same fulfilment
+        // code the gateway does, or it proves nothing about seats and carts.
+        try {
+            const res = await fetch('/api/payment/simulate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order_id: orderId, outcome: shouldSucceed ? 'success' : 'failure' })
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                setErrorText(data.error || 'Simulation failed.');
+                setStatus('fail');
+                return;
+            }
+            if (data.status === 'SUCCESS') {
                 setStatus('success');
-                setTimeout(() => {
-                    onSuccess();
-                }, 1500);
+                setTimeout(() => onSuccess(data), 1200);
             } else {
+                setErrorText('Payment declined (simulated).');
                 setStatus('fail');
             }
-        }, 2000);
+        } catch (err) {
+            setErrorText(err.message || 'Could not reach the simulator.');
+            setStatus('fail');
+        }
     };
 
     return (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(10px)', zIndex: 1100, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
             <div style={{ background: 'var(--drops-surface)', width: '100%', maxWidth: 400, borderRadius: '24px 24px 0 0', padding: 24, animation: 'slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-                    <h2 style={{ fontSize: 20, fontWeight: 800 }}>Complete Payment</h2>
+                    <h2 style={{ fontSize: 20, fontWeight: 800 }}>
+                        Complete Payment
+                        <span style={{ marginLeft: 8, fontSize: 10, letterSpacing: '0.06em', textTransform: 'uppercase', background: 'rgba(255,159,10,0.16)', color: 'var(--drops-orange)', padding: '3px 8px', borderRadius: 100, verticalAlign: 'middle' }}>Test mode</span>
+                    </h2>
                     <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', width: 32, height: 32, borderRadius: '50%', color: 'white', cursor: 'pointer' }}>
                         <i className="fas fa-times"></i>
                     </button>
@@ -70,6 +92,7 @@ export default function MockPaymentUI({ amount, onClose, onSuccess }) {
                     <div style={{ textAlign: 'center', padding: 24 }}>
                         <i className="fas fa-exclamation-circle" style={{ fontSize: 48, color: 'var(--drops-red)', marginBottom: 16 }}></i>
                         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--drops-red)', marginBottom: 8 }}>Payment Failed</div>
+                        {errorText && <div style={{ fontSize: 13, color: 'var(--drops-text-secondary)', marginBottom: 12 }}>{errorText}</div>}
                         <button onClick={() => setStatus('idle')} style={{ padding: '8px 16px', borderRadius: 12, border: 'none', background: 'var(--drops-blue)', color: 'white', fontWeight: 600, cursor: 'pointer' }}>Try Again</button>
                     </div>
                 )}

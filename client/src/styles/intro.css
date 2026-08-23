@@ -5,10 +5,10 @@
     width: 100%;
     min-height: 100vh;
     min-height: 100dvh; /* use dynamic viewport height on mobile */
-    background-color: #000; /* Pure black for that Pro OLED look */
+    background-color: var(--drops-bg);
     overflow-x: hidden;
     font-family: 'Inter', system-ui, sans-serif;
-    color: #fff;
+    color: var(--drops-text-primary);
     transition: opacity 1.2s ease;
     display: flex;
     flex-direction: column;

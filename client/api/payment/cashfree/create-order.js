@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { supabaseAdmin, missingVars, initError } from '../../_supabaseClient.js';
 import { resolveRunningSlotForPlan } from '../../_poolFulfillment.js';
 import { cashfreeFetch, cashfreeEnv, cashfreeCredentials, describeCashfreeError, userFacingCashfreeError } from '../../_cashfree.js';
+import { isSimulationMode } from '../../_paymentMode.js';
 
 export default async function handler(req, res) {
     // Set CORS headers
@@ -29,12 +30,19 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: `Database init failed: ${initError || 'Unknown'}` });
         }
 
+        const simulating = isSimulationMode();
+
         const { appId, secret } = cashfreeCredentials();
-        if (!appId || !secret) {
+        if (!simulating && (!appId || !secret)) {
             return res.status(500).json({ error: `Cashfree credentials not configured for ${cashfreeEnv()} mode. Set CASHFREE_APP_ID and CASHFREE_SECRET_KEY (and CASHFREE_ENV).` });
         }
 
-        const orderId = `order_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
+        // Simulated orders carry their own prefix so they are impossible to
+        // confuse with real ones in the ledger, and so the settle endpoint can
+        // refuse anything that is not one.
+        const orderId = simulating
+            ? `sim_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`
+            : `order_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
 
         // Pin the order to a real, live pool slot BEFORE taking any money. The
         // client's cached slot can be stale (the pool may have filled and rolled
@@ -78,6 +86,15 @@ export default async function handler(req, res) {
         if (dbError) {
             console.error('DB Error:', dbError);
             return res.status(500).json({ error: `DB Error: ${dbError.message || dbError.code || JSON.stringify(dbError)}` });
+        }
+
+        if (simulating) {
+            return res.json({
+                simulated: true,
+                order_id: orderId,
+                amount: parseFloat(amount),
+                context_type
+            });
         }
 
         // Create Cashfree order

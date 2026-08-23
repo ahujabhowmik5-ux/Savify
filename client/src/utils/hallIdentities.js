@@ -4,6 +4,7 @@ export const hallIdentities = {
     "B C Roy Hall of Residence": { short: "BCR" },
     "B R Ambedkar Hall of Residence": { short: "BRA" },
     "Gokhale Hall of Residence": { short: "Gokhale" },
+    "Visveswaraya Guest House": { short: "VGH" },
     "Homi J Bhabha Hall of Residence": { short: "HBH" },
     "Jagadish Chandra Bose Hall of Residence": { short: "JCB" },
     "Lal Bahadur Shastri Hall of Residence": { short: "LBS" },

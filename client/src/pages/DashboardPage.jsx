@@ -12,6 +12,8 @@ import '../styles/drops.css';
 import AIPricingModal from '../components/modals/AIPricingModal';
 import SubscriptionPoolModal from '../components/modals/SubscriptionPoolModal';
 import { aiPlanNames, subPlanNames } from '../config/poolPlans';
+import MockPaymentUI from '../components/commerce/MockPaymentUI';
+import ThemeToggle from '../components/ThemeToggle';
 import LocationPromptModal from '../components/modals/LocationPromptModal';
 import Footer from '../components/layout/Footer';
 // import FindRoommate from '../components/FindRoommate'; // COMMENTED OUT
@@ -217,6 +219,7 @@ export default function DashboardPage() {
     // Payment States
     const [showPaymentSim, setShowPaymentSim] = useState(null); // { planName, splitPrice, slotId, platformFee: 0 }
     const [paymentProcessing, setPaymentProcessing] = useState(false);
+    const [simulatedPayment, setSimulatedPayment] = useState(null);
     const [paymentPhone, setPaymentPhone] = useState('');
 
     // Keep state persisted in sessionStorage across hard refreshes
@@ -895,6 +898,13 @@ export default function DashboardPage() {
                 return;
             }
 
+            // Simulation mode: no gateway, settle through the in-app prompt.
+            if (data.simulated) {
+                setPaymentProcessing(false);
+                setSimulatedPayment({ orderId: data.order_id, amount: data.amount ?? totalAmount });
+                return;
+            }
+
             if (data.payment_session_id) {
                 // The seat is claimed server-side once Cashfree confirms the
                 // payment — joining here would let an abandoned checkout hold a
@@ -1034,6 +1044,7 @@ export default function DashboardPage() {
                             {activeTab === 'pools' ? 'Live Pools' : activeTab === 'notifications' ? 'Notifications' : 'Orders'}
                         </h1>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <ThemeToggle compact />
                             <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--drops-text-secondary)', textAlign: 'right', letterSpacing: '0.2px' }}>
                                 {hallName || 'Your Hall'}
                             </div>
@@ -2009,7 +2020,7 @@ export default function DashboardPage() {
                                     }
 
                                     // Quick Commerce Location Filtering
-                                    let isUnavailableQuickCommerce = themeClass === 'theme-blinkit';
+
 
                                     return (
                                         <div key={pool.id} className="animate-fade-in-up" style={{ marginBottom: 14, animationDelay: `${index * 0.05}s` }}>
@@ -2017,10 +2028,6 @@ export default function DashboardPage() {
                                                 className={`drops-card ${themeClass}`}
                                                 onClick={() => { 
                                                     triggerLightHaptic(); 
-                                                    if (isUnavailableQuickCommerce) {
-                                                        triggerFullScreenReaction('thinking', 'Quick Commerce pools are coming soon! 🚀');
-                                                        return;
-                                                    }
                                                     const platformKey = getPlatformKey(pool.name);
                                                     if (activeCategory === 'food') {
                                                         triggerFullScreenReaction('thinking', 'Food Pools are coming soon! 🍔');
@@ -2035,9 +2042,7 @@ export default function DashboardPage() {
                                                 style={{ 
                                                     marginBottom: 0, 
                                                     borderBottom: isExpanded ? 'none' : undefined, 
-                                                    borderRadius: isExpanded ? '20px 20px 0 0' : undefined,
-                                                    opacity: isUnavailableQuickCommerce ? 0.5 : 1,
-                                                    filter: isUnavailableQuickCommerce ? 'grayscale(100%)' : 'none'
+                                                    borderRadius: isExpanded ? '20px 20px 0 0' : undefined
                                                 }}
                                             >
                                                 <div className="drops-card-header" style={{ marginBottom: 0 }}>
@@ -2045,9 +2050,6 @@ export default function DashboardPage() {
                                                     <div className="drops-card-info">
                                                         <div className="drops-card-title">
                                                             {pool.name}
-                                                            {isUnavailableQuickCommerce && (
-                                                                <span style={{ marginLeft: 8, fontSize: 10, background: 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: 100, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Not Available</span>
-                                                            )}
                                                         </div>
                                                         <div className="drops-card-subtitle">{pool.description}</div>
                                                     </div>
@@ -2255,6 +2257,20 @@ export default function DashboardPage() {
                     platform={typeof showStore === 'object' ? (showStore.platform || 'blinkit') : 'blinkit'}
                     userLocation={userLocation}
                     onClose={() => setShowStore(null)} 
+                />
+            )}
+
+            {simulatedPayment && (
+                <MockPaymentUI
+                    amount={simulatedPayment.amount}
+                    orderId={simulatedPayment.orderId}
+                    onClose={() => { setSimulatedPayment(null); setShowPaymentSim(null); }}
+                    onSuccess={() => {
+                        setSimulatedPayment(null);
+                        setShowPaymentSim(null);
+                        triggerFullScreenReaction('celebrating', 'Seat locked in! ⚡');
+                        refetchPoolsRef.current?.();
+                    }}
                 />
             )}
 

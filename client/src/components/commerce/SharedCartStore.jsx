@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useCommerce } from '../../hooks/useCommerce';
 import FullScreenSavio from '../FullScreenSavio';
+import MockPaymentUI from './MockPaymentUI';
 import { triggerLightHaptic, triggerMediumHaptic } from '../../utils/haptics';
 import { poolTimerState, POOL_WINDOW_MINUTES, POOL_BUFFER_MINUTES } from '../../utils/poolTimer';
 
@@ -87,6 +88,7 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
     // Payment phone number — pre-fill from user profile
     const [paymentPhone, setPaymentPhone] = useState('');
     const [paymentProcessing, setPaymentProcessing] = useState(false);
+    const [simulatedPayment, setSimulatedPayment] = useState(null);
 
     // Coming back from the gateway without paying (iOS Safari restores this page
     // from the back-forward cache with state intact) otherwise leaves the Pay
@@ -786,7 +788,9 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
                                         setViewingCart(false); 
                                         const result = await handlePayment(paymentPhone, user?.email || '', user?.user_metadata?.full_name || 'Savify User');
                                         setPaymentProcessing(false);
-                                        if (result && result.error) {
+                                        if (result && result.simulated) {
+                                            setSimulatedPayment({ orderId: result.orderId, amount: result.amount });
+                                        } else if (result && result.error) {
                                             alert('Payment Error: ' + result.error);
                                         } else if (result && result.redirecting) {
                                             // User is being redirected to Cashfree — do nothing
@@ -877,6 +881,18 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
                         </button>
                     </div>
                 </div>
+            )}
+
+            {simulatedPayment && (
+                <MockPaymentUI
+                    amount={simulatedPayment.amount}
+                    orderId={simulatedPayment.orderId}
+                    onClose={() => setSimulatedPayment(null)}
+                    onSuccess={() => {
+                        setSimulatedPayment(null);
+                        triggerFullScreenReaction('celebrating', 'Paid! Your items are locked in ⚡');
+                    }}
+                />
             )}
 
             <FullScreenSavio isVisible={fsSavio.isVisible} state={fsSavio.state} message={fsSavio.message} />

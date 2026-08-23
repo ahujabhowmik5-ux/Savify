@@ -52,7 +52,8 @@ export default function OnboardingPage() {
             "RK (Radha Krishnan Hall)",
             "RP (Rajendra Prasad Hall)",
             "VS (Vidyasagar Hall)",
-            "GH (Gokhale Hall)"
+            "GH (Gokhale Hall)",
+            "VGH (Visveswaraya Guest House)"
         ]
     };
 
