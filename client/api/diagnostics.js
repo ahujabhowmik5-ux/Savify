@@ -16,29 +16,35 @@ export default async function handler(req, res) {
 
     const has = (n) => !!String(process.env[n] || '').trim();
 
-    // The decisive question for the database: can it actually WRITE? An anon
-    // key reads fine and is blocked by RLS on write, which is invisible until
-    // something silently does nothing.
-    let dbWrite = 'unknown';
-    if (supabaseAdmin) {
+    // Read the key's own role claim rather than probing with a write.
+    // A write probe cannot tell the difference: an RLS-blocked update returns
+    // no error and zero rows, exactly like a query that matched nothing. The
+    // Supabase key is a JWT whose payload names its role, which is decisive.
+    // Only the role is read — never the signature, never the key itself.
+    const keyRole = (() => {
+        const raw = String(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY || '').trim();
+        if (!raw) return 'absent';
         try {
-            const { error } = await supabaseAdmin
-                .from('group_carts')
-                .update({ whatsapp_notified_at: null })
-                .eq('id', '00000000-0000-0000-0000-000000000000')
-                .select('id');
-            dbWrite = error ? `error: ${error.message}` : 'ok';
-        } catch (e) {
-            dbWrite = `error: ${e.message}`;
+            const payload = raw.split('.')[1];
+            if (!payload) return 'unrecognised (not a JWT)';
+            const json = JSON.parse(Buffer.from(payload.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8'));
+            return json.role || 'unknown';
+        } catch {
+            return 'undecodable';
         }
-    }
+    })();
 
     res.json({
         database: {
             client_initialised: !!supabaseAdmin,
             missing: missingVars,
-            service_role_key_present: has('SUPABASE_SERVICE_ROLE_KEY') || has('SUPABASE_SERVICE_KEY'),
-            write_check: dbWrite
+            key_set_as: has('SUPABASE_SERVICE_ROLE_KEY')
+                ? 'SUPABASE_SERVICE_ROLE_KEY'
+                : (has('SUPABASE_SERVICE_KEY') ? 'SUPABASE_SERVICE_KEY' : null),
+            // Must be 'service_role'. 'anon' reads fine and silently fails
+            // every write, which is what broke the WhatsApp broadcast.
+            key_role: keyRole,
+            can_write: keyRole === 'service_role'
         },
         payments: {
             mode: isSimulationMode() ? 'simulation' : 'gateway',
