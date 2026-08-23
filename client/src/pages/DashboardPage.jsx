@@ -916,7 +916,7 @@ export default function DashboardPage() {
             } else {
                 setPaymentProcessing(false);
                 setShowPaymentSim(null);
-                alert('❌ Payment gateway error: ' + (data.error || 'Please try again.'));
+                alert(data.error || 'Payment could not be started. Nothing has been charged — please try again.');
             }
         } catch (err) {
             setPaymentProcessing(false);

@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { supabaseAdmin, missingVars, initError } from '../../_supabaseClient.js';
 import { resolveRunningSlotForPlan } from '../../_poolFulfillment.js';
-import { cashfreeFetch, cashfreeEnv, cashfreeCredentials, describeCashfreeError } from '../../_cashfree.js';
+import { cashfreeFetch, cashfreeEnv, cashfreeCredentials, describeCashfreeError, userFacingCashfreeError } from '../../_cashfree.js';
 
 export default async function handler(req, res) {
     // Set CORS headers
@@ -117,6 +117,11 @@ export default async function handler(req, res) {
     } catch (error) {
         const env = cashfreeEnv();
         console.error(`Cashfree create order error (${env}):`, error);
-        res.status(500).json({ error: describeCashfreeError(error, env), cashfree_env: env });
+        // `error` is what the payer sees; `detail` is for whoever is on call.
+        res.status(500).json({
+            error: userFacingCashfreeError(error),
+            detail: describeCashfreeError(error, env),
+            cashfree_env: env
+        });
     }
 }

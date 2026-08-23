@@ -29,6 +29,21 @@ export function cashfreeEnv() {
 }
 
 /**
+ * What to show the person trying to pay. They cannot act on KYC state or env
+ * vars, so tell them the truth in one line and keep the diagnosis for the logs.
+ */
+export function userFacingCashfreeError(error) {
+    const raw = error?.message || error?.error_description || (typeof error === 'string' ? error : '') || '';
+    if (/not enabled|not activated|inactive/i.test(raw)) {
+        return 'Payments are temporarily unavailable while we sort things out with our payment provider. Your pool seat has not been charged — please try again later.';
+    }
+    if (/authentic|unauthor|invalid.*(client|credential|key|token)|ip.*(whitelist|allow)/i.test(raw)) {
+        return 'We could not reach the payment gateway. Nothing has been charged — please try again in a few minutes.';
+    }
+    return 'Payment could not be started. Nothing has been charged — please try again.';
+}
+
+/**
  * Turn a raw Cashfree failure into something the user (and we) can act on.
  * The gateway's own wording — "transactions are not enabled for your payment
  * gateway account" — tells a student nothing about what to do next.
@@ -193,7 +208,12 @@ router.post('/cashfree/create-order', async (req, res) => {
     } catch (error) {
         const env = cashfreeEnv();
         console.error(`Cashfree create order error (${env}):`, error);
-        res.status(500).json({ error: describeCashfreeError(error, env), cashfree_env: env });
+        // `error` is what the payer sees; `detail` is for whoever is on call.
+        res.status(500).json({
+            error: userFacingCashfreeError(error),
+            detail: describeCashfreeError(error, env),
+            cashfree_env: env
+        });
     }
 });
 

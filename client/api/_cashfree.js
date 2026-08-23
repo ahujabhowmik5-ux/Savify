@@ -34,9 +34,23 @@ export function cashfreeCredentials() {
 }
 
 /**
- * Turn a raw Cashfree failure into something the user (and we) can act on.
- * The gateway's own wording — "transactions are not enabled for your payment
- * gateway account" — tells a student nothing about what to do next.
+ * What to show the person trying to pay. They cannot act on KYC state or env
+ * vars, so tell them the truth in one line and keep the diagnosis for the logs.
+ */
+export function userFacingCashfreeError(error) {
+    const raw = error?.message || error?.error_description || (typeof error === 'string' ? error : '') || '';
+    if (/not enabled|not activated|inactive/i.test(raw)) {
+        return 'Payments are temporarily unavailable while we sort things out with our payment provider. Your pool seat has not been charged — please try again later.';
+    }
+    if (/authentic|unauthor|invalid.*(client|credential|key|token)|ip.*(whitelist|allow)/i.test(raw)) {
+        return 'We could not reach the payment gateway. Nothing has been charged — please try again in a few minutes.';
+    }
+    return 'Payment could not be started. Nothing has been charged — please try again.';
+}
+
+/**
+ * The operator-facing diagnosis: what actually went wrong and what to do about
+ * it. Goes to logs and the `detail` field, never to the payer.
  */
 export function describeCashfreeError(error, env = cashfreeEnv()) {
     const raw = error?.message
