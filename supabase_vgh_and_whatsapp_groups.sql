@@ -46,7 +46,7 @@ SET group_jid = '120363409875481188@g.us'
 WHERE location_key = 'RP' AND group_jid IS NULL;
 
 INSERT INTO whatsapp_pool_groups (hall_id, location_key, label, group_jid, is_active)
-SELECT hall_id, 'RP', 'Radha Krishnan Hall', '120363187452135524@g.us', false
+SELECT hall_id, 'RP', 'Rajendra Prasad Hall', '120363187452135524@g.us', false
 FROM whatsapp_pool_groups
 WHERE location_key = 'RP' AND group_jid = '120363409875481188@g.us'
 LIMIT 1
