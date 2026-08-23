@@ -1,29 +1,7 @@
 import crypto from 'crypto';
 import { supabaseAdmin, missingVars, initError } from '../../_supabaseClient.js';
 import { resolveRunningSlotForPlan } from '../../_poolFulfillment.js';
-
-const CASHFREE_API_URL = 'https://api.cashfree.com/pg';
-const API_VERSION = '2023-08-01';
-
-async function cashfreeFetch(endpoint, method, body = null) {
-    const headers = {
-        'x-client-id': process.env.CASHFREE_APP_ID,
-        'x-client-secret': process.env.CASHFREE_SECRET_KEY,
-        'x-api-version': API_VERSION,
-        'Accept': 'application/json',
-    };
-    if (body) {
-        headers['Content-Type'] = 'application/json';
-    }
-    const res = await fetch(`${CASHFREE_API_URL}${endpoint}`, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined
-    });
-    const data = await res.json();
-    if (!res.ok) throw data;
-    return data;
-}
+import { cashfreeFetch, cashfreeEnv, cashfreeCredentials, describeCashfreeError } from '../../_cashfree.js';
 
 export default async function handler(req, res) {
     // Set CORS headers
@@ -51,8 +29,9 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: `Database init failed: ${initError || 'Unknown'}` });
         }
 
-        if (!process.env.CASHFREE_APP_ID || !process.env.CASHFREE_SECRET_KEY) {
-            return res.status(500).json({ error: 'Cashfree credentials not configured. Set CASHFREE_APP_ID and CASHFREE_SECRET_KEY.' });
+        const { appId, secret } = cashfreeCredentials();
+        if (!appId || !secret) {
+            return res.status(500).json({ error: `Cashfree credentials not configured for ${cashfreeEnv()} mode. Set CASHFREE_APP_ID and CASHFREE_SECRET_KEY (and CASHFREE_ENV).` });
         }
 
         const orderId = `order_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`;
@@ -126,14 +105,18 @@ export default async function handler(req, res) {
             return res.json({
                 payment_session_id: data.payment_session_id,
                 order_id: orderId,
-                cf_order_id: data.cf_order_id
+                cf_order_id: data.cf_order_id,
+                // The browser SDK must open the same stack the session was
+                // minted on — a sandbox session in production mode just fails.
+                cashfree_env: cashfreeEnv()
             });
         } else {
             console.error('Cashfree Error:', data);
             return res.status(400).json({ error: 'Cashfree API Error: Missing payment_session_id' });
         }
     } catch (error) {
-        console.error('Cashfree create order error:', error);
-        res.status(500).json({ error: `Cashfree API Failed: ${error?.message || String(error)}` });
+        const env = cashfreeEnv();
+        console.error(`Cashfree create order error (${env}):`, error);
+        res.status(500).json({ error: describeCashfreeError(error, env), cashfree_env: env });
     }
 }

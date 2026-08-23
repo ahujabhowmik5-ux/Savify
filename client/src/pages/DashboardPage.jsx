@@ -884,7 +884,9 @@ export default function DashboardPage() {
                 // payment — joining here would let an abandoned checkout hold a
                 // seat and keep the plate looking full.
                 // Trigger Cashfree checkout
-                const cashfree = window.Cashfree({ mode: "production" });
+                // Open the SDK on the same stack the session was minted on;
+                // a sandbox session in production mode is rejected outright.
+                const cashfree = window.Cashfree({ mode: data.cashfree_env === 'sandbox' ? 'sandbox' : 'production' });
                 const checkoutResult = await cashfree.checkout({
                     paymentSessionId: data.payment_session_id,
                     redirectTarget: "_self"

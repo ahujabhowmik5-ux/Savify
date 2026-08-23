@@ -7,16 +7,59 @@ const router = express.Router();
 // ══════════════════════════════════════════════════════════════
 // Cashfree Configuration
 // ══════════════════════════════════════════════════════════════
-const CASHFREE_API_URL = 'https://api.cashfree.com/pg';
+// Cashfree runs two entirely separate stacks — sandbox (test keys) and
+// production (live keys) — and a key only works against its own stack.
+// Pointing at production with test keys, or with an account whose live mode
+// has not been activated yet, fails EVERY order with
+// "transactions are not enabled for your payment gateway account".
+// CASHFREE_ENV pins the stack explicitly; with it unset we infer from the
+// key prefix, because Cashfree test app IDs are prefixed with TEST.
+const CASHFREE_BASE_URLS = {
+    sandbox: 'https://sandbox.cashfree.com/pg',
+    production: 'https://api.cashfree.com/pg'
+};
 const API_VERSION = '2023-08-01';
+
+export function cashfreeEnv() {
+    const explicit = String(process.env.CASHFREE_ENV || '').trim().toLowerCase();
+    if (['sandbox', 'test', 'testing'].includes(explicit)) return 'sandbox';
+    if (['production', 'prod', 'live'].includes(explicit)) return 'production';
+    // Cashfree sandbox app IDs look like TEST1234567890abcdef.
+    return /^test/i.test(String(process.env.CASHFREE_APP_ID || '').trim()) ? 'sandbox' : 'production';
+}
+
+/**
+ * Turn a raw Cashfree failure into something the user (and we) can act on.
+ * The gateway's own wording — "transactions are not enabled for your payment
+ * gateway account" — tells a student nothing about what to do next.
+ */
+export function describeCashfreeError(error, env) {
+    const raw = error?.message || error?.error_description || (typeof error === 'string' ? error : '') || 'Unknown gateway error';
+
+    if (/not enabled|not activated|inactive/i.test(raw)) {
+        return env === 'production'
+            ? 'Payments are not live on this Cashfree account yet. Complete KYC/activation in the Cashfree dashboard, or set CASHFREE_ENV=sandbox with test keys to run in test mode.'
+            : 'This Cashfree sandbox account cannot accept transactions. Check CASHFREE_APP_ID / CASHFREE_SECRET_KEY are the Test-mode keys from Cashfree -> Developers -> API Keys.';
+    }
+    if (/authentic|unauthor|invalid.*(client|credential|key|token)/i.test(raw)) {
+        return `Cashfree rejected the API keys in ${env} mode. Live keys only work with CASHFREE_ENV=production, test keys only with CASHFREE_ENV=sandbox.`;
+    }
+    if (/ip.*(whitelist|allow)/i.test(raw)) {
+        return 'Cashfree blocked this server IP. Add the deployment IP to the allowed list in the Cashfree dashboard, or clear the IP restriction.';
+    }
+    return `Cashfree: ${raw}`;
+}
 
 /**
  * Helper to fetch Cashfree API
  */
 async function cashfreeFetch(endpoint, method, body = null) {
+    const env = cashfreeEnv();
     const headers = {
-        'x-client-id': process.env.CASHFREE_APP_ID,
-        'x-client-secret': process.env.CASHFREE_SECRET_KEY,
+        // Env vars pasted into a dashboard routinely carry a trailing newline,
+        // which Cashfree reads as part of the secret and rejects.
+        'x-client-id': String(process.env.CASHFREE_APP_ID || '').trim(),
+        'x-client-secret': String(process.env.CASHFREE_SECRET_KEY || '').trim(),
         'x-api-version': API_VERSION,
         'Accept': 'application/json',
     };
@@ -24,7 +67,7 @@ async function cashfreeFetch(endpoint, method, body = null) {
         headers['Content-Type'] = 'application/json';
     }
 
-    const res = await fetch(`${CASHFREE_API_URL}${endpoint}`, {
+    const res = await fetch(`${CASHFREE_BASE_URLS[env]}${endpoint}`, {
         method,
         headers,
         body: body ? JSON.stringify(body) : undefined
@@ -60,8 +103,8 @@ router.post('/cashfree/create-order', async (req, res) => {
             }
         }
 
-        if (!process.env.CASHFREE_APP_ID || !process.env.CASHFREE_SECRET_KEY) {
-            return res.status(500).json({ error: 'Cashfree credentials not configured. Set CASHFREE_APP_ID and CASHFREE_SECRET_KEY.' });
+        if (!String(process.env.CASHFREE_APP_ID || '').trim() || !String(process.env.CASHFREE_SECRET_KEY || '').trim()) {
+            return res.status(500).json({ error: `Cashfree credentials not configured for ${cashfreeEnv()} mode. Set CASHFREE_APP_ID and CASHFREE_SECRET_KEY (and CASHFREE_ENV).` });
         }
 
         // Generate unique order ID
@@ -137,7 +180,10 @@ router.post('/cashfree/create-order', async (req, res) => {
             return res.json({
                 payment_session_id: data.payment_session_id,
                 order_id: orderId,
-                cf_order_id: data.cf_order_id
+                cf_order_id: data.cf_order_id,
+                // The browser SDK must open the same stack the session was
+                // minted on — a sandbox session in production mode just fails.
+                cashfree_env: cashfreeEnv()
             });
         } else {
             console.error('Cashfree Error Response:', data);
@@ -145,10 +191,28 @@ router.post('/cashfree/create-order', async (req, res) => {
         }
 
     } catch (error) {
-        console.error('Cashfree create order error:', error);
-        const errMsg = error?.message || String(error);
-        res.status(500).json({ error: `Cashfree API Failed: ${errMsg}` });
+        const env = cashfreeEnv();
+        console.error(`Cashfree create order error (${env}):`, error);
+        res.status(500).json({ error: describeCashfreeError(error, env), cashfree_env: env });
     }
+});
+
+/**
+ * CONFIG CHECK
+ * Read-only: which Cashfree stack this deployment talks to and whether the
+ * credentials are present. Never returns the secret itself.
+ */
+router.get('/cashfree/config', (req, res) => {
+    const env = cashfreeEnv();
+    const appId = String(process.env.CASHFREE_APP_ID || '').trim();
+    res.json({
+        env,
+        base_url: CASHFREE_BASE_URLS[env],
+        app_id_present: !!appId,
+        app_id_prefix: appId ? appId.slice(0, 4) : null,
+        secret_present: !!String(process.env.CASHFREE_SECRET_KEY || '').trim(),
+        env_var_set: !!String(process.env.CASHFREE_ENV || '').trim()
+    });
 });
 
 /**
@@ -163,7 +227,7 @@ router.post('/cashfree/webhook', async (req, res) => {
 
         // 1. Verify webhook signature
         try {
-            const generatedSignature = crypto.createHmac('sha256', process.env.CASHFREE_SECRET_KEY)
+            const generatedSignature = crypto.createHmac('sha256', String(process.env.CASHFREE_SECRET_KEY || '').trim())
                 .update(timestamp + rawBody)
                 .digest('base64');
                 

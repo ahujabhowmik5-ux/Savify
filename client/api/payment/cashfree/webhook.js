@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
         // Verify signature
         try {
-            const generatedSignature = crypto.createHmac('sha256', process.env.CASHFREE_SECRET_KEY)
+            const generatedSignature = crypto.createHmac('sha256', String(process.env.CASHFREE_SECRET_KEY || '').trim())
                 .update(timestamp + rawBody)
                 .digest('base64');
             if (generatedSignature !== signature) {

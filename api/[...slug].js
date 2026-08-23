@@ -8,6 +8,7 @@ import profileRoutes from '../server/routes/profile.js';
 import paymentRoutes from '../server/routes/payment.js';
 import commerceRoutes from '../server/routes/commerce.js';
 import notificationRoutes from '../server/routes/notifications.js';
+import whatsappRoutes from '../server/routes/whatsapp.js';
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/commerce', commerceRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/whatsapp', whatsappRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

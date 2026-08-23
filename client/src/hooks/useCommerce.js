@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '../config/supabase';
+import { POOL_WINDOW_MS, POOL_BUFFER_MS, poolHardDeadline } from '../utils/poolTimer';
 
 /**
  * Multi-platform commerce hook.
@@ -163,6 +164,11 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
 
         // 2. Not participating — find OPEN pool within 200m using GPS
         const loc = locationRef.current;
+        // A pool stays joinable through its buffer — that overtime exists
+        // precisely so late joiners can push it over the free-delivery
+        // threshold. Widen the filter by the buffer and do the exact check
+        // below, which also covers rows written before buffer_expires_at
+        // existed.
         let query = supabase
             .from('group_carts')
             .select('*, creator:user_profiles(full_name)')
@@ -170,7 +176,7 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
             .eq('pool_name', poolName)
             .eq('platform', platform)
             .gte('created_at', todayStr)
-            .gte('expires_at', new Date().toISOString());
+            .gte('expires_at', new Date(new Date().getTime() - POOL_BUFFER_MS).toISOString());
 
         // Exclude carts where the user has already paid
         if (paidCartIds.length > 0) {
@@ -198,6 +204,14 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
         if (openCarts && openCarts.length > 0) {
             // If GPS is available, do precise Haversine check
             let matchedCart = openCarts[0];
+
+            const hardDeadline = poolHardDeadline(matchedCart);
+            if (hardDeadline && hardDeadline <= new Date()) {
+                setActiveCart(null);
+                setCartItems([]);
+                setIsParticipating(false);
+                return;
+            }
             if (loc && loc.lat && loc.lng && matchedCart.latitude && matchedCart.longitude) {
                 const distance = haversineDistance(loc.lat, loc.lng, matchedCart.latitude, matchedCart.longitude);
                 if (distance > 200) {
@@ -281,8 +295,11 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
         if (!userId || localCart.length === 0) return;
         
         const loc = locationRef.current;
-        const expiresAt = new Date();
-        expiresAt.setMinutes(expiresAt.getMinutes() + 30);
+        // Two-phase clock: a 15-minute window users see, then a 10-minute
+        // buffer before the pool actually closes. See utils/poolTimer.js.
+        const startedAt = new Date().getTime();
+        const expiresAt = new Date(startedAt + POOL_WINDOW_MS);
+        const bufferExpiresAt = new Date(startedAt + POOL_WINDOW_MS + POOL_BUFFER_MS);
 
         const insertObj = {
             creator_id: userId,
@@ -292,6 +309,7 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
             status: 'open',
             target_amount: feeInfo.free_delivery_threshold || 199,
             expires_at: expiresAt.toISOString(),
+            buffer_expires_at: bufferExpiresAt.toISOString(),
             delivery_fee: feeInfo.delivery_fee || 30,
             platform_fee: feeInfo.platform_fee || 5,
             latitude: loc?.lat || null,
@@ -299,7 +317,18 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
         };
         if (hallId) insertObj.hall_id = hallId;
 
-        const { data: cartData, error: cartErr } = await supabase.from('group_carts').insert(insertObj).select().single();
+        let { data: cartData, error: cartErr } = await supabase.from('group_carts').insert(insertObj).select().single();
+
+        // buffer_expires_at arrives with supabase_pool_buffer_timer.sql. Until
+        // that migration runs, retry without it — poolHardDeadline() derives
+        // the same deadline from expires_at, so the timer still behaves.
+        if (cartErr && /buffer_expires_at/.test(cartErr.message || '')) {
+            console.warn('buffer_expires_at column missing — run supabase_pool_buffer_timer.sql. Falling back.');
+            const legacyInsert = { ...insertObj };
+            delete legacyInsert.buffer_expires_at;
+            ({ data: cartData, error: cartErr } = await supabase.from('group_carts').insert(legacyInsert).select().single());
+        }
+
         if (cartErr) { alert("Failed to start pool: " + cartErr.message); return; }
 
         await _commitLocalCartToPool(cartData.id);
@@ -330,6 +359,22 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
                 console.error('Failed to send nearby notifications:', e);
             }
         }
+
+        // Announce the pool in the WhatsApp group for the hall it was started
+        // from. Deliberately not awaited: the broadcast spaces its sends out
+        // over seconds, and the creator should be in their pool long before it
+        // finishes — a WhatsApp outage must never look like a slow pool.
+        fetch('/api/whatsapp/notify-pool', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                pool_id: cartData.id,
+                platform,
+                pool_name: poolName,
+                hall_id: hallId || null,
+                creator_id: userId
+            })
+        }).catch(e => console.error('Failed to send WhatsApp group notification:', e));
 
         fetchActiveCart();
     };
@@ -498,7 +543,9 @@ export function useCommerce(userId, hallId, activeSlot, poolName = 'Blinkit Pool
 
             if (data.payment_session_id) {
                 // 2. Trigger Cashfree checkout (redirect mode)
-                const cashfree = window.Cashfree({ mode: "production" });
+                // Open the SDK on the same stack the session was minted on;
+                // a sandbox session in production mode is rejected outright.
+                const cashfree = window.Cashfree({ mode: data.cashfree_env === 'sandbox' ? 'sandbox' : 'production' });
                 const checkoutResult = await cashfree.checkout({
                     paymentSessionId: data.payment_session_id,
                     redirectTarget: "_self"

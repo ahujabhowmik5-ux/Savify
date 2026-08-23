@@ -1,23 +1,6 @@
 import { supabaseAdmin } from '../../_supabaseClient.js';
 import { claimPaidSeat, logActivity } from '../../_poolFulfillment.js';
-
-const CASHFREE_API_URL = 'https://api.cashfree.com/pg';
-const API_VERSION = '2023-08-01';
-
-async function cashfreeFetch(endpoint, method) {
-    const res = await fetch(`${CASHFREE_API_URL}${endpoint}`, {
-        method,
-        headers: {
-            'x-client-id': process.env.CASHFREE_APP_ID,
-            'x-client-secret': process.env.CASHFREE_SECRET_KEY,
-            'x-api-version': API_VERSION,
-            'Accept': 'application/json',
-        }
-    });
-    const data = await res.json();
-    if (!res.ok) throw data;
-    return data;
-}
+import { cashfreeFetch } from '../../_cashfree.js';
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useCommerce } from '../../hooks/useCommerce';
 import FullScreenSavio from '../FullScreenSavio';
 import { triggerLightHaptic, triggerMediumHaptic } from '../../utils/haptics';
+import { poolTimerState, POOL_WINDOW_MINUTES, POOL_BUFFER_MINUTES } from '../../utils/poolTimer';
 
 // ══════════════════════════════════════════════════════════════
 // Platform Brand Themes
@@ -115,9 +116,11 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
     }, [user?.id]);
     
     
-    // Countdown Timer
+    // Countdown Timer — 15-minute window, then a 10-minute red buffer.
     const [timeLeft, setTimeLeft] = useState('');
-    const [isExpired, setIsExpired] = useState(false);
+    const [timerPhase, setTimerPhase] = useState('window'); // 'window' | 'buffer' | 'ended'
+    const isInBuffer = timerPhase === 'buffer';
+    const isExpired = timerPhase === 'ended';
     const [showExpiredModal, setShowExpiredModal] = useState(false);
     const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
 
@@ -135,21 +138,14 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
     useEffect(() => {
         if (!activeCart?.expires_at) return;
         const updateTimer = () => {
-            const diff = new Date(activeCart.expires_at) - new Date();
-            if (diff <= 0) {
-                setTimeLeft('00:00');
-                setIsExpired(true);
-            } else {
-                const m = Math.floor((diff / 1000 / 60) % 60);
-                const s = Math.floor((diff / 1000) % 60);
-                setTimeLeft(`${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`);
-                setIsExpired(false);
-            }
+            const { phase, timeLeft: left } = poolTimerState(activeCart);
+            setTimeLeft(left);
+            setTimerPhase(phase);
         };
         updateTimer();
         const interval = setInterval(updateTimer, 1000);
         return () => clearInterval(interval);
-    }, [activeCart?.expires_at]);
+    }, [activeCart?.expires_at, activeCart?.buffer_expires_at]);
 
     useEffect(() => {
         if (isExpired && isParticipating) {
@@ -367,7 +363,18 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
 
     return (
         <div style={{ position: 'fixed', inset: 0, background: 'var(--drops-bg)', zIndex: 500, overflow: 'hidden', display: 'flex', flexDirection: 'column', fontFamily: "'Inter', sans-serif" }}>
-            
+
+            <style>{`
+                @keyframes buffer-pulse {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0.45; }
+                }
+                @keyframes buffer-glow {
+                    0%, 100% { box-shadow: 0 0 0 0 rgba(255,59,48,0.28); }
+                    50% { box-shadow: 0 0 22px 2px rgba(255,59,48,0.20); }
+                }
+            `}</style>
+
             {/* ═══ Header ═══ */}
             <div style={{ position: 'relative', zIndex: 50, background: 'rgba(10,10,10,0.9)', backdropFilter: 'blur(20px)', borderBottom: `1px solid ${theme.border}` }}>
                 {/* Brand bar */}
@@ -381,15 +388,23 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
                         <div>
                             <h2 style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.5px', color: 'white', margin: 0 }}>{theme.name} <span style={{ fontSize: 14, fontWeight: 600, color: theme.accent }}>Pool</span></h2>
                             {isParticipating && activeCart ? (
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: theme.accent, fontWeight: 700, marginTop: 4 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: isInBuffer ? '#FF3B30' : theme.accent, fontWeight: 700, marginTop: 4 }}>
                                     <i className="fas fa-users"></i> {numUsers} {numUsers === 1 ? 'person' : 'people'}
                                     <span style={{ margin: '0 4px', color: 'var(--drops-text-tertiary)' }}>•</span>
-                                    <i className="fas fa-clock"></i> 
-                                    {isExpired ? 'Time is up!' : `${timeLeft} left`}
+                                    <i className={isInBuffer ? 'fas fa-hourglass-half' : 'fas fa-clock'}></i>
+                                    {isExpired
+                                        ? 'Time is up!'
+                                        : isInBuffer
+                                            ? <span style={{ animation: 'buffer-pulse 1s ease-in-out infinite' }}>Extra time — {timeLeft}</span>
+                                            : `${timeLeft} left`}
                                 </div>
                             ) : (
                                 <div style={{ fontSize: 13, color: 'var(--drops-text-secondary)', marginTop: 4, fontWeight: 500 }}>
-                                    {activeCart && !isExpired ? <span style={{ color: 'var(--drops-green)' }}>Active pool nearby! ({timeLeft} left)</span> : theme.tagline}
+                                    {activeCart && !isExpired
+                                        ? <span style={{ color: isInBuffer ? '#FF3B30' : 'var(--drops-green)' }}>
+                                            {isInBuffer ? `Pool in extra time — ${timeLeft} to join!` : `Active pool nearby! (${timeLeft} left)`}
+                                          </span>
+                                        : theme.tagline}
                                 </div>
                             )}
                         </div>
@@ -453,7 +468,48 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
 
             {/* ═══ Scrollable Content ═══ */}
             <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 160, position: 'relative' }}>
-                
+
+                {/* ═══ Extra-time banner ═══
+                    The 15-minute window is up but the pool has not closed. It
+                    stays open — and joinable — for POOL_BUFFER_MINUTES more so
+                    late joiners can still push it over the free-delivery line. */}
+                {activeCart && isInBuffer && (
+                    <div style={{
+                        margin: '16px 20px 4px',
+                        padding: '14px 16px',
+                        borderRadius: 18,
+                        background: 'linear-gradient(135deg, rgba(255,59,48,0.14), rgba(255,59,48,0.05))',
+                        border: '1px solid rgba(255,59,48,0.35)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 14,
+                        animation: 'buffer-glow 2s ease-in-out infinite'
+                    }}>
+                        <div style={{ width: 44, height: 44, flexShrink: 0, borderRadius: 14, background: 'rgba(255,59,48,0.18)', color: '#FF3B30', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>
+                            <i className="fas fa-hourglass-half"></i>
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: 13, fontWeight: 800, color: '#FF3B30', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4 }}>
+                                Extra time
+                            </div>
+                            <div style={{ fontSize: 13, color: 'var(--drops-text-secondary)', lineHeight: 1.45 }}>
+                                {deliveryFee === 0
+                                    ? 'Free delivery is unlocked — pay now to lock your items in.'
+                                    : `Add ₹${amountLeft} more to unlock free delivery before the pool closes.`}
+                            </div>
+                        </div>
+                        <div style={{
+                            fontSize: 22,
+                            fontWeight: 900,
+                            color: '#FF3B30',
+                            fontVariantNumeric: 'tabular-nums',
+                            animation: 'buffer-pulse 1s ease-in-out infinite'
+                        }}>
+                            {timeLeft}
+                        </div>
+                    </div>
+                )}
+
                 {/* Delivery Fee Progress */}
                 {(isParticipating || myPendingShare > 0) && (
                     <div style={{ padding: '20px 24px', background: `linear-gradient(180deg, rgba(${theme.accentRgb},0.04) 0%, transparent 100%)`, borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: 8 }}>
@@ -810,7 +866,7 @@ export default function SharedCartStore({ user, hallId, activeSlot, poolName = '
                         </div>
                         <h3 style={{ fontSize: 20, fontWeight: 800, color: 'white', marginBottom: 12 }}>Pool Expired</h3>
                         <p style={{ fontSize: 14, color: 'var(--drops-text-secondary)', lineHeight: 1.5, marginBottom: 24 }}>
-                            The 30-minute window for this pool has expired before you paid. Your items have been cleared.
+                            This pool ran its {POOL_WINDOW_MINUTES}-minute window plus {POOL_BUFFER_MINUTES} minutes of extra time and closed before you paid. Your items have been cleared.
                         </p>
                         <button onClick={async () => {
                             setShowExpiredModal(false);

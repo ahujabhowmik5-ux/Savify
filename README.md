@@ -127,9 +127,54 @@ cp .env.example .env
 npm run dev
 ```
 
+### Server / serverless environment
+
+Supabase, Cashfree, web push and WaSenderAPI settings live in the Vercel project
+(and `server/.env` locally). See [`.env.example`](.env.example) for the full list.
+
+**Cashfree lives in one of two stacks and a key only works against its own.**
+Set `CASHFREE_ENV` to `production` for live keys or `sandbox` for test keys —
+leave it blank and it is inferred from the app ID (`TEST…` means sandbox).
+Getting this wrong is what produces
+`transactions are not enabled for your payment gateway account` on every order.
+Check what a deployment is using with `GET /api/payment/cashfree/config`.
+
+### Database migrations
+
+Run these in the Supabase SQL Editor:
+
+| File | What it adds |
+|---|---|
+| `supabase_pool_buffer_timer.sql` | 15-minute pool window + 10-minute buffer |
+| `supabase_whatsapp_pool_groups.sql` | Hall → WhatsApp group mapping |
+
+### WhatsApp hall-group broadcasts
+
+Opening a quick-commerce pool announces it in the WhatsApp group for that hall.
+Setup: [`WHATSAPP_SETUP.md`](WHATSAPP_SETUP.md).
+
+---
+
+## Pool timing
+
+A quick-commerce pool runs in two phases (`client/src/utils/poolTimer.js`):
+
+1. **Window — 15 min.** The countdown users see when they join.
+2. **Buffer — 10 min.** A red overtime countdown. The pool stays open and
+   joinable; nothing auto-completes yet.
+
+The pool only closes once the buffer runs out without the free-delivery
+threshold being met. A pool that crosses the threshold completes as it always
+did, whichever phase it is in.
+
 ---
 
 ## Recent Changes
+
+### August 23, 2026
+- **Cashfree sandbox/production switch** — `CASHFREE_ENV` picks the stack and the browser SDK opens the matching one, fixing `transactions are not enabled for your payment gateway account`. Gateway errors now say what to do about them; added `GET /api/payment/cashfree/config`.
+- **15 + 10 pool timer** — the 30-minute flat window became a 15-minute window plus a 10-minute red buffer before auto-completion.
+- **WhatsApp hall broadcasts** — pools are announced in the WhatsApp group for the hall they started from, via WaSenderAPI.
 
 ### May 28, 2025
 - **Removed "Important Update" popup** — ForceBudgetModal was showing every page load because `budget_reset_done` was null for most users. Migration is complete; modal removed.
