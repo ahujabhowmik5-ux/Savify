@@ -1,11 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+// Both spellings exist across this codebase and its deployments; accept
+// either so a correct key set under the other name is not ignored.
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY;
 
 export const missingVars = [];
 if (!supabaseUrl) missingVars.push('SUPABASE_URL');
-if (!supabaseKey) missingVars.push('SUPABASE_SERVICE_KEY');
+if (!supabaseKey) missingVars.push('SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SERVICE_KEY)');
 
 export let initError = null;
 let adminClient = null;

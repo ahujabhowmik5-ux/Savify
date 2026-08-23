@@ -75,6 +75,23 @@ router.post('/notify-pool', async (req, res) => {
 
         if (claimError) throw claimError;
         if (!claimed || claimed.length === 0) {
+            // Zero rows here means either a genuine race or a write we were not
+            // allowed to make. Re-read before blaming a race: reporting a
+            // permissions failure as "already notified" hides the real fault.
+            const { data: recheck } = await supabaseAdmin
+                .from('group_carts')
+                .select('whatsapp_notified_at')
+                .eq('id', pool_id)
+                .maybeSingle();
+
+            if (recheck && !recheck.whatsapp_notified_at) {
+                console.error('Could not claim WhatsApp broadcast — the database key cannot write to group_carts. Set SUPABASE_SERVICE_ROLE_KEY to the service_role key.');
+                return res.status(500).json({
+                    success: false,
+                    error: 'claim_failed_no_write_permission',
+                    detail: 'The server could not update group_carts. SUPABASE_SERVICE_ROLE_KEY / SUPABASE_SERVICE_KEY is not a service_role key, so row-level security is blocking the write.'
+                });
+            }
             return res.json({ success: true, sent: 0, skipped: 'already_notified' });
         }
 
